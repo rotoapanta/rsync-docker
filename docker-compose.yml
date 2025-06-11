@@ -1,0 +1,16 @@
+version: '3.8'
+
+services:
+  rsync:
+    build: .
+    container_name: rsync_docker
+    env_file:
+      - .env
+    volumes:
+      - ./main.py:/app/main.py
+      - ./managers:/app/managers
+      - ./utils:/app/utils
+      - /home/rotoapanta/Documentos/raw-data-pycam:/data
+      - ./logs:/logs
+      - ~/.ssh/id_rsa_rsync:/root/.ssh/id_rsa:ro
+    restart: unless-stopped

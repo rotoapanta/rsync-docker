@@ -1,6 +1,8 @@
-# RSYNC-DOCKER: Sincronización Automática de Datos con Raspberry Pi
+# RSYNC-DOCKER: Automated Data Sync from Raspberry Pi
 
 ![Bash](https://img.shields.io/badge/bash-v4.4-blue.svg)
+![Docker](https://img.shields.io/badge/docker-ready-blue)
+
 ![CubeTools](https://img.shields.io/badge/CubeTools-2024.354-brightgreen.svg)
 ![GitHub issues](https://img.shields.io/github/issues/rotoapanta/digos-data-cube-to-miniseed-converter)
 ![Last Commit](https://img.shields.io/github/last-commit/rotoapanta/digos-data-cube-to-miniseed-converter)

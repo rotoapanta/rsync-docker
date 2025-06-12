@@ -2,9 +2,8 @@
 
 ![Bash](https://img.shields.io/badge/bash-v4.4-blue.svg)
 ![Docker](https://img.shields.io/badge/docker-ready-blue)
+![GitHub issues](https://img.shields.io/github/issues/rotoapanta/rsync-docker)
 
-![CubeTools](https://img.shields.io/badge/CubeTools-2024.354-brightgreen.svg)
-![GitHub issues](https://img.shields.io/github/issues/rotoapanta/digos-data-cube-to-miniseed-converter)
 ![Last Commit](https://img.shields.io/github/last-commit/rotoapanta/digos-data-cube-to-miniseed-converter)
 ![License](https://img.shields.io/github/license/rotoapanta/digos-data-cube-to-miniseed-converter)
 ![GitHub repo size](https://img.shields.io/github/repo-size/rotoapanta/digos-data-cube-to-miniseed-converter)

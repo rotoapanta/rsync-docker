@@ -94,14 +94,16 @@ RSYNC_FROM=pi@192.168.1.100:/home/pi/Documents/my-data
 
 # Destination path inside the container (keep as /data if using Docker volume)
 RSYNC_TO=/data
+```
 
+3. Set Up SSH Access to Raspberry Pi:
 
-
-3. Ensure your SSH key is installed on the Raspberry Pi:
+Make sure your host machine can connect to the Raspberry Pi via SSH without password:
 
 ```bash
-ssh-copy-id -i ~/.ssh/id_rsa_rsync.pub pi@192.168.1.100
+$ ssh-copy-id -i ~/.ssh/id_rsa_rsync.pub pi@192.168.1.100
 ```
+
 4. Construye y ejecuta el contenedor:
 
 ```bash

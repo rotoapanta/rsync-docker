@@ -67,7 +67,7 @@ RSYNC-DOCKER/
 
 ---
 
-## ⚙️ Configuration
+## Configuration
 
 1. **Clone the repository**:
 
@@ -80,17 +80,22 @@ $ cd rsync-docker
 
 2. **Create and edit your `.env` file**:
 
-Token del bot de Telegram
-TELEGRAM_BOT_TOKEN=TU_TOKEN
+Create a `.env` file in the root of the project with the following environment variables:
 
-ID del chat o grupo de Telegram
-TELEGRAM_CHAT_ID=TU_CHAT_ID
+```env
+# Telegram bot token
+TELEGRAM_BOT_TOKEN=your_bot_token_here
 
-Ruta de origen en la Raspberry Pi
-RSYNC_FROM=pi@192.168.1.100:/home/pi/Documents/mis-datos
+# Telegram chat ID (user or group)
+TELEGRAM_CHAT_ID=your_chat_id_here
 
-Ruta de destino en el contenedor (no cambiar si usas /data montado)
+# Source path on the Raspberry Pi
+RSYNC_FROM=pi@192.168.1.100:/home/pi/Documents/my-data
+
+# Destination path inside the container (keep as /data if using Docker volume)
 RSYNC_TO=/data
+
+
 
 3. Ensure your SSH key is installed on the Raspberry Pi:
 

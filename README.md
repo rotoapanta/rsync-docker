@@ -59,7 +59,10 @@ RSYNC-DOCKER/
 
 ```bash
 git clone https://github.com/rotoapanta/rsync-docker.git
+```
+```bash
 cd rsync-docker
+```
 
 Crea y edita el archivo .env:
 

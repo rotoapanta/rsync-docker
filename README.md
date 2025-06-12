@@ -1,3 +1,22 @@
+# RSYNC-DOCKER: Sincronización Automática de Datos con Raspberry Pi
+
+![Bash](https://img.shields.io/badge/bash-v4.4-blue.svg)
+![CubeTools](https://img.shields.io/badge/CubeTools-2024.354-brightgreen.svg)
+![GitHub issues](https://img.shields.io/github/issues/rotoapanta/digos-data-cube-to-miniseed-converter)
+![Last Commit](https://img.shields.io/github/last-commit/rotoapanta/digos-data-cube-to-miniseed-converter)
+![License](https://img.shields.io/github/license/rotoapanta/digos-data-cube-to-miniseed-converter)
+![GitHub repo size](https://img.shields.io/github/repo-size/rotoapanta/digos-data-cube-to-miniseed-converter)
+![Supported Platforms](https://img.shields.io/badge/platform-Linux%20|%20macOS-green)
+
+## Overview
+
+Este proyecto proporciona una solución basada en Docker para sincronizar automáticamente datos desde una Raspberry Pi a una máquina local utilizando rsync y cron. Es ideal para escenarios donde necesitas recolectar datos generados por una Raspberry Pi (por ejemplo, de sensores, logs, o archivos de cámara) y tenerlos centralizados en tu sistema principal.
+
+---
+## Features
+
+
+
 RSYNC-DOCKER: Sincronización Automática de Datos con Raspberry Pi
 
 Este proyecto proporciona una solución basada en Docker para sincronizar automáticamente datos desde una Raspberry Pi a una máquina local utilizando rsync y cron. Es ideal para escenarios donde necesitas recolectar datos generados por una Raspberry Pi (por ejemplo, de sensores, logs, o archivos de cámara) y tenerlos centralizados en tu sistema principal.

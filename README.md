@@ -5,8 +5,12 @@
 ![GitHub issues](https://img.shields.io/github/issues/rotoapanta/rsync-docker)
 ![Last Commit](https://img.shields.io/github/last-commit/rotoapanta/rsync-docker)
 ![License](https://img.shields.io/github/license/rotoapanta/rsync-docker)
+![License](https://img.shields.io/github/license/rotoapanta/rsync-docker)
 ![GitHub repo size](https://img.shields.io/github/repo-size/rotoapanta/rsync-docker)
 ![Supported Platforms](https://img.shields.io/badge/platform-Linux%20|%20macOS-green)
+[![Docker](https://img.shields.io/badge/Docker-No-brightgreen)](https://www.docker.com/)
+
+# Getting started
 
 ## Overview
 

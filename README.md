@@ -51,6 +51,26 @@ RSYNC-DOCKER/
     └── telegram_utils.py # Funciones de utilidad para enviar mensajes a Telegram
 
 
+RSYNC-DOCKER/
+├── .env # Variables de entorno (IGNORADO por Git)
+├── .gitignore # Archivos y carpetas a ignorar por Git
+├── crontab.txt # Configuración de los jobs de cron
+├── Dockerfile # Define la imagen Docker del servicio
+├── docker-compose.yml # Define el servicio Docker y sus volúmenes
+├── main.py # Punto de entrada principal para ejecutar la sincronización
+├── run_sync.sh # Script wrapper para ejecutar la sincronización desde cron
+├── start.sh # Script inicial que se ejecuta al iniciar el contenedor
+├── start_host.sh # (Opcional) Script para ejecutar commands específicos al host
+├── logs/ # Directorio para los archivos de log (IGNORADO por Git)
+│ ├── cron.log
+│ ├── from_pi.log
+│ └── startup.log
+├── data/ # Directorio donde se guardan los datos sincronizados (IGNORADO por Git)
+├── managers/
+│ └── sync_manager.py # Lógica principal para ejecutar Rsync y manejar notificaciones
+└── utils/
+└── telegram_utils.py # Funciones de utilidad para enviar mensajes a Telegram
+
 ---
 
 ## ⚙️ Configuración
@@ -64,7 +84,7 @@ $ git clone https://github.com/rotoapanta/rsync-docker.git
 $ cd rsync-docker
 ```
 
-Crea y edita el archivo .env:
+2. Crea y edita el archivo .env:
 
 # Token del bot de Telegram
 TELEGRAM_BOT_TOKEN=TU_TOKEN

@@ -50,3 +50,49 @@ RSYNC-DOCKER/
 └── utils/
     └── telegram_utils.py # Funciones de utilidad para enviar mensajes a Telegram
 
+
+---
+
+## ⚙️ Configuración
+
+1. Clona el repositorio:
+
+```bash
+git clone https://github.com/rotoapanta/rsync-docker.git
+cd rsync-docker
+
+Crea y edita el archivo .env:
+
+# Token del bot de Telegram
+TELEGRAM_BOT_TOKEN=TU_TOKEN
+
+# ID del chat o grupo de Telegram
+TELEGRAM_CHAT_ID=TU_CHAT_ID
+
+# Ruta de origen en la Raspberry Pi
+RSYNC_FROM=pi@192.168.1.100:/home/pi/Documents/mis-datos
+
+# Ruta de destino en el contenedor (no cambiar si usas /data montado)
+RSYNC_TO=/data
+
+3. Asegúrate de haber copiado tu clave pública SSH a la Raspberry Pi:
+
+ssh-copy-id -i ~/.ssh/id_rsa_rsync.pub pi@192.168.1.100
+
+4. Construye y ejecuta el contenedor:
+
+./start_host.sh
+
+🧪 Prueba manual
+
+Ejecuta una sincronización inmediata:
+
+docker exec -it rsync_docker /app/run_sync.sh from
+
+📬 Notificaciones
+
+Recibirás notificaciones en Telegram si:
+
+    ✅ La sincronización fue exitosa
+
+    ❌ Ocurrió un error o fallo

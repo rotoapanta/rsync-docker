@@ -1292,3 +1292,10 @@ total size is 1,211,390  speedup is 265.13
 sent 49 bytes  received 4,520 bytes  9,138.00 bytes/sec
 total size is 1,211,390  speedup is 265.13
 
+[2025-06-12 15:40:01] Iniciando sincronización desde Raspberry Pi
+[2025-06-12 15:40:01] Comando rsync a ejecutar: rsync -e ssh -i /root/.ssh/id_rsa -o StrictHostKeyChecking=no -avz pi@192.168.190.29:/home/pi/Documents/rain-gauge-project/DTA /data
+[2025-06-12 15:40:01] receiving incremental file list
+
+sent 49 bytes  received 4,516 bytes  9,130.00 bytes/sec
+total size is 1,211,390  speedup is 265.36
+

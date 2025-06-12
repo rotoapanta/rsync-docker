@@ -8,6 +8,7 @@
 ![License](https://img.shields.io/github/license/rotoapanta/rsync-docker)
 ![GitHub repo size](https://img.shields.io/github/repo-size/rotoapanta/rsync-docker)
 ![Supported Platforms](https://img.shields.io/badge/platform-Linux%20|%20macOS-green)
+![Platform](https://img.shields.io/badge/platform-Linux%20|%20macOS-green)
 
 ## Overview
 

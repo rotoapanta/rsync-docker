@@ -141,3 +141,30 @@ Recibirás notificaciones en Telegram si:
     ✅ La sincronización fue exitosa
 
     ❌ Ocurrió un error o fallo
+
+
+## Feedback
+
+If you have any feedback, please reach out to us at robertocarlos.toapanta@gmail.com
+
+## Support
+
+For support, email robertocarlos.toapanta@gmail.com or join our Discord channel.
+
+## License
+
+[GPL v2](https://www.gnu.org/licenses/gpl-2.0)
+
+## Authors
+
+- [@rotoapanta](https://github.com/rotoapanta)
+
+## More Info
+
+* [Official documentation for py-zabbix](https://py-zabbix.readthedocs.io/en/latest/)
+* [Install py-zabbix 1.1.7](https://pypi.org/project/pyzabbix/)
+
+## Links
+
+[![linkedin](https://img.shields.io/badge/linkedin-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/roberto-carlos-toapanta-g/)
+[![twitter](https://img.shields.io/badge/twitter-1DA1F2?style=for-the-badge&logo=twitter&logoColor=white)](https://twitter.com/rotoapanta)

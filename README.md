@@ -22,7 +22,7 @@ This project provides a Docker-based solution to automatically synchronize data 
 - 🔐 Secure SSH authentication using private key
 - 📂 Log and data volume separation for safe persistence
 
-## 📁 Project Structure
+## Project Structure
 
 RSYNC-DOCKER/
 ├── .env                  # Variables de entorno (IGNORADO por Git)
@@ -69,7 +69,7 @@ RSYNC-DOCKER/
 
 ## ⚙️ Configuration
 
-1. Clone the repository:
+1. **Clone the repository**:
 
 ```bash
 $ git clone https://github.com/rotoapanta/rsync-docker.git
@@ -78,18 +78,18 @@ $ git clone https://github.com/rotoapanta/rsync-docker.git
 $ cd rsync-docker
 ```
 
-2. Create and edit your `.env` file:
+2. **Create and edit your `.env` file**:
 
-# Token del bot de Telegram
+Token del bot de Telegram
 TELEGRAM_BOT_TOKEN=TU_TOKEN
 
-# ID del chat o grupo de Telegram
+ID del chat o grupo de Telegram
 TELEGRAM_CHAT_ID=TU_CHAT_ID
 
-# Ruta de origen en la Raspberry Pi
+Ruta de origen en la Raspberry Pi
 RSYNC_FROM=pi@192.168.1.100:/home/pi/Documents/mis-datos
 
-# Ruta de destino en el contenedor (no cambiar si usas /data montado)
+Ruta de destino en el contenedor (no cambiar si usas /data montado)
 RSYNC_TO=/data
 
 3. Ensure your SSH key is installed on the Raspberry Pi:

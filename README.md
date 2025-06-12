@@ -1,5 +1,3 @@
-# RSYNC-DOCKER: Automated Data Sync from Raspberry Pi
-
 # <p align="center">RSYNC-DOCKER: Automated Data Sync from Raspberry Pi
 
 <p align="center">This project aims to automatically synchronize data from a Raspberry Pi using Docker and Rsync, with optional Telegram notifications.</p>

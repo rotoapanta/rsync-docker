@@ -1467,3 +1467,192 @@ total size is 1,211,390  speedup is 265.13
 sent 49 bytes  received 4,520 bytes  3,046.00 bytes/sec
 total size is 1,211,390  speedup is 265.13
 
+[2025-06-12 17:45:01] Iniciando sincronización desde Raspberry Pi
+[2025-06-12 17:45:01] Comando rsync a ejecutar: rsync -e ssh -i /root/.ssh/id_rsa -o StrictHostKeyChecking=no -avz pi@192.168.190.29:/home/pi/Documents/rain-gauge-project/DTA /data
+[2025-06-12 17:45:02] receiving incremental file list
+
+sent 49 bytes  received 4,520 bytes  3,046.00 bytes/sec
+total size is 1,211,390  speedup is 265.13
+
+[2025-06-12 17:50:01] Iniciando sincronización desde Raspberry Pi
+[2025-06-12 17:50:01] Comando rsync a ejecutar: rsync -e ssh -i /root/.ssh/id_rsa -o StrictHostKeyChecking=no -avz pi@192.168.190.29:/home/pi/Documents/rain-gauge-project/DTA /data
+[2025-06-12 17:50:01] receiving incremental file list
+
+sent 49 bytes  received 4,520 bytes  9,138.00 bytes/sec
+total size is 1,211,390  speedup is 265.13
+
+[2025-06-12 17:55:01] Iniciando sincronización desde Raspberry Pi
+[2025-06-12 17:55:01] Comando rsync a ejecutar: rsync -e ssh -i /root/.ssh/id_rsa -o StrictHostKeyChecking=no -avz pi@192.168.190.29:/home/pi/Documents/rain-gauge-project/DTA /data
+[2025-06-12 17:55:02] receiving incremental file list
+
+sent 49 bytes  received 4,520 bytes  3,046.00 bytes/sec
+total size is 1,211,390  speedup is 265.13
+
+[2025-06-12 18:00:01] Iniciando sincronización desde Raspberry Pi
+[2025-06-12 18:00:01] Comando rsync a ejecutar: rsync -e ssh -i /root/.ssh/id_rsa -o StrictHostKeyChecking=no -avz pi@192.168.190.29:/home/pi/Documents/rain-gauge-project/DTA /data
+[2025-06-12 18:00:01] receiving incremental file list
+
+sent 49 bytes  received 4,520 bytes  9,138.00 bytes/sec
+total size is 1,211,390  speedup is 265.13
+
+[2025-06-12 18:05:01] Iniciando sincronización desde Raspberry Pi
+[2025-06-12 18:05:01] Comando rsync a ejecutar: rsync -e ssh -i /root/.ssh/id_rsa -o StrictHostKeyChecking=no -avz pi@192.168.190.29:/home/pi/Documents/rain-gauge-project/DTA /data
+[2025-06-12 18:05:02] receiving incremental file list
+
+sent 49 bytes  received 4,520 bytes  3,046.00 bytes/sec
+total size is 1,211,390  speedup is 265.13
+
+[2025-06-12 18:10:01] Iniciando sincronización desde Raspberry Pi
+[2025-06-12 18:10:01] Comando rsync a ejecutar: rsync -e ssh -i /root/.ssh/id_rsa -o StrictHostKeyChecking=no -avz pi@192.168.190.29:/home/pi/Documents/rain-gauge-project/DTA /data
+[2025-06-12 18:10:01] receiving incremental file list
+
+sent 49 bytes  received 4,520 bytes  9,138.00 bytes/sec
+total size is 1,211,390  speedup is 265.13
+
+[2025-06-12 18:15:01] Iniciando sincronización desde Raspberry Pi
+[2025-06-12 18:15:01] Comando rsync a ejecutar: rsync -e ssh -i /root/.ssh/id_rsa -o StrictHostKeyChecking=no -avz pi@192.168.190.29:/home/pi/Documents/rain-gauge-project/DTA /data
+[2025-06-12 18:15:02] receiving incremental file list
+
+sent 49 bytes  received 4,520 bytes  3,046.00 bytes/sec
+total size is 1,211,390  speedup is 265.13
+
+[2025-06-12 18:20:01] Iniciando sincronización desde Raspberry Pi
+[2025-06-12 18:20:01] Comando rsync a ejecutar: rsync -e ssh -i /root/.ssh/id_rsa -o StrictHostKeyChecking=no -avz pi@192.168.190.29:/home/pi/Documents/rain-gauge-project/DTA /data
+[2025-06-12 18:20:01] receiving incremental file list
+
+sent 49 bytes  received 4,516 bytes  9,130.00 bytes/sec
+total size is 1,211,390  speedup is 265.36
+
+[2025-06-12 18:25:01] Iniciando sincronización desde Raspberry Pi
+[2025-06-12 18:25:01] Comando rsync a ejecutar: rsync -e ssh -i /root/.ssh/id_rsa -o StrictHostKeyChecking=no -avz pi@192.168.190.29:/home/pi/Documents/rain-gauge-project/DTA /data
+[2025-06-12 18:25:02] receiving incremental file list
+
+sent 49 bytes  received 4,520 bytes  3,046.00 bytes/sec
+total size is 1,211,390  speedup is 265.13
+
+[2025-06-12 18:30:02] Iniciando sincronización desde Raspberry Pi
+[2025-06-12 18:30:02] Comando rsync a ejecutar: rsync -e ssh -i /root/.ssh/id_rsa -o StrictHostKeyChecking=no -avz pi@192.168.190.29:/home/pi/Documents/rain-gauge-project/DTA /data
+[2025-06-12 18:30:02] receiving incremental file list
+
+sent 49 bytes  received 4,520 bytes  9,138.00 bytes/sec
+total size is 1,211,390  speedup is 265.13
+
+[2025-06-12 18:35:01] Iniciando sincronización desde Raspberry Pi
+[2025-06-12 18:35:01] Comando rsync a ejecutar: rsync -e ssh -i /root/.ssh/id_rsa -o StrictHostKeyChecking=no -avz pi@192.168.190.29:/home/pi/Documents/rain-gauge-project/DTA /data
+[2025-06-12 18:35:02] receiving incremental file list
+
+sent 49 bytes  received 4,516 bytes  3,043.33 bytes/sec
+total size is 1,211,390  speedup is 265.36
+
+[2025-06-12 18:40:01] Iniciando sincronización desde Raspberry Pi
+[2025-06-12 18:40:01] Comando rsync a ejecutar: rsync -e ssh -i /root/.ssh/id_rsa -o StrictHostKeyChecking=no -avz pi@192.168.190.29:/home/pi/Documents/rain-gauge-project/DTA /data
+[2025-06-12 18:40:02] receiving incremental file list
+
+sent 49 bytes  received 4,520 bytes  3,046.00 bytes/sec
+total size is 1,211,390  speedup is 265.13
+
+[2025-06-12 18:45:01] Iniciando sincronización desde Raspberry Pi
+[2025-06-12 18:45:01] Comando rsync a ejecutar: rsync -e ssh -i /root/.ssh/id_rsa -o StrictHostKeyChecking=no -avz pi@192.168.190.29:/home/pi/Documents/rain-gauge-project/DTA /data
+[2025-06-12 18:45:01] receiving incremental file list
+
+sent 49 bytes  received 4,520 bytes  9,138.00 bytes/sec
+total size is 1,211,390  speedup is 265.13
+
+[2025-06-12 18:50:01] Iniciando sincronización desde Raspberry Pi
+[2025-06-12 18:50:01] Comando rsync a ejecutar: rsync -e ssh -i /root/.ssh/id_rsa -o StrictHostKeyChecking=no -avz pi@192.168.190.29:/home/pi/Documents/rain-gauge-project/DTA /data
+[2025-06-12 18:50:01] receiving incremental file list
+
+sent 49 bytes  received 4,520 bytes  9,138.00 bytes/sec
+total size is 1,211,390  speedup is 265.13
+
+[2025-06-12 18:55:01] Iniciando sincronización desde Raspberry Pi
+[2025-06-12 18:55:01] Comando rsync a ejecutar: rsync -e ssh -i /root/.ssh/id_rsa -o StrictHostKeyChecking=no -avz pi@192.168.190.29:/home/pi/Documents/rain-gauge-project/DTA /data
+[2025-06-12 18:55:03] receiving incremental file list
+
+sent 49 bytes  received 4,520 bytes  1,827.60 bytes/sec
+total size is 1,211,390  speedup is 265.13
+
+[2025-06-12 19:00:01] Iniciando sincronización desde Raspberry Pi
+[2025-06-12 19:00:01] Comando rsync a ejecutar: rsync -e ssh -i /root/.ssh/id_rsa -o StrictHostKeyChecking=no -avz pi@192.168.190.29:/home/pi/Documents/rain-gauge-project/DTA /data
+[2025-06-12 19:00:02] receiving incremental file list
+
+sent 49 bytes  received 4,520 bytes  3,046.00 bytes/sec
+total size is 1,211,390  speedup is 265.13
+
+[2025-06-12 19:05:01] Iniciando sincronización desde Raspberry Pi
+[2025-06-12 19:05:01] Comando rsync a ejecutar: rsync -e ssh -i /root/.ssh/id_rsa -o StrictHostKeyChecking=no -avz pi@192.168.190.29:/home/pi/Documents/rain-gauge-project/DTA /data
+[2025-06-12 19:05:02] receiving incremental file list
+
+sent 49 bytes  received 4,520 bytes  3,046.00 bytes/sec
+total size is 1,211,390  speedup is 265.13
+
+[2025-06-12 19:10:01] Iniciando sincronización desde Raspberry Pi
+[2025-06-12 19:10:01] Comando rsync a ejecutar: rsync -e ssh -i /root/.ssh/id_rsa -o StrictHostKeyChecking=no -avz pi@192.168.190.29:/home/pi/Documents/rain-gauge-project/DTA /data
+[2025-06-12 19:10:02] receiving incremental file list
+
+sent 49 bytes  received 4,520 bytes  3,046.00 bytes/sec
+total size is 1,211,390  speedup is 265.13
+
+[2025-06-12 19:15:01] Iniciando sincronización desde Raspberry Pi
+[2025-06-12 19:15:01] Comando rsync a ejecutar: rsync -e ssh -i /root/.ssh/id_rsa -o StrictHostKeyChecking=no -avz pi@192.168.190.29:/home/pi/Documents/rain-gauge-project/DTA /data
+[2025-06-12 19:15:02] receiving incremental file list
+
+sent 49 bytes  received 4,520 bytes  9,138.00 bytes/sec
+total size is 1,211,390  speedup is 265.13
+
+[2025-06-12 19:20:01] Iniciando sincronización desde Raspberry Pi
+[2025-06-12 19:20:01] Comando rsync a ejecutar: rsync -e ssh -i /root/.ssh/id_rsa -o StrictHostKeyChecking=no -avz pi@192.168.190.29:/home/pi/Documents/rain-gauge-project/DTA /data
+[2025-06-12 19:20:02] receiving incremental file list
+
+sent 49 bytes  received 4,520 bytes  3,046.00 bytes/sec
+total size is 1,211,390  speedup is 265.13
+
+[2025-06-12 19:25:01] Iniciando sincronización desde Raspberry Pi
+[2025-06-12 19:25:01] Comando rsync a ejecutar: rsync -e ssh -i /root/.ssh/id_rsa -o StrictHostKeyChecking=no -avz pi@192.168.190.29:/home/pi/Documents/rain-gauge-project/DTA /data
+[2025-06-12 19:25:02] receiving incremental file list
+
+sent 49 bytes  received 4,520 bytes  3,046.00 bytes/sec
+total size is 1,211,390  speedup is 265.13
+
+[2025-06-12 19:30:01] Iniciando sincronización desde Raspberry Pi
+[2025-06-12 19:30:01] Comando rsync a ejecutar: rsync -e ssh -i /root/.ssh/id_rsa -o StrictHostKeyChecking=no -avz pi@192.168.190.29:/home/pi/Documents/rain-gauge-project/DTA /data
+[2025-06-12 19:30:01] receiving incremental file list
+
+sent 49 bytes  received 4,520 bytes  9,138.00 bytes/sec
+total size is 1,211,390  speedup is 265.13
+
+[2025-06-12 19:35:01] Iniciando sincronización desde Raspberry Pi
+[2025-06-12 19:35:01] Comando rsync a ejecutar: rsync -e ssh -i /root/.ssh/id_rsa -o StrictHostKeyChecking=no -avz pi@192.168.190.29:/home/pi/Documents/rain-gauge-project/DTA /data
+[2025-06-12 19:35:02] receiving incremental file list
+
+sent 49 bytes  received 4,520 bytes  3,046.00 bytes/sec
+total size is 1,211,390  speedup is 265.13
+
+[2025-06-12 19:40:01] Iniciando sincronización desde Raspberry Pi
+[2025-06-12 19:40:01] Comando rsync a ejecutar: rsync -e ssh -i /root/.ssh/id_rsa -o StrictHostKeyChecking=no -avz pi@192.168.190.29:/home/pi/Documents/rain-gauge-project/DTA /data
+[2025-06-12 19:40:01] receiving incremental file list
+
+sent 49 bytes  received 4,520 bytes  9,138.00 bytes/sec
+total size is 1,211,390  speedup is 265.13
+
+[2025-06-12 19:45:01] Iniciando sincronización desde Raspberry Pi
+[2025-06-12 19:45:01] Comando rsync a ejecutar: rsync -e ssh -i /root/.ssh/id_rsa -o StrictHostKeyChecking=no -avz pi@192.168.190.29:/home/pi/Documents/rain-gauge-project/DTA /data
+[2025-06-12 19:45:02] receiving incremental file list
+
+sent 49 bytes  received 4,520 bytes  3,046.00 bytes/sec
+total size is 1,211,390  speedup is 265.13
+
+[2025-06-12 19:50:01] Iniciando sincronización desde Raspberry Pi
+[2025-06-12 19:50:01] Comando rsync a ejecutar: rsync -e ssh -i /root/.ssh/id_rsa -o StrictHostKeyChecking=no -avz pi@192.168.190.29:/home/pi/Documents/rain-gauge-project/DTA /data
+[2025-06-12 19:50:02] receiving incremental file list
+
+sent 49 bytes  received 4,520 bytes  3,046.00 bytes/sec
+total size is 1,211,390  speedup is 265.13
+
+[2025-06-12 19:55:01] Iniciando sincronización desde Raspberry Pi
+[2025-06-12 19:55:01] Comando rsync a ejecutar: rsync -e ssh -i /root/.ssh/id_rsa -o StrictHostKeyChecking=no -avz pi@192.168.190.29:/home/pi/Documents/rain-gauge-project/DTA /data
+[2025-06-12 19:55:02] receiving incremental file list
+
+sent 49 bytes  received 4,520 bytes  3,046.00 bytes/sec
+total size is 1,211,390  speedup is 265.13
+

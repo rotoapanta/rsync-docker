@@ -14,6 +14,16 @@
 ![Supported Platforms](https://img.shields.io/badge/platform-Linux%20|%20macOS-green)
 [![Docker](https://img.shields.io/badge/Docker-Yes-brightgreen)](https://www.docker.com/)
 
+# Contents
+
+- [Overview](#overview)
+- [Features](#features)
+- [Project Structure](#project-structure)
+- [Configuration](#configuration)
+- [Manual Test](#manual-test)
+- [Notifications](#notifications)
+- [License](#license)
+
 # Getting started
 
 ## Overview

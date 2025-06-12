@@ -3,7 +3,6 @@
 ![Bash](https://img.shields.io/badge/bash-v4.4-blue.svg)
 ![Docker](https://img.shields.io/badge/docker-ready-blue)
 ![GitHub issues](https://img.shields.io/github/issues/rotoapanta/rsync-docker)
-
 ![Last Commit](https://img.shields.io/github/last-commit/rotoapanta/rsync-docker)
 ![License](https://img.shields.io/github/license/rotoapanta/rsync-docker)
 ![GitHub repo size](https://img.shields.io/github/repo-size/rotoapanta/rsync-docker)

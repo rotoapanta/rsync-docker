@@ -4,9 +4,9 @@
 ![Docker](https://img.shields.io/badge/docker-ready-blue)
 ![GitHub issues](https://img.shields.io/github/issues/rotoapanta/rsync-docker)
 
-![Last Commit](https://img.shields.io/github/last-commit/rotoapanta/digos-data-cube-to-miniseed-converter)
-![License](https://img.shields.io/github/license/rotoapanta/digos-data-cube-to-miniseed-converter)
-![GitHub repo size](https://img.shields.io/github/repo-size/rotoapanta/digos-data-cube-to-miniseed-converter)
+![Last Commit](https://img.shields.io/github/last-commit/rotoapanta/rsync-docker)
+![License](https://img.shields.io/github/license/rotoapanta/rsync-docker)
+![GitHub repo size](https://img.shields.io/github/repo-size/rotoapanta/rsync-docker)
 ![Supported Platforms](https://img.shields.io/badge/platform-Linux%20|%20macOS-green)
 
 ## Overview

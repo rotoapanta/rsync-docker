@@ -8,48 +8,22 @@
 ![License](https://img.shields.io/github/license/rotoapanta/rsync-docker)
 ![GitHub repo size](https://img.shields.io/github/repo-size/rotoapanta/rsync-docker)
 ![Supported Platforms](https://img.shields.io/badge/platform-Linux%20|%20macOS-green)
-![Platform](https://img.shields.io/badge/platform-Linux%20|%20macOS-green)
 
 ## Overview
 
-Este proyecto proporciona una solución basada en Docker para sincronizar automáticamente datos desde una Raspberry Pi a una máquina local utilizando rsync y cron. Es ideal para escenarios donde necesitas recolectar datos generados por una Raspberry Pi (por ejemplo, de sensores, logs, o archivos de cámara) y tenerlos centralizados en tu sistema principal.
+This project provides a Docker-based solution to automatically synchronize data from a Raspberry Pi to a central host using `rsync` and `cron`. It is ideal for scenarios such as collecting data from sensors, logs, or camera files on remote Raspberry Pi devices and keeping them centralized and backed up.
 
 ---
 ## Features
 
+- 🔁 One-way file synchronization from Raspberry Pi to host
+- ⏱️ Scheduled tasks using `cron` inside Docker
+- 📩 Notifications via Telegram on success or failure
+- 🐳 Full Docker support for easy deployment and portability
+- 🔐 Secure SSH authentication using private key
+- 📂 Log and data volume separation for safe persistence
 
-
-RSYNC-DOCKER: Sincronización Automática de Datos con Raspberry Pi
-
-Este proyecto proporciona una solución basada en Docker para sincronizar automáticamente datos desde una Raspberry Pi a una máquina local utilizando rsync y cron. Es ideal para escenarios donde necesitas recolectar datos generados por una Raspberry Pi (por ejemplo, de sensores, logs, o archivos de cámara) y tenerlos centralizados en tu sistema principal.
-
-Características
-
-    Sincronización Unidireccional: Diseñado específicamente para sincronizar datos desde la Raspberry Pi hacia tu máquina local.
-    Automatización con Cron: Las sincronizaciones se ejecutan automáticamente a intervalos definidos (por defecto, cada 5 minutos).
-    Dockerizado: Fácil de desplegar y aislar del resto de tu sistema gracias a Docker.
-    Notificaciones de Telegram: Recibe alertas en tiempo real sobre el estado de la sincronización (éxito, fallo, con/sin cambios).
-    Logs Detallados: Genera logs específicos para la sincronización y el cron para una fácil depuración.
-
-
-    # 📦 rsync-docker
-
-Sincronización automatizada de archivos desde Raspberry Pi hacia un servidor, utilizando Docker, `rsync`, `cron`, y notificaciones por Telegram. Ideal para respaldos periódicos o recolección de datos desde sensores remotos.
-
----
-
-## 🚀 Características
-
-- 🔁 Sincronización unidireccional con `rsync`
-- ⏱️ Ejecución automática mediante `cron`
-- 📩 Alertas de éxito o fallo vía Telegram
-- 🐳 Totalmente contenido en Docker
-- 📂 Montaje de volúmenes persistentes (`data/` y `logs/`)
-- 🔐 Comunicación segura por clave SSH
-
----
-
-## 📁 Estructura del proyecto
+## 📁 Project Structure
 
 RSYNC-DOCKER/
 ├── .env                  # Variables de entorno (IGNORADO por Git)
@@ -94,9 +68,9 @@ RSYNC-DOCKER/
 
 ---
 
-## ⚙️ Configuración
+## ⚙️ Configuration
 
-1. Clona el repositorio:
+1. Clone the repository:
 
 ```bash
 $ git clone https://github.com/rotoapanta/rsync-docker.git
@@ -105,7 +79,7 @@ $ git clone https://github.com/rotoapanta/rsync-docker.git
 $ cd rsync-docker
 ```
 
-2. Crea y edita el archivo .env:
+2. Create and edit your `.env` file:
 
 # Token del bot de Telegram
 TELEGRAM_BOT_TOKEN=TU_TOKEN
@@ -119,13 +93,16 @@ RSYNC_FROM=pi@192.168.1.100:/home/pi/Documents/mis-datos
 # Ruta de destino en el contenedor (no cambiar si usas /data montado)
 RSYNC_TO=/data
 
-3. Asegúrate de haber copiado tu clave pública SSH a la Raspberry Pi:
+3. Ensure your SSH key is installed on the Raspberry Pi:
 
+```bash
 ssh-copy-id -i ~/.ssh/id_rsa_rsync.pub pi@192.168.1.100
-
+```
 4. Construye y ejecuta el contenedor:
 
+```bash
 ./start_host.sh
+```
 
 🧪 Prueba manual
 

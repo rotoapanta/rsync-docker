@@ -1,10 +1,14 @@
 # main.py
 import sys
-from managers.sync_manager import run_rsync
+from managers.sync_manager import SyncManager
 
 if __name__ == "__main__":
-    if len(sys.argv) != 2 or sys.argv[1] not in ("from", "to"):
-        print("Uso: python3 main.py [from|to]")
+    if len(sys.argv) > 1:
+        direction = sys.argv[1]
+        # Crear una instancia de SyncManager
+        sync_handler = SyncManager()
+        # Llamar al método run_rsync de la instancia
+        sync_handler.run_rsync(direction)
+    else:
+        print("Uso: python3 main.py [from]")
         sys.exit(1)
-
-    run_rsync(sys.argv[1])

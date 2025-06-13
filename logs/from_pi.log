@@ -1,1783 +1,209 @@
-[2025-06-11 21:40:01] Iniciando sincronización desde Raspberry Pi
-[2025-06-11 21:40:01] Comando rsync a ejecutar: rsync -e ssh -i /root/.ssh/id_rsa -o StrictHostKeyChecking=no -avz pi@192.168.190.29:/home/pi/Documents/rain-gauge-project/DTA /data
-[2025-06-11 21:40:02] receiving incremental file list
-DTA/
-DTA/2025/
-DTA/2025/03/
-DTA/2025/03/28/
-DTA/2025/03/28/EC.REVS2.RGA_rpi-5_4512_20250328_1100.json
-DTA/2025/03/28/EC.REVS2.RGA_rpi-5_4512_20250328_1200.json
-DTA/2025/03/28/EC.REVS2.RGA_rpi-5_4512_20250328_1300.json
-DTA/2025/03/28/EC.REVS2.RGA_rpi-5_4512_20250328_1400.json
-DTA/2025/03/28/EC.REVS2.RGA_rpi-5_4512_20250328_1500.json
-DTA/2025/03/28/EC.REVS2.RGA_rpi-5_4512_20250328_1600.json
-DTA/2025/03/28/EC.REVS2.RGA_rpi-5_4512_20250328_1900.json
-DTA/2025/03/28/EC.REVS2.RGA_rpi-5_4512_20250328_2000.json
-DTA/2025/03/28/EC.REVS2.RGA_rpi-5_4512_20250328_2100.json
-DTA/2025/03/28/EC.REVS2.RGA_rpi-5_4512_20250328_2200.json
-DTA/2025/03/28/EC.REVS2.RGA_rpi-5_4512_20250328_2300.json
-DTA/2025/03/29/
-DTA/2025/03/29/EC.REVS2.RGA_rpi-5_4512_20250329_0000.json
-DTA/2025/03/29/EC.REVS2.RGA_rpi-5_4512_20250329_0600.json
-DTA/2025/03/29/EC.REVS2.RGA_rpi-5_4512_20250329_0700.json
-DTA/2025/03/29/EC.REVS2.RGA_rpi-5_4512_20250329_0800.json
-DTA/2025/03/29/EC.REVS2.RGA_rpi-5_4512_20250329_0900.json
-DTA/2025/03/29/EC.REVS2.RGA_rpi-5_4512_20250329_1000.json
-DTA/2025/03/29/EC.REVS2.RGA_rpi-5_4512_20250329_1100.json
-DTA/2025/03/29/EC.REVS2.RGA_rpi-5_4512_20250329_1500.json
-DTA/2025/03/29/EC.REVS2.RGA_rpi-5_4512_20250329_1600.json
-DTA/2025/03/29/EC.REVS2.RGA_rpi-5_4512_20250329_1700.json
-DTA/2025/03/29/EC.REVS2.RGA_rpi-5_4512_20250329_1800.json
-DTA/2025/03/29/EC.REVS2.RGA_rpi-5_4512_20250329_1900.json
-DTA/2025/03/29/EC.REVS2.RGA_rpi-5_4512_20250329_2000.json
-DTA/2025/03/29/EC.REVS2.RGA_rpi-5_4512_20250329_2100.json
-DTA/2025/03/29/EC.REVS2.RGA_rpi-5_4512_20250329_2200.json
-DTA/2025/03/29/EC.REVS2.RGA_rpi-5_4512_20250329_2300.json
-DTA/2025/03/30/
-DTA/2025/03/30/EC.REVS2.RGA_rpi-5_4512_20250330_00.json
-DTA/2025/03/30/EC.REVS2.RGA_rpi-5_4512_20250330_0000.json
-DTA/2025/03/30/EC.REVS2.RGA_rpi-5_4512_20250330_0100.json
-DTA/2025/03/30/EC.REVS2.RGA_rpi-5_4512_20250330_0200.json
-DTA/2025/03/30/EC.REVS2.RGA_rpi-5_4512_20250330_0300.json
-DTA/2025/03/30/EC.REVS2.RGA_rpi-5_4512_20250330_0400.json
-DTA/2025/03/30/EC.REVS2.RGA_rpi-5_4512_20250330_0500.json
-DTA/2025/03/30/EC.REVS2.RGA_rpi-5_4512_20250330_0600.json
-DTA/2025/03/30/EC.REVS2.RGA_rpi-5_4512_20250330_0700.json
-DTA/2025/03/30/EC.REVS2.RGA_rpi-5_4512_20250330_0800.json
-DTA/2025/03/30/EC.REVS2.RGA_rpi-5_4512_20250330_0900.json
-DTA/2025/03/30/EC.REVS2.RGA_rpi-5_4512_20250330_1000.json
-DTA/2025/03/30/EC.REVS2.RGA_rpi-5_4512_20250330_1100.json
-DTA/2025/03/30/EC.REVS2.RGA_rpi-5_4512_20250330_1200.json
-DTA/2025/03/30/EC.REVS2.RGA_rpi-5_4512_20250330_1300.json
-DTA/2025/03/30/EC.REVS2.RGA_rpi-5_4512_20250330_1400.json
-DTA/2025/03/30/EC.REVS2.RGA_rpi-5_4512_20250330_1500.json
-DTA/2025/03/30/EC.REVS2.RGA_rpi-5_4512_20250330_1600.json
-DTA/2025/03/30/EC.REVS2.RGA_rpi-5_4512_20250330_1700.json
-DTA/2025/03/30/EC.REVS2.RGA_rpi-5_4512_20250330_1800.json
-DTA/2025/03/30/EC.REVS2.RGA_rpi-5_4512_20250330_1900.json
-DTA/2025/03/30/EC.REVS2.RGA_rpi-5_4512_20250330_2000.json
-DTA/2025/03/30/EC.REVS2.RGA_rpi-5_4512_20250330_2100.json
-DTA/2025/03/30/EC.REVS2.RGA_rpi-5_4512_20250330_2200.json
-DTA/2025/03/30/EC.REVS2.RGA_rpi-5_4512_20250330_2300.json
-DTA/2025/03/31/
-DTA/2025/03/31/EC.REVS2.RGA_rpi-5_4512_20250331_0000.json
-DTA/2025/03/31/EC.REVS2.RGA_rpi-5_4512_20250331_0100.json
-DTA/2025/03/31/EC.REVS2.RGA_rpi-5_4512_20250331_0200.json
-DTA/2025/03/31/EC.REVS2.RGA_rpi-5_4512_20250331_0300.json
-DTA/2025/03/31/EC.REVS2.RGA_rpi-5_4512_20250331_0400.json
-DTA/2025/03/31/EC.REVS2.RGA_rpi-5_4512_20250331_0500.json
-DTA/2025/03/31/EC.REVS2.RGA_rpi-5_4512_20250331_0600.json
-DTA/2025/03/31/EC.REVS2.RGA_rpi-5_4512_20250331_2300.json
-DTA/2025/04/
-DTA/2025/04/01/
-DTA/2025/04/01/EC.REVS2.RGA_rpi-5_4512_20250401_2100.json
-DTA/2025/04/01/EC.REVS2.RGA_rpi-5_4512_20250401_2200.json
-DTA/2025/04/01/EC.REVS2.RGA_rpi-5_4512_20250401_2300.json
-DTA/2025/04/02/
-DTA/2025/04/02/EC.REVS2.RGA_rpi-5_4512_20250402_0000.json
-DTA/2025/04/02/EC.REVS2.RGA_rpi-5_4512_20250402_0100.json
-DTA/2025/04/02/EC.REVS2.RGA_rpi-5_4512_20250402_2300.json
-DTA/2025/04/05/
-DTA/2025/04/05/EC.REVS2.RGA_rpi-5_4512_20250405_1900.json
-DTA/2025/04/05/EC.REVS2.RGA_rpi-5_4512_20250405_2000.json
-DTA/2025/04/05/EC.REVS2.RGA_rpi-5_4512_20250405_2100.json
-DTA/2025/04/05/EC.REVS2.RGA_rpi-5_4512_20250405_2200.json
-DTA/2025/04/05/EC.REVS2.RGA_rpi-5_4512_20250405_2300.json
-DTA/2025/04/06/
-DTA/2025/04/06/EC.REVS2.RGA_rpi-5_4512_20250406_0000.json
-DTA/2025/04/06/EC.REVS2.RGA_rpi-5_4512_20250406_0100.json
-DTA/2025/04/06/EC.REVS2.RGA_rpi-5_4512_20250406_0200.json
-DTA/2025/04/06/EC.REVS2.RGA_rpi-5_4512_20250406_0300.json
-DTA/2025/04/06/EC.REVS2.RGA_rpi-5_4512_20250406_0400.json
-DTA/2025/04/06/EC.REVS2.RGA_rpi-5_4512_20250406_0500.json
-DTA/2025/04/06/EC.REVS2.RGA_rpi-5_4512_20250406_0600.json
-DTA/2025/04/06/EC.REVS2.RGA_rpi-5_4512_20250406_0700.json
-DTA/2025/04/06/EC.REVS2.RGA_rpi-5_4512_20250406_0800.json
-DTA/2025/04/06/EC.REVS2.RGA_rpi-5_4512_20250406_0900.json
-DTA/2025/04/06/EC.REVS2.RGA_rpi-5_4512_20250406_1000.json
-DTA/2025/04/06/EC.REVS2.RGA_rpi-5_4512_20250406_1100.json
-DTA/2025/04/06/EC.REVS2.RGA_rpi-5_4512_20250406_1200.json
-DTA/2025/04/06/EC.REVS2.RGA_rpi-5_4512_20250406_1300.json
-DTA/2025/04/06/EC.REVS2.RGA_rpi-5_4512_20250406_1400.json
-DTA/2025/04/06/EC.REVS2.RGA_rpi-5_4512_20250406_1500.json
-DTA/2025/04/06/EC.REVS2.RGA_rpi-5_4512_20250406_1600.json
-DTA/2025/04/07/
-DTA/2025/04/07/EC.REVS2.RGA_rpi-5_4512_20250407_1400.json
-DTA/2025/04/07/EC.REVS2.RGA_rpi-5_4512_20250407_1500.json
-DTA/2025/04/07/EC.REVS2.RGA_rpi-5_4512_20250407_1600.json
-DTA/2025/04/07/EC.REVS2.RGA_rpi-5_4512_20250407_1700.json
-DTA/2025/04/07/EC.REVS2.RGA_rpi-5_4512_20250407_1800.json
-DTA/2025/04/07/EC.REVS2.RGA_rpi-5_4512_20250407_1900.json
-DTA/2025/04/07/EC.REVS2.RGA_rpi-5_4512_20250407_2000.json
-DTA/2025/04/07/EC.REVS2.RGA_rpi-5_4512_20250407_2100.json
-DTA/2025/04/07/EC.REVS2.RGA_rpi-5_4512_20250407_2200.json
-DTA/2025/04/07/EC.REVS2.RGA_rpi-5_4512_20250407_2300.json
-DTA/2025/04/08/
-DTA/2025/04/08/EC.REVS2.RGA_rpi-5_4512_20250408_0000.json
-DTA/2025/04/08/EC.REVS2.RGA_rpi-5_4512_20250408_0100.json
-DTA/2025/04/08/EC.REVS2.RGA_rpi-5_4512_20250408_0200.json
-DTA/2025/04/08/EC.REVS2.RGA_rpi-5_4512_20250408_0300.json
-DTA/2025/04/08/EC.REVS2.RGA_rpi-5_4512_20250408_0400.json
-DTA/2025/04/08/EC.REVS2.RGA_rpi-5_4512_20250408_0500.json
-DTA/2025/04/08/EC.REVS2.RGA_rpi-5_4512_20250408_0600.json
-DTA/2025/04/08/EC.REVS2.RGA_rpi-5_4512_20250408_0700.json
-DTA/2025/04/08/EC.REVS2.RGA_rpi-5_4512_20250408_0800.json
-DTA/2025/04/08/EC.REVS2.RGA_rpi-5_4512_20250408_0900.json
-DTA/2025/04/08/EC.REVS2.RGA_rpi-5_4512_20250408_1000.json
-DTA/2025/04/08/EC.REVS2.RGA_rpi-5_4512_20250408_1100.json
-DTA/2025/04/08/EC.REVS2.RGA_rpi-5_4512_20250408_1200.json
-DTA/2025/04/08/EC.REVS2.RGA_rpi-5_4512_20250408_1300.json
-DTA/2025/04/09/
-DTA/2025/04/09/EC.REVS2.RGA_rpi-5_4512_20250409_1000.json
-DTA/2025/04/09/EC.REVS2.RGA_rpi-5_4512_20250409_1100.json
-DTA/2025/04/09/EC.REVS2.RGA_rpi-5_4512_20250409_1200.json
-DTA/2025/04/09/EC.REVS2.RGA_rpi-5_4512_20250409_1300.json
-DTA/2025/04/09/EC.REVS2.RGA_rpi-5_4512_20250409_1400.json
-DTA/2025/04/09/EC.REVS2.RGA_rpi-5_4512_20250409_1500.json
-DTA/2025/04/09/EC.REVS2.RGA_rpi-5_4512_20250409_1600.json
-DTA/2025/04/09/EC.REVS2.RGA_rpi-5_4512_20250409_1700.json
-DTA/2025/04/09/EC.REVS2.RGA_rpi-5_4512_20250409_1800.json
-DTA/2025/04/09/EC.REVS2.RGA_rpi-5_4512_20250409_1900.json
-DTA/2025/04/09/EC.REVS2.RGA_rpi-5_4512_20250409_2000.json
-DTA/2025/04/09/EC.REVS2.RGA_rpi-5_4512_20250409_2100.json
-DTA/2025/04/09/EC.REVS2.RGA_rpi-5_4512_20250409_2200.json
-DTA/2025/04/09/EC.REVS2.RGA_rpi-5_4512_20250409_2300.json
-DTA/2025/04/10/
-DTA/2025/04/10/EC.REVS2.RGA_rpi-5_4512_20250410_0000.json
-DTA/2025/04/10/EC.REVS2.RGA_rpi-5_4512_20250410_0100.json
-DTA/2025/04/10/EC.REVS2.RGA_rpi-5_4512_20250410_0700.json
-DTA/2025/04/10/EC.REVS2.RGA_rpi-5_4512_20250410_0800.json
-DTA/2025/04/10/EC.REVS2.RGA_rpi-5_4512_20250410_0900.json
-DTA/2025/04/10/EC.REVS2.RGA_rpi-5_4512_20250410_1000.json
-DTA/2025/04/10/EC.REVS2.RGA_rpi-5_4512_20250410_1100.json
-DTA/2025/04/10/EC.REVS2.RGA_rpi-5_4512_20250410_1200.json
-DTA/2025/04/10/EC.REVS2.RGA_rpi-5_4512_20250410_1300.json
-DTA/2025/04/10/EC.REVS2.RGA_rpi-5_4512_20250410_1400.json
-DTA/2025/04/10/EC.REVS2.RGA_rpi-5_4512_20250410_1500.json
-DTA/2025/04/10/EC.REVS2.RGA_rpi-5_4512_20250410_1600.json
-DTA/2025/04/11/
-DTA/2025/04/11/EC.REVS2.RGA_rpi-5_4512_20250411_1100.json
-DTA/2025/04/11/EC.REVS2.RGA_rpi-5_4512_20250411_1200.json
-DTA/2025/04/11/EC.REVS2.RGA_rpi-5_4512_20250411_1400.json
-DTA/2025/04/11/EC.REVS2.RGA_rpi-5_4512_20250411_1500.json
-DTA/2025/04/11/EC.REVS2.RGA_rpi-5_4512_20250411_2200.json
-DTA/2025/04/11/EC.REVS2.RGA_rpi-5_4512_20250411_2300.json
-DTA/2025/04/12/
-DTA/2025/04/12/EC.REVS2.RGA_rpi-5_4512_20250412_0000.json
-DTA/2025/04/12/EC.REVS2.RGA_rpi-5_4512_20250412_0100.json
-DTA/2025/04/12/EC.REVS2.RGA_rpi-5_4512_20250412_0700.json
-DTA/2025/04/12/EC.REVS2.RGA_rpi-5_4512_20250412_1100.json
-DTA/2025/04/14/
-DTA/2025/04/14/EC.REVS2.RGA_rpi-5_4512_20250414_0600.json
-DTA/2025/04/14/EC.REVS2.RGA_rpi-5_4512_20250414_1500.json
-DTA/2025/04/14/EC.REVS2.RGA_rpi-5_4512_20250414_1600.json
-DTA/2025/04/15/
-DTA/2025/04/15/EC.REVS2.RGA_rpi-5_4512_20250415_0600.json
-DTA/2025/04/15/EC.REVS2.RGA_rpi-5_4512_20250415_1600.json
-DTA/2025/04/16/
-DTA/2025/04/16/EC.REVS2.RGA_rpi-5_4512_20250416_0600.json
-DTA/2025/04/16/EC.REVS2.RGA_rpi-5_4512_20250416_1600.json
-DTA/2025/04/27/
-DTA/2025/04/27/EC.REVS2.RGA_rpi-5_4512_20250427_2100.json
-DTA/2025/04/27/EC.REVS2.RGA_rpi-5_4512_20250427_2200.json
-DTA/2025/04/27/EC.REVS2.RGA_rpi-5_4512_20250427_2300.json
-DTA/2025/04/28/
-DTA/2025/04/28/EC.REVS2.RGA_rpi-5_4512_20250428_0000.json
-DTA/2025/04/28/EC.REVS2.RGA_rpi-5_4512_20250428_0100.json
-DTA/2025/04/28/EC.REVS2.RGA_rpi-5_4512_20250428_0200.json
-DTA/2025/04/28/EC.REVS2.RGA_rpi-5_4512_20250428_0300.json
-DTA/2025/04/28/EC.REVS2.RGA_rpi-5_4512_20250428_0400.json
-DTA/2025/04/28/EC.REVS2.RGA_rpi-5_4512_20250428_0500.json
-DTA/2025/04/28/EC.REVS2.RGA_rpi-5_4512_20250428_0600.json
-DTA/2025/04/29/
-DTA/2025/04/29/EC.REVS2.RGA_rpi-5_4512_20250429_1100.json
-DTA/2025/04/30/
-DTA/2025/04/30/EC.IG01.RGA_rpi-5_4512_20250430_1500.json
+[2025-06-12 22:01:01] Iniciando sincronización desde Raspberry Pi
+[2025-06-12 22:01:01] Comando rsync a ejecutar: rsync -e ssh -i /root/.ssh/id_rsa -o StrictHostKeyChecking=no -avz pi@192.168.190.29:/home/pi/Documents/rain-gauge-project/DTA /data
+[2025-06-12 22:02:29] 
+[2025-06-12 22:02:29] Rsync stderr: ssh: connect to host 192.168.190.29 port 22: Connection refused
+rsync: connection unexpectedly closed (0 bytes received so far) [Receiver]
+rsync error: unexplained error (code 255) at io.c(232) [Receiver=3.2.7]
 
-sent 3,305 bytes  received 38,368 bytes  27,782.00 bytes/sec
-total size is 1,211,390  speedup is 29.07
+[2025-06-12 23:01:01] Iniciando sincronización desde Raspberry Pi
+[2025-06-12 23:01:01] Comando rsync a ejecutar: rsync -e ssh -i /root/.ssh/id_rsa -o StrictHostKeyChecking=no -avz pi@192.168.190.29:/home/pi/Documents/rain-gauge-project/DTA /data
+[2025-06-12 23:03:14] 
+[2025-06-12 23:03:14] Rsync stderr: ssh: connect to host 192.168.190.29 port 22: Connection timed out
+rsync: connection unexpectedly closed (0 bytes received so far) [Receiver]
+rsync error: unexplained error (code 255) at io.c(232) [Receiver=3.2.7]
 
-[2025-06-11 21:45:01] Iniciando sincronización desde Raspberry Pi
-[2025-06-11 21:45:01] Comando rsync a ejecutar: rsync -e ssh -i /root/.ssh/id_rsa -o StrictHostKeyChecking=no -avz pi@192.168.190.29:/home/pi/Documents/rain-gauge-project/DTA /data
-[2025-06-11 21:45:02] receiving incremental file list
+[2025-06-13 00:01:01] Iniciando sincronización desde Raspberry Pi
+[2025-06-13 00:01:01] Comando rsync a ejecutar: rsync -e ssh -i /root/.ssh/id_rsa -o StrictHostKeyChecking=no -avz pi@192.168.190.29:/home/pi/Documents/rain-gauge-project/DTA /data
+[2025-06-13 00:03:14] 
+[2025-06-13 00:03:14] Rsync stderr: ssh: connect to host 192.168.190.29 port 22: Connection timed out
+rsync: connection unexpectedly closed (0 bytes received so far) [Receiver]
+rsync error: unexplained error (code 255) at io.c(232) [Receiver=3.2.7]
+
+[2025-06-13 01:01:01] Iniciando sincronización desde Raspberry Pi
+[2025-06-13 01:01:01] Comando rsync a ejecutar: rsync -e ssh -i /root/.ssh/id_rsa -o StrictHostKeyChecking=no -avz pi@192.168.190.29:/home/pi/Documents/rain-gauge-project/DTA /data
+[2025-06-13 01:03:15] 
+[2025-06-13 01:03:15] Rsync stderr: ssh: connect to host 192.168.190.29 port 22: Connection timed out
+rsync: connection unexpectedly closed (0 bytes received so far) [Receiver]
+rsync error: unexplained error (code 255) at io.c(232) [Receiver=3.2.7]
+
+[2025-06-13 02:01:01] Iniciando sincronización desde Raspberry Pi
+[2025-06-13 02:01:01] Comando rsync a ejecutar: rsync -e ssh -i /root/.ssh/id_rsa -o StrictHostKeyChecking=no -avz pi@192.168.190.29:/home/pi/Documents/rain-gauge-project/DTA /data
+[2025-06-13 02:03:15] 
+[2025-06-13 02:03:15] Rsync stderr: ssh: connect to host 192.168.190.29 port 22: Connection timed out
+rsync: connection unexpectedly closed (0 bytes received so far) [Receiver]
+rsync error: unexplained error (code 255) at io.c(232) [Receiver=3.2.7]
+
+[2025-06-13 03:01:01] Iniciando sincronización desde Raspberry Pi
+[2025-06-13 03:01:01] Comando rsync a ejecutar: rsync -e ssh -i /root/.ssh/id_rsa -o StrictHostKeyChecking=no -avz pi@192.168.190.29:/home/pi/Documents/rain-gauge-project/DTA /data
+[2025-06-13 03:03:15] 
+[2025-06-13 03:03:15] Rsync stderr: ssh: connect to host 192.168.190.29 port 22: Connection timed out
+rsync: connection unexpectedly closed (0 bytes received so far) [Receiver]
+rsync error: unexplained error (code 255) at io.c(232) [Receiver=3.2.7]
+
+[2025-06-13 04:01:01] Iniciando sincronización desde Raspberry Pi
+[2025-06-13 04:01:01] Comando rsync a ejecutar: rsync -e ssh -i /root/.ssh/id_rsa -o StrictHostKeyChecking=no -avz pi@192.168.190.29:/home/pi/Documents/rain-gauge-project/DTA /data
+[2025-06-13 04:03:16] 
+[2025-06-13 04:03:16] Rsync stderr: ssh: connect to host 192.168.190.29 port 22: Connection timed out
+rsync: connection unexpectedly closed (0 bytes received so far) [Receiver]
+rsync error: unexplained error (code 255) at io.c(232) [Receiver=3.2.7]
+
+[2025-06-13 05:01:01] Iniciando sincronización desde Raspberry Pi
+[2025-06-13 05:01:01] Comando rsync a ejecutar: rsync -e ssh -i /root/.ssh/id_rsa -o StrictHostKeyChecking=no -avz pi@192.168.190.29:/home/pi/Documents/rain-gauge-project/DTA /data
+[2025-06-13 05:03:16] 
+[2025-06-13 05:03:16] Rsync stderr: ssh: connect to host 192.168.190.29 port 22: Connection timed out
+rsync: connection unexpectedly closed (0 bytes received so far) [Receiver]
+rsync error: unexplained error (code 255) at io.c(232) [Receiver=3.2.7]
+
+[2025-06-13 06:01:01] Iniciando sincronización desde Raspberry Pi
+[2025-06-13 06:01:01] Comando rsync a ejecutar: rsync -e ssh -i /root/.ssh/id_rsa -o StrictHostKeyChecking=no -avz pi@192.168.190.29:/home/pi/Documents/rain-gauge-project/DTA /data
+[2025-06-13 06:03:16] 
+[2025-06-13 06:03:16] Rsync stderr: ssh: connect to host 192.168.190.29 port 22: Connection timed out
+rsync: connection unexpectedly closed (0 bytes received so far) [Receiver]
+rsync error: unexplained error (code 255) at io.c(232) [Receiver=3.2.7]
+
+[2025-06-13 07:01:01] Iniciando sincronización desde Raspberry Pi
+[2025-06-13 07:01:01] Comando rsync a ejecutar: rsync -e ssh -i /root/.ssh/id_rsa -o StrictHostKeyChecking=no -avz pi@192.168.190.29:/home/pi/Documents/rain-gauge-project/DTA /data
+[2025-06-13 07:03:17] 
+[2025-06-13 07:03:17] Rsync stderr: ssh: connect to host 192.168.190.29 port 22: Connection timed out
+rsync: connection unexpectedly closed (0 bytes received so far) [Receiver]
+rsync error: unexplained error (code 255) at io.c(232) [Receiver=3.2.7]
+
+[2025-06-13 08:01:01] Iniciando sincronización desde Raspberry Pi
+[2025-06-13 08:01:01] Comando rsync a ejecutar: rsync -e ssh -i /root/.ssh/id_rsa -o StrictHostKeyChecking=no -avz pi@192.168.190.29:/home/pi/Documents/rain-gauge-project/DTA /data
+[2025-06-13 08:03:17] 
+[2025-06-13 08:03:17] Rsync stderr: ssh: connect to host 192.168.190.29 port 22: Connection timed out
+rsync: connection unexpectedly closed (0 bytes received so far) [Receiver]
+rsync error: unexplained error (code 255) at io.c(232) [Receiver=3.2.7]
+
+[2025-06-13 09:01:01] Iniciando sincronización desde Raspberry Pi
+[2025-06-13 09:01:01] Comando rsync a ejecutar: rsync -e ssh -i /root/.ssh/id_rsa -o StrictHostKeyChecking=no -avz pi@192.168.190.29:/home/pi/Documents/rain-gauge-project/DTA /data
+[2025-06-13 09:03:17] 
+[2025-06-13 09:03:17] Rsync stderr: ssh: connect to host 192.168.190.29 port 22: Connection timed out
+rsync: connection unexpectedly closed (0 bytes received so far) [Receiver]
+rsync error: unexplained error (code 255) at io.c(232) [Receiver=3.2.7]
+
+[2025-06-13 10:01:01] Iniciando sincronización desde Raspberry Pi
+[2025-06-13 10:01:01] Comando rsync a ejecutar: rsync -e ssh -i /root/.ssh/id_rsa -o StrictHostKeyChecking=no -avz pi@192.168.190.29:/home/pi/Documents/rain-gauge-project/DTA /data
+[2025-06-13 10:03:18] 
+[2025-06-13 10:03:18] Rsync stderr: ssh: connect to host 192.168.190.29 port 22: Connection timed out
+rsync: connection unexpectedly closed (0 bytes received so far) [Receiver]
+rsync error: unexplained error (code 255) at io.c(232) [Receiver=3.2.7]
+
+[2025-06-13 11:01:01] Iniciando sincronización desde Raspberry Pi
+[2025-06-13 11:01:01] Comando rsync a ejecutar: rsync -e ssh -i /root/.ssh/id_rsa -o StrictHostKeyChecking=no -avz pi@192.168.190.29:/home/pi/Documents/rain-gauge-project/DTA /data
+[2025-06-13 11:03:14] 
+[2025-06-13 11:03:14] Rsync stderr: ssh: connect to host 192.168.190.29 port 22: Connection timed out
+rsync: connection unexpectedly closed (0 bytes received so far) [Receiver]
+rsync error: unexplained error (code 255) at io.c(232) [Receiver=3.2.7]
+
+[2025-06-13 12:01:01] Iniciando sincronización desde Raspberry Pi
+[2025-06-13 12:01:01] Comando rsync a ejecutar: rsync -e ssh -i /root/.ssh/id_rsa -o StrictHostKeyChecking=no -avz pi@192.168.190.29:/home/pi/Documents/rain-gauge-project/DTA /data
+[2025-06-13 12:03:14] 
+[2025-06-13 12:03:14] Rsync stderr: ssh: connect to host 192.168.190.29 port 22: Connection timed out
+rsync: connection unexpectedly closed (0 bytes received so far) [Receiver]
+rsync error: unexplained error (code 255) at io.c(232) [Receiver=3.2.7]
+
+[2025-06-13 13:01:01] Iniciando sincronización desde Raspberry Pi
+[2025-06-13 13:01:01] Comando rsync a ejecutar: rsync -e ssh -i /root/.ssh/id_rsa -o StrictHostKeyChecking=no -avz pi@192.168.190.29:/home/pi/Documents/rain-gauge-project/DTA /data
+[2025-06-13 13:03:15] 
+[2025-06-13 13:03:15] Rsync stderr: ssh: connect to host 192.168.190.29 port 22: Connection timed out
+rsync: connection unexpectedly closed (0 bytes received so far) [Receiver]
+rsync error: unexplained error (code 255) at io.c(232) [Receiver=3.2.7]
+
+[2025-06-13 14:01:01] Iniciando sincronización desde Raspberry Pi
+[2025-06-13 14:01:01] Comando rsync a ejecutar: rsync -e ssh -i /root/.ssh/id_rsa -o StrictHostKeyChecking=no -avz pi@192.168.190.29:/home/pi/Documents/rain-gauge-project/DTA /data
+[2025-06-13 14:03:15] 
+[2025-06-13 14:03:15] Rsync stderr: ssh: connect to host 192.168.190.29 port 22: Connection timed out
+rsync: connection unexpectedly closed (0 bytes received so far) [Receiver]
+rsync error: unexplained error (code 255) at io.c(232) [Receiver=3.2.7]
+
+[2025-06-13 15:01:01] Iniciando sincronización desde Raspberry Pi
+[2025-06-13 15:01:01] Comando rsync a ejecutar: rsync -e ssh -i /root/.ssh/id_rsa -o StrictHostKeyChecking=no -avz pi@192.168.190.29:/home/pi/Documents/rain-gauge-project/DTA /data
+[2025-06-13 15:03:15] 
+[2025-06-13 15:03:15] Rsync stderr: ssh: connect to host 192.168.190.29 port 22: Connection timed out
+rsync: connection unexpectedly closed (0 bytes received so far) [Receiver]
+rsync error: unexplained error (code 255) at io.c(232) [Receiver=3.2.7]
+
+[2025-06-13 16:01:01] Iniciando sincronización desde Raspberry Pi
+[2025-06-13 16:01:01] Comando rsync a ejecutar: rsync -e ssh -i /root/.ssh/id_rsa -o StrictHostKeyChecking=no -avz pi@192.168.190.29:/home/pi/Documents/rain-gauge-project/DTA /data
+[2025-06-13 16:03:16] 
+[2025-06-13 16:03:16] Rsync stderr: ssh: connect to host 192.168.190.29 port 22: Connection timed out
+rsync: connection unexpectedly closed (0 bytes received so far) [Receiver]
+rsync error: unexplained error (code 255) at io.c(232) [Receiver=3.2.7]
+
+[2025-06-13 17:01:02] Iniciando sincronización desde Raspberry Pi
+[2025-06-13 17:01:02] Comando rsync a ejecutar: rsync -e ssh -i /root/.ssh/id_rsa -o StrictHostKeyChecking=no -avz pi@192.168.190.29:/home/pi/Documents/rain-gauge-project/DTA /data
+[2025-06-13 17:03:16] 
+[2025-06-13 17:03:16] Rsync stderr: ssh: connect to host 192.168.190.29 port 22: Connection timed out
+rsync: connection unexpectedly closed (0 bytes received so far) [Receiver]
+rsync error: unexplained error (code 255) at io.c(232) [Receiver=3.2.7]
+
+[2025-06-13 18:01:01] Iniciando sincronización desde Raspberry Pi
+[2025-06-13 18:01:01] Comando rsync a ejecutar: rsync -e ssh -i /root/.ssh/id_rsa -o StrictHostKeyChecking=no -avz pi@192.168.190.29:/home/pi/Documents/rain-gauge-project/DTA /data
+[2025-06-13 18:03:16] 
+[2025-06-13 18:03:16] Rsync stderr: ssh: connect to host 192.168.190.29 port 22: Connection timed out
+rsync: connection unexpectedly closed (0 bytes received so far) [Receiver]
+rsync error: unexplained error (code 255) at io.c(232) [Receiver=3.2.7]
+
+[2025-06-13 19:01:01] Iniciando sincronización desde Raspberry Pi
+[2025-06-13 19:01:01] Comando rsync a ejecutar: rsync -e ssh -i /root/.ssh/id_rsa -o StrictHostKeyChecking=no -avz pi@192.168.190.29:/home/pi/Documents/rain-gauge-project/DTA /data
+[2025-06-13 19:03:17] 
+[2025-06-13 19:03:17] Rsync stderr: ssh: connect to host 192.168.190.29 port 22: Connection timed out
+rsync: connection unexpectedly closed (0 bytes received so far) [Receiver]
+rsync error: unexplained error (code 255) at io.c(232) [Receiver=3.2.7]
+
+[2025-06-13 20:01:01] Iniciando sincronización desde Raspberry Pi
+[2025-06-13 20:01:01] Comando rsync a ejecutar: rsync -e ssh -i /root/.ssh/id_rsa -o StrictHostKeyChecking=no -avz pi@192.168.190.29:/home/pi/Documents/rain-gauge-project/DTA /data
+[2025-06-13 20:02:26] 
+[2025-06-13 20:02:26] Rsync stderr: ssh: connect to host 192.168.190.29 port 22: Connection refused
+rsync: connection unexpectedly closed (0 bytes received so far) [Receiver]
+rsync error: unexplained error (code 255) at io.c(232) [Receiver=3.2.7]
+
+[2025-06-13 20:44:01] Iniciando sincronización desde Raspberry Pi
+[2025-06-13 20:44:01] Comando rsync a ejecutar: rsync -e ssh -i /root/.ssh/id_rsa -o StrictHostKeyChecking=no -avz pi@192.168.190.29:/home/pi/Documents/rain-gauge-project/DTA /data
+[2025-06-13 20:44:02] receiving incremental file list
 
 sent 49 bytes  received 4,520 bytes  3,046.00 bytes/sec
 total size is 1,211,390  speedup is 265.13
 
-[2025-06-11 21:50:01] Iniciando sincronización desde Raspberry Pi
-[2025-06-11 21:50:01] Comando rsync a ejecutar: rsync -e ssh -i /root/.ssh/id_rsa -o StrictHostKeyChecking=no -avz pi@192.168.190.29:/home/pi/Documents/rain-gauge-project/DTA /data
-[2025-06-11 21:50:02] receiving incremental file list
+[2025-06-13 20:45:01] Iniciando sincronización desde Raspberry Pi
+[2025-06-13 20:45:01] Comando rsync a ejecutar: rsync -e ssh -i /root/.ssh/id_rsa -o StrictHostKeyChecking=no -avz pi@192.168.190.29:/home/pi/Documents/rain-gauge-project/DTA /data
+[2025-06-13 20:45:01] receiving incremental file list
+
+sent 49 bytes  received 4,520 bytes  9,138.00 bytes/sec
+total size is 1,211,390  speedup is 265.13
+
+[2025-06-13 20:46:01] Iniciando sincronización desde Raspberry Pi
+[2025-06-13 20:46:01] Comando rsync a ejecutar: rsync -e ssh -i /root/.ssh/id_rsa -o StrictHostKeyChecking=no -avz pi@192.168.190.29:/home/pi/Documents/rain-gauge-project/DTA /data
+[2025-06-13 20:46:02] receiving incremental file list
 
 sent 49 bytes  received 4,520 bytes  3,046.00 bytes/sec
 total size is 1,211,390  speedup is 265.13
 
-[2025-06-11 21:55:01] Iniciando sincronización desde Raspberry Pi
-[2025-06-11 21:55:01] Comando rsync a ejecutar: rsync -e ssh -i /root/.ssh/id_rsa -o StrictHostKeyChecking=no -avz pi@192.168.190.29:/home/pi/Documents/rain-gauge-project/DTA /data
-[2025-06-11 21:55:02] receiving incremental file list
-DTA/
-DTA/2025/
-DTA/2025/03/
-DTA/2025/03/28/
-DTA/2025/03/28/EC.REVS2.RGA_rpi-5_4512_20250328_1100.json
-DTA/2025/03/28/EC.REVS2.RGA_rpi-5_4512_20250328_1200.json
-DTA/2025/03/28/EC.REVS2.RGA_rpi-5_4512_20250328_1300.json
-DTA/2025/03/28/EC.REVS2.RGA_rpi-5_4512_20250328_1400.json
-DTA/2025/03/28/EC.REVS2.RGA_rpi-5_4512_20250328_1500.json
-DTA/2025/03/28/EC.REVS2.RGA_rpi-5_4512_20250328_1600.json
-DTA/2025/03/28/EC.REVS2.RGA_rpi-5_4512_20250328_1900.json
-DTA/2025/03/28/EC.REVS2.RGA_rpi-5_4512_20250328_2000.json
-DTA/2025/03/28/EC.REVS2.RGA_rpi-5_4512_20250328_2100.json
-DTA/2025/03/28/EC.REVS2.RGA_rpi-5_4512_20250328_2200.json
-DTA/2025/03/28/EC.REVS2.RGA_rpi-5_4512_20250328_2300.json
-DTA/2025/03/29/
-DTA/2025/03/29/EC.REVS2.RGA_rpi-5_4512_20250329_0000.json
-DTA/2025/03/29/EC.REVS2.RGA_rpi-5_4512_20250329_0600.json
-DTA/2025/03/29/EC.REVS2.RGA_rpi-5_4512_20250329_0700.json
-DTA/2025/03/29/EC.REVS2.RGA_rpi-5_4512_20250329_0800.json
-DTA/2025/03/29/EC.REVS2.RGA_rpi-5_4512_20250329_0900.json
-DTA/2025/03/29/EC.REVS2.RGA_rpi-5_4512_20250329_1000.json
-DTA/2025/03/29/EC.REVS2.RGA_rpi-5_4512_20250329_1100.json
-DTA/2025/03/29/EC.REVS2.RGA_rpi-5_4512_20250329_1500.json
-DTA/2025/03/29/EC.REVS2.RGA_rpi-5_4512_20250329_1600.json
-DTA/2025/03/29/EC.REVS2.RGA_rpi-5_4512_20250329_1700.json
-DTA/2025/03/29/EC.REVS2.RGA_rpi-5_4512_20250329_1800.json
-DTA/2025/03/29/EC.REVS2.RGA_rpi-5_4512_20250329_1900.json
-DTA/2025/03/29/EC.REVS2.RGA_rpi-5_4512_20250329_2000.json
-DTA/2025/03/29/EC.REVS2.RGA_rpi-5_4512_20250329_2100.json
-DTA/2025/03/29/EC.REVS2.RGA_rpi-5_4512_20250329_2200.json
-DTA/2025/03/29/EC.REVS2.RGA_rpi-5_4512_20250329_2300.json
-DTA/2025/03/30/
-DTA/2025/03/30/EC.REVS2.RGA_rpi-5_4512_20250330_00.json
-DTA/2025/03/30/EC.REVS2.RGA_rpi-5_4512_20250330_0000.json
-DTA/2025/03/30/EC.REVS2.RGA_rpi-5_4512_20250330_0100.json
-DTA/2025/03/30/EC.REVS2.RGA_rpi-5_4512_20250330_0200.json
-DTA/2025/03/30/EC.REVS2.RGA_rpi-5_4512_20250330_0300.json
-DTA/2025/03/30/EC.REVS2.RGA_rpi-5_4512_20250330_0400.json
-DTA/2025/03/30/EC.REVS2.RGA_rpi-5_4512_20250330_0500.json
-DTA/2025/03/30/EC.REVS2.RGA_rpi-5_4512_20250330_0600.json
-DTA/2025/03/30/EC.REVS2.RGA_rpi-5_4512_20250330_0700.json
-DTA/2025/03/30/EC.REVS2.RGA_rpi-5_4512_20250330_0800.json
-DTA/2025/03/30/EC.REVS2.RGA_rpi-5_4512_20250330_0900.json
-DTA/2025/03/30/EC.REVS2.RGA_rpi-5_4512_20250330_1000.json
-DTA/2025/03/30/EC.REVS2.RGA_rpi-5_4512_20250330_1100.json
-DTA/2025/03/30/EC.REVS2.RGA_rpi-5_4512_20250330_1200.json
-DTA/2025/03/30/EC.REVS2.RGA_rpi-5_4512_20250330_1300.json
-DTA/2025/03/30/EC.REVS2.RGA_rpi-5_4512_20250330_1400.json
-DTA/2025/03/30/EC.REVS2.RGA_rpi-5_4512_20250330_1500.json
-DTA/2025/03/30/EC.REVS2.RGA_rpi-5_4512_20250330_1600.json
-DTA/2025/03/30/EC.REVS2.RGA_rpi-5_4512_20250330_1700.json
-DTA/2025/03/30/EC.REVS2.RGA_rpi-5_4512_20250330_1800.json
-DTA/2025/03/30/EC.REVS2.RGA_rpi-5_4512_20250330_1900.json
-DTA/2025/03/30/EC.REVS2.RGA_rpi-5_4512_20250330_2000.json
-DTA/2025/03/30/EC.REVS2.RGA_rpi-5_4512_20250330_2100.json
-DTA/2025/03/30/EC.REVS2.RGA_rpi-5_4512_20250330_2200.json
-DTA/2025/03/30/EC.REVS2.RGA_rpi-5_4512_20250330_2300.json
-DTA/2025/03/31/
-DTA/2025/03/31/EC.REVS2.RGA_rpi-5_4512_20250331_0000.json
-DTA/2025/03/31/EC.REVS2.RGA_rpi-5_4512_20250331_0100.json
-DTA/2025/03/31/EC.REVS2.RGA_rpi-5_4512_20250331_0200.json
-DTA/2025/03/31/EC.REVS2.RGA_rpi-5_4512_20250331_0300.json
-DTA/2025/03/31/EC.REVS2.RGA_rpi-5_4512_20250331_0400.json
-DTA/2025/03/31/EC.REVS2.RGA_rpi-5_4512_20250331_0500.json
-DTA/2025/03/31/EC.REVS2.RGA_rpi-5_4512_20250331_0600.json
-DTA/2025/03/31/EC.REVS2.RGA_rpi-5_4512_20250331_2300.json
-DTA/2025/04/
-DTA/2025/04/01/
-DTA/2025/04/01/EC.REVS2.RGA_rpi-5_4512_20250401_2100.json
-DTA/2025/04/01/EC.REVS2.RGA_rpi-5_4512_20250401_2200.json
-DTA/2025/04/01/EC.REVS2.RGA_rpi-5_4512_20250401_2300.json
-DTA/2025/04/02/
-DTA/2025/04/02/EC.REVS2.RGA_rpi-5_4512_20250402_0000.json
-DTA/2025/04/02/EC.REVS2.RGA_rpi-5_4512_20250402_0100.json
-DTA/2025/04/02/EC.REVS2.RGA_rpi-5_4512_20250402_2300.json
-DTA/2025/04/05/
-DTA/2025/04/05/EC.REVS2.RGA_rpi-5_4512_20250405_1900.json
-DTA/2025/04/05/EC.REVS2.RGA_rpi-5_4512_20250405_2000.json
-DTA/2025/04/05/EC.REVS2.RGA_rpi-5_4512_20250405_2100.json
-DTA/2025/04/05/EC.REVS2.RGA_rpi-5_4512_20250405_2200.json
-DTA/2025/04/05/EC.REVS2.RGA_rpi-5_4512_20250405_2300.json
-DTA/2025/04/06/
-DTA/2025/04/06/EC.REVS2.RGA_rpi-5_4512_20250406_0000.json
-DTA/2025/04/06/EC.REVS2.RGA_rpi-5_4512_20250406_0100.json
-DTA/2025/04/06/EC.REVS2.RGA_rpi-5_4512_20250406_0200.json
-DTA/2025/04/06/EC.REVS2.RGA_rpi-5_4512_20250406_0300.json
-DTA/2025/04/06/EC.REVS2.RGA_rpi-5_4512_20250406_0400.json
-DTA/2025/04/06/EC.REVS2.RGA_rpi-5_4512_20250406_0500.json
-DTA/2025/04/06/EC.REVS2.RGA_rpi-5_4512_20250406_0600.json
-DTA/2025/04/06/EC.REVS2.RGA_rpi-5_4512_20250406_0700.json
-DTA/2025/04/06/EC.REVS2.RGA_rpi-5_4512_20250406_0800.json
-DTA/2025/04/06/EC.REVS2.RGA_rpi-5_4512_20250406_0900.json
-DTA/2025/04/06/EC.REVS2.RGA_rpi-5_4512_20250406_1000.json
-DTA/2025/04/06/EC.REVS2.RGA_rpi-5_4512_20250406_1100.json
-DTA/2025/04/06/EC.REVS2.RGA_rpi-5_4512_20250406_1200.json
-DTA/2025/04/06/EC.REVS2.RGA_rpi-5_4512_20250406_1300.json
-DTA/2025/04/06/EC.REVS2.RGA_rpi-5_4512_20250406_1400.json
-DTA/2025/04/06/EC.REVS2.RGA_rpi-5_4512_20250406_1500.json
-DTA/2025/04/06/EC.REVS2.RGA_rpi-5_4512_20250406_1600.json
-DTA/2025/04/07/
-DTA/2025/04/07/EC.REVS2.RGA_rpi-5_4512_20250407_1400.json
-DTA/2025/04/07/EC.REVS2.RGA_rpi-5_4512_20250407_1500.json
-DTA/2025/04/07/EC.REVS2.RGA_rpi-5_4512_20250407_1600.json
-DTA/2025/04/07/EC.REVS2.RGA_rpi-5_4512_20250407_1700.json
-DTA/2025/04/07/EC.REVS2.RGA_rpi-5_4512_20250407_1800.json
-DTA/2025/04/07/EC.REVS2.RGA_rpi-5_4512_20250407_1900.json
-DTA/2025/04/07/EC.REVS2.RGA_rpi-5_4512_20250407_2000.json
-DTA/2025/04/07/EC.REVS2.RGA_rpi-5_4512_20250407_2100.json
-DTA/2025/04/07/EC.REVS2.RGA_rpi-5_4512_20250407_2200.json
-DTA/2025/04/07/EC.REVS2.RGA_rpi-5_4512_20250407_2300.json
-DTA/2025/04/08/
-DTA/2025/04/08/EC.REVS2.RGA_rpi-5_4512_20250408_0000.json
-DTA/2025/04/08/EC.REVS2.RGA_rpi-5_4512_20250408_0100.json
-DTA/2025/04/08/EC.REVS2.RGA_rpi-5_4512_20250408_0200.json
-DTA/2025/04/08/EC.REVS2.RGA_rpi-5_4512_20250408_0300.json
-DTA/2025/04/08/EC.REVS2.RGA_rpi-5_4512_20250408_0400.json
-DTA/2025/04/08/EC.REVS2.RGA_rpi-5_4512_20250408_0500.json
-DTA/2025/04/08/EC.REVS2.RGA_rpi-5_4512_20250408_0600.json
-DTA/2025/04/08/EC.REVS2.RGA_rpi-5_4512_20250408_0700.json
-DTA/2025/04/08/EC.REVS2.RGA_rpi-5_4512_20250408_0800.json
-DTA/2025/04/08/EC.REVS2.RGA_rpi-5_4512_20250408_0900.json
-DTA/2025/04/08/EC.REVS2.RGA_rpi-5_4512_20250408_1000.json
-DTA/2025/04/08/EC.REVS2.RGA_rpi-5_4512_20250408_1100.json
-DTA/2025/04/08/EC.REVS2.RGA_rpi-5_4512_20250408_1200.json
-DTA/2025/04/08/EC.REVS2.RGA_rpi-5_4512_20250408_1300.json
-DTA/2025/04/09/
-DTA/2025/04/09/EC.REVS2.RGA_rpi-5_4512_20250409_1000.json
-DTA/2025/04/09/EC.REVS2.RGA_rpi-5_4512_20250409_1100.json
-DTA/2025/04/09/EC.REVS2.RGA_rpi-5_4512_20250409_1200.json
-DTA/2025/04/09/EC.REVS2.RGA_rpi-5_4512_20250409_1300.json
-DTA/2025/04/09/EC.REVS2.RGA_rpi-5_4512_20250409_1400.json
-DTA/2025/04/09/EC.REVS2.RGA_rpi-5_4512_20250409_1500.json
-DTA/2025/04/09/EC.REVS2.RGA_rpi-5_4512_20250409_1600.json
-DTA/2025/04/09/EC.REVS2.RGA_rpi-5_4512_20250409_1700.json
-DTA/2025/04/09/EC.REVS2.RGA_rpi-5_4512_20250409_1800.json
-DTA/2025/04/09/EC.REVS2.RGA_rpi-5_4512_20250409_1900.json
-DTA/2025/04/09/EC.REVS2.RGA_rpi-5_4512_20250409_2000.json
-DTA/2025/04/09/EC.REVS2.RGA_rpi-5_4512_20250409_2100.json
-DTA/2025/04/09/EC.REVS2.RGA_rpi-5_4512_20250409_2200.json
-DTA/2025/04/09/EC.REVS2.RGA_rpi-5_4512_20250409_2300.json
-DTA/2025/04/10/
-DTA/2025/04/10/EC.REVS2.RGA_rpi-5_4512_20250410_0000.json
-DTA/2025/04/10/EC.REVS2.RGA_rpi-5_4512_20250410_0100.json
-DTA/2025/04/10/EC.REVS2.RGA_rpi-5_4512_20250410_0700.json
-DTA/2025/04/10/EC.REVS2.RGA_rpi-5_4512_20250410_0800.json
-DTA/2025/04/10/EC.REVS2.RGA_rpi-5_4512_20250410_0900.json
-DTA/2025/04/10/EC.REVS2.RGA_rpi-5_4512_20250410_1000.json
-DTA/2025/04/10/EC.REVS2.RGA_rpi-5_4512_20250410_1100.json
-DTA/2025/04/10/EC.REVS2.RGA_rpi-5_4512_20250410_1200.json
-DTA/2025/04/10/EC.REVS2.RGA_rpi-5_4512_20250410_1300.json
-DTA/2025/04/10/EC.REVS2.RGA_rpi-5_4512_20250410_1400.json
-DTA/2025/04/10/EC.REVS2.RGA_rpi-5_4512_20250410_1500.json
-DTA/2025/04/10/EC.REVS2.RGA_rpi-5_4512_20250410_1600.json
-DTA/2025/04/11/
-DTA/2025/04/11/EC.REVS2.RGA_rpi-5_4512_20250411_1100.json
-DTA/2025/04/11/EC.REVS2.RGA_rpi-5_4512_20250411_1200.json
-DTA/2025/04/11/EC.REVS2.RGA_rpi-5_4512_20250411_1400.json
-DTA/2025/04/11/EC.REVS2.RGA_rpi-5_4512_20250411_1500.json
-DTA/2025/04/11/EC.REVS2.RGA_rpi-5_4512_20250411_2200.json
-DTA/2025/04/11/EC.REVS2.RGA_rpi-5_4512_20250411_2300.json
-DTA/2025/04/12/
-DTA/2025/04/12/EC.REVS2.RGA_rpi-5_4512_20250412_0000.json
-DTA/2025/04/12/EC.REVS2.RGA_rpi-5_4512_20250412_0100.json
-DTA/2025/04/12/EC.REVS2.RGA_rpi-5_4512_20250412_0700.json
-DTA/2025/04/12/EC.REVS2.RGA_rpi-5_4512_20250412_1100.json
-DTA/2025/04/14/
-DTA/2025/04/14/EC.REVS2.RGA_rpi-5_4512_20250414_0600.json
-DTA/2025/04/14/EC.REVS2.RGA_rpi-5_4512_20250414_1500.json
-DTA/2025/04/14/EC.REVS2.RGA_rpi-5_4512_20250414_1600.json
-DTA/2025/04/15/
-DTA/2025/04/15/EC.REVS2.RGA_rpi-5_4512_20250415_0600.json
-DTA/2025/04/15/EC.REVS2.RGA_rpi-5_4512_20250415_1600.json
-DTA/2025/04/16/
-DTA/2025/04/16/EC.REVS2.RGA_rpi-5_4512_20250416_0600.json
-DTA/2025/04/16/EC.REVS2.RGA_rpi-5_4512_20250416_1600.json
-DTA/2025/04/27/
-DTA/2025/04/27/EC.REVS2.RGA_rpi-5_4512_20250427_2100.json
-DTA/2025/04/27/EC.REVS2.RGA_rpi-5_4512_20250427_2200.json
-DTA/2025/04/27/EC.REVS2.RGA_rpi-5_4512_20250427_2300.json
-DTA/2025/04/28/
-DTA/2025/04/28/EC.REVS2.RGA_rpi-5_4512_20250428_0000.json
-DTA/2025/04/28/EC.REVS2.RGA_rpi-5_4512_20250428_0100.json
-DTA/2025/04/28/EC.REVS2.RGA_rpi-5_4512_20250428_0200.json
-DTA/2025/04/28/EC.REVS2.RGA_rpi-5_4512_20250428_0300.json
-DTA/2025/04/28/EC.REVS2.RGA_rpi-5_4512_20250428_0400.json
-DTA/2025/04/28/EC.REVS2.RGA_rpi-5_4512_20250428_0500.json
-DTA/2025/04/28/EC.REVS2.RGA_rpi-5_4512_20250428_0600.json
-DTA/2025/04/29/
-DTA/2025/04/29/EC.REVS2.RGA_rpi-5_4512_20250429_1100.json
-DTA/2025/04/30/
-DTA/2025/04/30/EC.IG01.RGA_rpi-5_4512_20250430_1500.json
-
-sent 3,305 bytes  received 38,368 bytes  27,782.00 bytes/sec
-total size is 1,211,390  speedup is 29.07
-
-[2025-06-11 22:00:01] Iniciando sincronización desde Raspberry Pi
-[2025-06-11 22:00:01] Comando rsync a ejecutar: rsync -e ssh -i /root/.ssh/id_rsa -o StrictHostKeyChecking=no -avz pi@192.168.190.29:/home/pi/Documents/rain-gauge-project/DTA /data
-[2025-06-11 22:00:01] receiving incremental file list
-
-sent 49 bytes  received 4,520 bytes  9,138.00 bytes/sec
-total size is 1,211,390  speedup is 265.13
-
-[2025-06-11 22:05:01] Iniciando sincronización desde Raspberry Pi
-[2025-06-11 22:05:01] Comando rsync a ejecutar: rsync -e ssh -i /root/.ssh/id_rsa -o StrictHostKeyChecking=no -avz pi@192.168.190.29:/home/pi/Documents/rain-gauge-project/DTA /data
-[2025-06-11 22:06:25] 
-[2025-06-11 22:06:25] Rsync stderr: ssh: connect to host 192.168.190.29 port 22: Connection refused
-rsync: connection unexpectedly closed (0 bytes received so far) [Receiver]
-rsync error: unexplained error (code 255) at io.c(232) [Receiver=3.2.7]
-
-[2025-06-11 22:10:01] Iniciando sincronización desde Raspberry Pi
-[2025-06-11 22:10:01] Comando rsync a ejecutar: rsync -e ssh -i /root/.ssh/id_rsa -o StrictHostKeyChecking=no -avz pi@192.168.190.29:/home/pi/Documents/rain-gauge-project/DTA /data
-[2025-06-11 22:11:25] 
-[2025-06-11 22:11:25] Rsync stderr: ssh: connect to host 192.168.190.29 port 22: Connection refused
-rsync: connection unexpectedly closed (0 bytes received so far) [Receiver]
-rsync error: unexplained error (code 255) at io.c(232) [Receiver=3.2.7]
-
-[2025-06-11 22:15:01] Iniciando sincronización desde Raspberry Pi
-[2025-06-11 22:15:01] Comando rsync a ejecutar: rsync -e ssh -i /root/.ssh/id_rsa -o StrictHostKeyChecking=no -avz pi@192.168.190.29:/home/pi/Documents/rain-gauge-project/DTA /data
-[2025-06-11 22:16:25] 
-[2025-06-11 22:16:25] Rsync stderr: ssh: connect to host 192.168.190.29 port 22: Connection refused
-rsync: connection unexpectedly closed (0 bytes received so far) [Receiver]
-rsync error: unexplained error (code 255) at io.c(232) [Receiver=3.2.7]
-
-[2025-06-11 22:20:01] Iniciando sincronización desde Raspberry Pi
-[2025-06-11 22:20:01] Comando rsync a ejecutar: rsync -e ssh -i /root/.ssh/id_rsa -o StrictHostKeyChecking=no -avz pi@192.168.190.29:/home/pi/Documents/rain-gauge-project/DTA /data
-[2025-06-11 22:21:25] 
-[2025-06-11 22:21:25] Rsync stderr: ssh: connect to host 192.168.190.29 port 22: Connection refused
-rsync: connection unexpectedly closed (0 bytes received so far) [Receiver]
-rsync error: unexplained error (code 255) at io.c(232) [Receiver=3.2.7]
-
-[2025-06-11 22:25:02] Iniciando sincronización desde Raspberry Pi
-[2025-06-11 22:25:02] Comando rsync a ejecutar: rsync -e ssh -i /root/.ssh/id_rsa -o StrictHostKeyChecking=no -avz pi@192.168.190.29:/home/pi/Documents/rain-gauge-project/DTA /data
-[2025-06-11 22:26:25] 
-[2025-06-11 22:26:25] Rsync stderr: ssh: connect to host 192.168.190.29 port 22: Connection refused
-rsync: connection unexpectedly closed (0 bytes received so far) [Receiver]
-rsync error: unexplained error (code 255) at io.c(232) [Receiver=3.2.7]
-
-[2025-06-11 22:30:01] Iniciando sincronización desde Raspberry Pi
-[2025-06-11 22:30:01] Comando rsync a ejecutar: rsync -e ssh -i /root/.ssh/id_rsa -o StrictHostKeyChecking=no -avz pi@192.168.190.29:/home/pi/Documents/rain-gauge-project/DTA /data
-[2025-06-11 22:31:24] 
-[2025-06-11 22:31:24] Rsync stderr: ssh: connect to host 192.168.190.29 port 22: Connection refused
-rsync: connection unexpectedly closed (0 bytes received so far) [Receiver]
-rsync error: unexplained error (code 255) at io.c(232) [Receiver=3.2.7]
-
-[2025-06-11 22:35:01] Iniciando sincronización desde Raspberry Pi
-[2025-06-11 22:35:01] Comando rsync a ejecutar: rsync -e ssh -i /root/.ssh/id_rsa -o StrictHostKeyChecking=no -avz pi@192.168.190.29:/home/pi/Documents/rain-gauge-project/DTA /data
-[2025-06-11 22:36:24] 
-[2025-06-11 22:36:24] Rsync stderr: ssh: connect to host 192.168.190.29 port 22: Connection refused
-rsync: connection unexpectedly closed (0 bytes received so far) [Receiver]
-rsync error: unexplained error (code 255) at io.c(232) [Receiver=3.2.7]
-
-[2025-06-11 22:40:01] Iniciando sincronización desde Raspberry Pi
-[2025-06-11 22:40:01] Comando rsync a ejecutar: rsync -e ssh -i /root/.ssh/id_rsa -o StrictHostKeyChecking=no -avz pi@192.168.190.29:/home/pi/Documents/rain-gauge-project/DTA /data
-[2025-06-11 22:41:24] 
-[2025-06-11 22:41:24] Rsync stderr: ssh: connect to host 192.168.190.29 port 22: Connection refused
-rsync: connection unexpectedly closed (0 bytes received so far) [Receiver]
-rsync error: unexplained error (code 255) at io.c(232) [Receiver=3.2.7]
-
-[2025-06-11 22:45:01] Iniciando sincronización desde Raspberry Pi
-[2025-06-11 22:45:01] Comando rsync a ejecutar: rsync -e ssh -i /root/.ssh/id_rsa -o StrictHostKeyChecking=no -avz pi@192.168.190.29:/home/pi/Documents/rain-gauge-project/DTA /data
-[2025-06-11 22:46:24] 
-[2025-06-11 22:46:24] Rsync stderr: ssh: connect to host 192.168.190.29 port 22: Connection refused
-rsync: connection unexpectedly closed (0 bytes received so far) [Receiver]
-rsync error: unexplained error (code 255) at io.c(232) [Receiver=3.2.7]
-
-[2025-06-11 22:50:01] Iniciando sincronización desde Raspberry Pi
-[2025-06-11 22:50:01] Comando rsync a ejecutar: rsync -e ssh -i /root/.ssh/id_rsa -o StrictHostKeyChecking=no -avz pi@192.168.190.29:/home/pi/Documents/rain-gauge-project/DTA /data
-[2025-06-11 22:51:25] 
-[2025-06-11 22:51:25] Rsync stderr: ssh: connect to host 192.168.190.29 port 22: Connection refused
-rsync: connection unexpectedly closed (0 bytes received so far) [Receiver]
-rsync error: unexplained error (code 255) at io.c(232) [Receiver=3.2.7]
-
-[2025-06-11 22:55:01] Iniciando sincronización desde Raspberry Pi
-[2025-06-11 22:55:01] Comando rsync a ejecutar: rsync -e ssh -i /root/.ssh/id_rsa -o StrictHostKeyChecking=no -avz pi@192.168.190.29:/home/pi/Documents/rain-gauge-project/DTA /data
-[2025-06-11 22:56:25] 
-[2025-06-11 22:56:25] Rsync stderr: ssh: connect to host 192.168.190.29 port 22: Connection refused
-rsync: connection unexpectedly closed (0 bytes received so far) [Receiver]
-rsync error: unexplained error (code 255) at io.c(232) [Receiver=3.2.7]
-
-[2025-06-11 23:00:01] Iniciando sincronización desde Raspberry Pi
-[2025-06-11 23:00:01] Comando rsync a ejecutar: rsync -e ssh -i /root/.ssh/id_rsa -o StrictHostKeyChecking=no -avz pi@192.168.190.29:/home/pi/Documents/rain-gauge-project/DTA /data
-[2025-06-11 23:01:25] 
-[2025-06-11 23:01:25] Rsync stderr: ssh: connect to host 192.168.190.29 port 22: Connection refused
-rsync: connection unexpectedly closed (0 bytes received so far) [Receiver]
-rsync error: unexplained error (code 255) at io.c(232) [Receiver=3.2.7]
-
-[2025-06-11 23:05:01] Iniciando sincronización desde Raspberry Pi
-[2025-06-11 23:05:01] Comando rsync a ejecutar: rsync -e ssh -i /root/.ssh/id_rsa -o StrictHostKeyChecking=no -avz pi@192.168.190.29:/home/pi/Documents/rain-gauge-project/DTA /data
-[2025-06-11 23:06:25] 
-[2025-06-11 23:06:25] Rsync stderr: ssh: connect to host 192.168.190.29 port 22: Connection refused
-rsync: connection unexpectedly closed (0 bytes received so far) [Receiver]
-rsync error: unexplained error (code 255) at io.c(232) [Receiver=3.2.7]
-
-[2025-06-11 23:10:01] Iniciando sincronización desde Raspberry Pi
-[2025-06-11 23:10:01] Comando rsync a ejecutar: rsync -e ssh -i /root/.ssh/id_rsa -o StrictHostKeyChecking=no -avz pi@192.168.190.29:/home/pi/Documents/rain-gauge-project/DTA /data
-[2025-06-11 23:11:24] 
-[2025-06-11 23:11:24] Rsync stderr: ssh: connect to host 192.168.190.29 port 22: Connection refused
-rsync: connection unexpectedly closed (0 bytes received so far) [Receiver]
-rsync error: unexplained error (code 255) at io.c(232) [Receiver=3.2.7]
-
-[2025-06-11 23:15:01] Iniciando sincronización desde Raspberry Pi
-[2025-06-11 23:15:01] Comando rsync a ejecutar: rsync -e ssh -i /root/.ssh/id_rsa -o StrictHostKeyChecking=no -avz pi@192.168.190.29:/home/pi/Documents/rain-gauge-project/DTA /data
-[2025-06-11 23:16:23] 
-[2025-06-11 23:16:23] Rsync stderr: ssh: connect to host 192.168.190.29 port 22: Connection refused
-rsync: connection unexpectedly closed (0 bytes received so far) [Receiver]
-rsync error: unexplained error (code 255) at io.c(232) [Receiver=3.2.7]
-
-[2025-06-11 23:20:01] Iniciando sincronización desde Raspberry Pi
-[2025-06-11 23:20:01] Comando rsync a ejecutar: rsync -e ssh -i /root/.ssh/id_rsa -o StrictHostKeyChecking=no -avz pi@192.168.190.29:/home/pi/Documents/rain-gauge-project/DTA /data
-[2025-06-11 23:21:24] 
-[2025-06-11 23:21:24] Rsync stderr: ssh: connect to host 192.168.190.29 port 22: Connection refused
-rsync: connection unexpectedly closed (0 bytes received so far) [Receiver]
-rsync error: unexplained error (code 255) at io.c(232) [Receiver=3.2.7]
-
-[2025-06-11 23:25:01] Iniciando sincronización desde Raspberry Pi
-[2025-06-11 23:25:01] Comando rsync a ejecutar: rsync -e ssh -i /root/.ssh/id_rsa -o StrictHostKeyChecking=no -avz pi@192.168.190.29:/home/pi/Documents/rain-gauge-project/DTA /data
-[2025-06-11 23:26:24] 
-[2025-06-11 23:26:24] Rsync stderr: ssh: connect to host 192.168.190.29 port 22: Connection refused
-rsync: connection unexpectedly closed (0 bytes received so far) [Receiver]
-rsync error: unexplained error (code 255) at io.c(232) [Receiver=3.2.7]
-
-[2025-06-11 23:30:01] Iniciando sincronización desde Raspberry Pi
-[2025-06-11 23:30:01] Comando rsync a ejecutar: rsync -e ssh -i /root/.ssh/id_rsa -o StrictHostKeyChecking=no -avz pi@192.168.190.29:/home/pi/Documents/rain-gauge-project/DTA /data
-[2025-06-11 23:31:25] 
-[2025-06-11 23:31:25] Rsync stderr: ssh: connect to host 192.168.190.29 port 22: Connection refused
-rsync: connection unexpectedly closed (0 bytes received so far) [Receiver]
-rsync error: unexplained error (code 255) at io.c(232) [Receiver=3.2.7]
-
-[2025-06-11 23:35:01] Iniciando sincronización desde Raspberry Pi
-[2025-06-11 23:35:01] Comando rsync a ejecutar: rsync -e ssh -i /root/.ssh/id_rsa -o StrictHostKeyChecking=no -avz pi@192.168.190.29:/home/pi/Documents/rain-gauge-project/DTA /data
-[2025-06-11 23:36:24] 
-[2025-06-11 23:36:24] Rsync stderr: ssh: connect to host 192.168.190.29 port 22: Connection refused
-rsync: connection unexpectedly closed (0 bytes received so far) [Receiver]
-rsync error: unexplained error (code 255) at io.c(232) [Receiver=3.2.7]
-
-[2025-06-11 23:40:01] Iniciando sincronización desde Raspberry Pi
-[2025-06-11 23:40:01] Comando rsync a ejecutar: rsync -e ssh -i /root/.ssh/id_rsa -o StrictHostKeyChecking=no -avz pi@192.168.190.29:/home/pi/Documents/rain-gauge-project/DTA /data
-[2025-06-11 23:41:26] 
-[2025-06-11 23:41:26] Rsync stderr: ssh: connect to host 192.168.190.29 port 22: Connection refused
-rsync: connection unexpectedly closed (0 bytes received so far) [Receiver]
-rsync error: unexplained error (code 255) at io.c(232) [Receiver=3.2.7]
-
-[2025-06-11 23:45:01] Iniciando sincronización desde Raspberry Pi
-[2025-06-11 23:45:01] Comando rsync a ejecutar: rsync -e ssh -i /root/.ssh/id_rsa -o StrictHostKeyChecking=no -avz pi@192.168.190.29:/home/pi/Documents/rain-gauge-project/DTA /data
-[2025-06-11 23:46:25] 
-[2025-06-11 23:46:25] Rsync stderr: ssh: connect to host 192.168.190.29 port 22: Connection refused
-rsync: connection unexpectedly closed (0 bytes received so far) [Receiver]
-rsync error: unexplained error (code 255) at io.c(232) [Receiver=3.2.7]
-
-[2025-06-11 23:50:01] Iniciando sincronización desde Raspberry Pi
-[2025-06-11 23:50:01] Comando rsync a ejecutar: rsync -e ssh -i /root/.ssh/id_rsa -o StrictHostKeyChecking=no -avz pi@192.168.190.29:/home/pi/Documents/rain-gauge-project/DTA /data
-[2025-06-11 23:51:25] 
-[2025-06-11 23:51:25] Rsync stderr: ssh: connect to host 192.168.190.29 port 22: Connection refused
-rsync: connection unexpectedly closed (0 bytes received so far) [Receiver]
-rsync error: unexplained error (code 255) at io.c(232) [Receiver=3.2.7]
-
-[2025-06-11 23:55:01] Iniciando sincronización desde Raspberry Pi
-[2025-06-11 23:55:01] Comando rsync a ejecutar: rsync -e ssh -i /root/.ssh/id_rsa -o StrictHostKeyChecking=no -avz pi@192.168.190.29:/home/pi/Documents/rain-gauge-project/DTA /data
-[2025-06-11 23:56:25] 
-[2025-06-11 23:56:25] Rsync stderr: ssh: connect to host 192.168.190.29 port 22: Connection refused
-rsync: connection unexpectedly closed (0 bytes received so far) [Receiver]
-rsync error: unexplained error (code 255) at io.c(232) [Receiver=3.2.7]
-
-[2025-06-12 00:00:01] Iniciando sincronización desde Raspberry Pi
-[2025-06-12 00:00:01] Comando rsync a ejecutar: rsync -e ssh -i /root/.ssh/id_rsa -o StrictHostKeyChecking=no -avz pi@192.168.190.29:/home/pi/Documents/rain-gauge-project/DTA /data
-[2025-06-12 00:01:25] 
-[2025-06-12 00:01:25] Rsync stderr: ssh: connect to host 192.168.190.29 port 22: Connection refused
-rsync: connection unexpectedly closed (0 bytes received so far) [Receiver]
-rsync error: unexplained error (code 255) at io.c(232) [Receiver=3.2.7]
-
-[2025-06-12 00:05:01] Iniciando sincronización desde Raspberry Pi
-[2025-06-12 00:05:01] Comando rsync a ejecutar: rsync -e ssh -i /root/.ssh/id_rsa -o StrictHostKeyChecking=no -avz pi@192.168.190.29:/home/pi/Documents/rain-gauge-project/DTA /data
-[2025-06-12 00:06:26] 
-[2025-06-12 00:06:26] Rsync stderr: ssh: connect to host 192.168.190.29 port 22: Connection refused
-rsync: connection unexpectedly closed (0 bytes received so far) [Receiver]
-rsync error: unexplained error (code 255) at io.c(232) [Receiver=3.2.7]
-
-[2025-06-12 00:10:01] Iniciando sincronización desde Raspberry Pi
-[2025-06-12 00:10:01] Comando rsync a ejecutar: rsync -e ssh -i /root/.ssh/id_rsa -o StrictHostKeyChecking=no -avz pi@192.168.190.29:/home/pi/Documents/rain-gauge-project/DTA /data
-[2025-06-12 00:11:26] 
-[2025-06-12 00:11:26] Rsync stderr: ssh: connect to host 192.168.190.29 port 22: Connection refused
-rsync: connection unexpectedly closed (0 bytes received so far) [Receiver]
-rsync error: unexplained error (code 255) at io.c(232) [Receiver=3.2.7]
-
-[2025-06-12 00:15:01] Iniciando sincronización desde Raspberry Pi
-[2025-06-12 00:15:01] Comando rsync a ejecutar: rsync -e ssh -i /root/.ssh/id_rsa -o StrictHostKeyChecking=no -avz pi@192.168.190.29:/home/pi/Documents/rain-gauge-project/DTA /data
-[2025-06-12 00:16:25] 
-[2025-06-12 00:16:25] Rsync stderr: ssh: connect to host 192.168.190.29 port 22: Connection refused
-rsync: connection unexpectedly closed (0 bytes received so far) [Receiver]
-rsync error: unexplained error (code 255) at io.c(232) [Receiver=3.2.7]
-
-[2025-06-12 00:20:01] Iniciando sincronización desde Raspberry Pi
-[2025-06-12 00:20:01] Comando rsync a ejecutar: rsync -e ssh -i /root/.ssh/id_rsa -o StrictHostKeyChecking=no -avz pi@192.168.190.29:/home/pi/Documents/rain-gauge-project/DTA /data
-[2025-06-12 00:21:27] 
-[2025-06-12 00:21:27] Rsync stderr: ssh: connect to host 192.168.190.29 port 22: Connection refused
-rsync: connection unexpectedly closed (0 bytes received so far) [Receiver]
-rsync error: unexplained error (code 255) at io.c(232) [Receiver=3.2.7]
-
-[2025-06-12 00:25:01] Iniciando sincronización desde Raspberry Pi
-[2025-06-12 00:25:01] Comando rsync a ejecutar: rsync -e ssh -i /root/.ssh/id_rsa -o StrictHostKeyChecking=no -avz pi@192.168.190.29:/home/pi/Documents/rain-gauge-project/DTA /data
-[2025-06-12 00:26:27] 
-[2025-06-12 00:26:27] Rsync stderr: ssh: connect to host 192.168.190.29 port 22: Connection refused
-rsync: connection unexpectedly closed (0 bytes received so far) [Receiver]
-rsync error: unexplained error (code 255) at io.c(232) [Receiver=3.2.7]
-
-[2025-06-12 00:30:01] Iniciando sincronización desde Raspberry Pi
-[2025-06-12 00:30:01] Comando rsync a ejecutar: rsync -e ssh -i /root/.ssh/id_rsa -o StrictHostKeyChecking=no -avz pi@192.168.190.29:/home/pi/Documents/rain-gauge-project/DTA /data
-[2025-06-12 00:31:25] 
-[2025-06-12 00:31:25] Rsync stderr: ssh: connect to host 192.168.190.29 port 22: Connection refused
-rsync: connection unexpectedly closed (0 bytes received so far) [Receiver]
-rsync error: unexplained error (code 255) at io.c(232) [Receiver=3.2.7]
-
-[2025-06-12 00:35:01] Iniciando sincronización desde Raspberry Pi
-[2025-06-12 00:35:01] Comando rsync a ejecutar: rsync -e ssh -i /root/.ssh/id_rsa -o StrictHostKeyChecking=no -avz pi@192.168.190.29:/home/pi/Documents/rain-gauge-project/DTA /data
-[2025-06-12 00:36:25] 
-[2025-06-12 00:36:25] Rsync stderr: ssh: connect to host 192.168.190.29 port 22: Connection refused
-rsync: connection unexpectedly closed (0 bytes received so far) [Receiver]
-rsync error: unexplained error (code 255) at io.c(232) [Receiver=3.2.7]
-
-[2025-06-12 00:40:01] Iniciando sincronización desde Raspberry Pi
-[2025-06-12 00:40:01] Comando rsync a ejecutar: rsync -e ssh -i /root/.ssh/id_rsa -o StrictHostKeyChecking=no -avz pi@192.168.190.29:/home/pi/Documents/rain-gauge-project/DTA /data
-[2025-06-12 00:41:26] 
-[2025-06-12 00:41:26] Rsync stderr: ssh: connect to host 192.168.190.29 port 22: Connection refused
-rsync: connection unexpectedly closed (0 bytes received so far) [Receiver]
-rsync error: unexplained error (code 255) at io.c(232) [Receiver=3.2.7]
-
-[2025-06-12 00:45:01] Iniciando sincronización desde Raspberry Pi
-[2025-06-12 00:45:01] Comando rsync a ejecutar: rsync -e ssh -i /root/.ssh/id_rsa -o StrictHostKeyChecking=no -avz pi@192.168.190.29:/home/pi/Documents/rain-gauge-project/DTA /data
-[2025-06-12 00:46:26] 
-[2025-06-12 00:46:26] Rsync stderr: ssh: connect to host 192.168.190.29 port 22: Connection refused
-rsync: connection unexpectedly closed (0 bytes received so far) [Receiver]
-rsync error: unexplained error (code 255) at io.c(232) [Receiver=3.2.7]
-
-[2025-06-12 00:50:01] Iniciando sincronización desde Raspberry Pi
-[2025-06-12 00:50:01] Comando rsync a ejecutar: rsync -e ssh -i /root/.ssh/id_rsa -o StrictHostKeyChecking=no -avz pi@192.168.190.29:/home/pi/Documents/rain-gauge-project/DTA /data
-[2025-06-12 00:51:25] 
-[2025-06-12 00:51:25] Rsync stderr: ssh: connect to host 192.168.190.29 port 22: Connection refused
-rsync: connection unexpectedly closed (0 bytes received so far) [Receiver]
-rsync error: unexplained error (code 255) at io.c(232) [Receiver=3.2.7]
-
-[2025-06-12 00:55:01] Iniciando sincronización desde Raspberry Pi
-[2025-06-12 00:55:01] Comando rsync a ejecutar: rsync -e ssh -i /root/.ssh/id_rsa -o StrictHostKeyChecking=no -avz pi@192.168.190.29:/home/pi/Documents/rain-gauge-project/DTA /data
-[2025-06-12 00:56:25] 
-[2025-06-12 00:56:25] Rsync stderr: ssh: connect to host 192.168.190.29 port 22: Connection refused
-rsync: connection unexpectedly closed (0 bytes received so far) [Receiver]
-rsync error: unexplained error (code 255) at io.c(232) [Receiver=3.2.7]
-
-[2025-06-12 01:00:01] Iniciando sincronización desde Raspberry Pi
-[2025-06-12 01:00:01] Comando rsync a ejecutar: rsync -e ssh -i /root/.ssh/id_rsa -o StrictHostKeyChecking=no -avz pi@192.168.190.29:/home/pi/Documents/rain-gauge-project/DTA /data
-[2025-06-12 01:01:26] 
-[2025-06-12 01:01:26] Rsync stderr: ssh: connect to host 192.168.190.29 port 22: Connection refused
-rsync: connection unexpectedly closed (0 bytes received so far) [Receiver]
-rsync error: unexplained error (code 255) at io.c(232) [Receiver=3.2.7]
-
-[2025-06-12 01:05:01] Iniciando sincronización desde Raspberry Pi
-[2025-06-12 01:05:01] Comando rsync a ejecutar: rsync -e ssh -i /root/.ssh/id_rsa -o StrictHostKeyChecking=no -avz pi@192.168.190.29:/home/pi/Documents/rain-gauge-project/DTA /data
-[2025-06-12 01:06:24] 
-[2025-06-12 01:06:24] Rsync stderr: ssh: connect to host 192.168.190.29 port 22: Connection refused
-rsync: connection unexpectedly closed (0 bytes received so far) [Receiver]
-rsync error: unexplained error (code 255) at io.c(232) [Receiver=3.2.7]
-
-[2025-06-12 01:10:01] Iniciando sincronización desde Raspberry Pi
-[2025-06-12 01:10:01] Comando rsync a ejecutar: rsync -e ssh -i /root/.ssh/id_rsa -o StrictHostKeyChecking=no -avz pi@192.168.190.29:/home/pi/Documents/rain-gauge-project/DTA /data
-[2025-06-12 01:11:23] 
-[2025-06-12 01:11:23] Rsync stderr: ssh: connect to host 192.168.190.29 port 22: Connection refused
-rsync: connection unexpectedly closed (0 bytes received so far) [Receiver]
-rsync error: unexplained error (code 255) at io.c(232) [Receiver=3.2.7]
-
-[2025-06-12 01:15:01] Iniciando sincronización desde Raspberry Pi
-[2025-06-12 01:15:01] Comando rsync a ejecutar: rsync -e ssh -i /root/.ssh/id_rsa -o StrictHostKeyChecking=no -avz pi@192.168.190.29:/home/pi/Documents/rain-gauge-project/DTA /data
-[2025-06-12 01:16:24] 
-[2025-06-12 01:16:24] Rsync stderr: ssh: connect to host 192.168.190.29 port 22: Connection refused
-rsync: connection unexpectedly closed (0 bytes received so far) [Receiver]
-rsync error: unexplained error (code 255) at io.c(232) [Receiver=3.2.7]
-
-[2025-06-12 01:20:01] Iniciando sincronización desde Raspberry Pi
-[2025-06-12 01:20:01] Comando rsync a ejecutar: rsync -e ssh -i /root/.ssh/id_rsa -o StrictHostKeyChecking=no -avz pi@192.168.190.29:/home/pi/Documents/rain-gauge-project/DTA /data
-[2025-06-12 01:21:24] 
-[2025-06-12 01:21:24] Rsync stderr: ssh: connect to host 192.168.190.29 port 22: Connection refused
-rsync: connection unexpectedly closed (0 bytes received so far) [Receiver]
-rsync error: unexplained error (code 255) at io.c(232) [Receiver=3.2.7]
-
-[2025-06-12 01:25:01] Iniciando sincronización desde Raspberry Pi
-[2025-06-12 01:25:01] Comando rsync a ejecutar: rsync -e ssh -i /root/.ssh/id_rsa -o StrictHostKeyChecking=no -avz pi@192.168.190.29:/home/pi/Documents/rain-gauge-project/DTA /data
-[2025-06-12 01:26:24] 
-[2025-06-12 01:26:24] Rsync stderr: ssh: connect to host 192.168.190.29 port 22: Connection refused
-rsync: connection unexpectedly closed (0 bytes received so far) [Receiver]
-rsync error: unexplained error (code 255) at io.c(232) [Receiver=3.2.7]
-
-[2025-06-12 01:30:01] Iniciando sincronización desde Raspberry Pi
-[2025-06-12 01:30:01] Comando rsync a ejecutar: rsync -e ssh -i /root/.ssh/id_rsa -o StrictHostKeyChecking=no -avz pi@192.168.190.29:/home/pi/Documents/rain-gauge-project/DTA /data
-[2025-06-12 01:31:24] 
-[2025-06-12 01:31:24] Rsync stderr: ssh: connect to host 192.168.190.29 port 22: Connection refused
-rsync: connection unexpectedly closed (0 bytes received so far) [Receiver]
-rsync error: unexplained error (code 255) at io.c(232) [Receiver=3.2.7]
-
-[2025-06-12 01:35:01] Iniciando sincronización desde Raspberry Pi
-[2025-06-12 01:35:01] Comando rsync a ejecutar: rsync -e ssh -i /root/.ssh/id_rsa -o StrictHostKeyChecking=no -avz pi@192.168.190.29:/home/pi/Documents/rain-gauge-project/DTA /data
-[2025-06-12 01:36:25] 
-[2025-06-12 01:36:25] Rsync stderr: ssh: connect to host 192.168.190.29 port 22: Connection refused
-rsync: connection unexpectedly closed (0 bytes received so far) [Receiver]
-rsync error: unexplained error (code 255) at io.c(232) [Receiver=3.2.7]
-
-[2025-06-12 01:40:01] Iniciando sincronización desde Raspberry Pi
-[2025-06-12 01:40:01] Comando rsync a ejecutar: rsync -e ssh -i /root/.ssh/id_rsa -o StrictHostKeyChecking=no -avz pi@192.168.190.29:/home/pi/Documents/rain-gauge-project/DTA /data
-[2025-06-12 01:41:25] 
-[2025-06-12 01:41:25] Rsync stderr: ssh: connect to host 192.168.190.29 port 22: Connection refused
-rsync: connection unexpectedly closed (0 bytes received so far) [Receiver]
-rsync error: unexplained error (code 255) at io.c(232) [Receiver=3.2.7]
-
-[2025-06-12 01:45:01] Iniciando sincronización desde Raspberry Pi
-[2025-06-12 01:45:01] Comando rsync a ejecutar: rsync -e ssh -i /root/.ssh/id_rsa -o StrictHostKeyChecking=no -avz pi@192.168.190.29:/home/pi/Documents/rain-gauge-project/DTA /data
-[2025-06-12 01:46:24] 
-[2025-06-12 01:46:24] Rsync stderr: ssh: connect to host 192.168.190.29 port 22: Connection refused
-rsync: connection unexpectedly closed (0 bytes received so far) [Receiver]
-rsync error: unexplained error (code 255) at io.c(232) [Receiver=3.2.7]
-
-[2025-06-12 01:50:01] Iniciando sincronización desde Raspberry Pi
-[2025-06-12 01:50:01] Comando rsync a ejecutar: rsync -e ssh -i /root/.ssh/id_rsa -o StrictHostKeyChecking=no -avz pi@192.168.190.29:/home/pi/Documents/rain-gauge-project/DTA /data
-[2025-06-12 01:51:31] 
-[2025-06-12 01:51:31] Rsync stderr: ssh: connect to host 192.168.190.29 port 22: Connection refused
-rsync: connection unexpectedly closed (0 bytes received so far) [Receiver]
-rsync error: unexplained error (code 255) at io.c(232) [Receiver=3.2.7]
-
-[2025-06-12 01:55:01] Iniciando sincronización desde Raspberry Pi
-[2025-06-12 01:55:01] Comando rsync a ejecutar: rsync -e ssh -i /root/.ssh/id_rsa -o StrictHostKeyChecking=no -avz pi@192.168.190.29:/home/pi/Documents/rain-gauge-project/DTA /data
-[2025-06-12 01:56:24] 
-[2025-06-12 01:56:24] Rsync stderr: ssh: connect to host 192.168.190.29 port 22: Connection refused
-rsync: connection unexpectedly closed (0 bytes received so far) [Receiver]
-rsync error: unexplained error (code 255) at io.c(232) [Receiver=3.2.7]
-
-[2025-06-12 02:09:02] Iniciando sincronización desde Raspberry Pi
-[2025-06-12 02:09:02] Comando rsync a ejecutar: rsync -e ssh -i /root/.ssh/id_rsa -o StrictHostKeyChecking=no -avz pi@192.168.190.29:/home/pi/Documents/rain-gauge-project/DTA /data
-[2025-06-12 02:09:04] Iniciando sincronización desde Raspberry Pi
-[2025-06-12 02:09:04] Comando rsync a ejecutar: rsync -e ssh -i /root/.ssh/id_rsa -o StrictHostKeyChecking=no -avz pi@192.168.190.29:/home/pi/Documents/rain-gauge-project/DTA /data
-[2025-06-12 02:10:01] Iniciando sincronización desde Raspberry Pi
-[2025-06-12 02:10:01] Comando rsync a ejecutar: rsync -e ssh -i /root/.ssh/id_rsa -o StrictHostKeyChecking=no -avz pi@192.168.190.29:/home/pi/Documents/rain-gauge-project/DTA /data
-[2025-06-12 02:10:24] 
-[2025-06-12 02:10:24] Rsync stderr: ssh: connect to host 192.168.190.29 port 22: Connection refused
-rsync: connection unexpectedly closed (0 bytes received so far) [Receiver]
-rsync error: unexplained error (code 255) at io.c(232) [Receiver=3.2.7]
-
-[2025-06-12 02:10:25] 
-[2025-06-12 02:10:25] Rsync stderr: ssh: connect to host 192.168.190.29 port 22: Connection refused
-rsync: connection unexpectedly closed (0 bytes received so far) [Receiver]
-rsync error: unexplained error (code 255) at io.c(232) [Receiver=3.2.7]
-
-[2025-06-12 02:11:20] 
-[2025-06-12 02:11:20] Rsync stderr: ssh: connect to host 192.168.190.29 port 22: Connection refused
-rsync: connection unexpectedly closed (0 bytes received so far) [Receiver]
-rsync error: unexplained error (code 255) at io.c(232) [Receiver=3.2.7]
-
-[2025-06-12 02:15:01] Iniciando sincronización desde Raspberry Pi
-[2025-06-12 02:15:01] Comando rsync a ejecutar: rsync -e ssh -i /root/.ssh/id_rsa -o StrictHostKeyChecking=no -avz pi@192.168.190.29:/home/pi/Documents/rain-gauge-project/DTA /data
-[2025-06-12 02:16:18] 
-[2025-06-12 02:16:18] Rsync stderr: ssh: connect to host 192.168.190.29 port 22: Connection refused
-rsync: connection unexpectedly closed (0 bytes received so far) [Receiver]
-rsync error: unexplained error (code 255) at io.c(232) [Receiver=3.2.7]
-
-[2025-06-12 02:20:01] Iniciando sincronización desde Raspberry Pi
-[2025-06-12 02:20:01] Comando rsync a ejecutar: rsync -e ssh -i /root/.ssh/id_rsa -o StrictHostKeyChecking=no -avz pi@192.168.190.29:/home/pi/Documents/rain-gauge-project/DTA /data
-[2025-06-12 02:21:18] 
-[2025-06-12 02:21:18] Rsync stderr: ssh: connect to host 192.168.190.29 port 22: Connection refused
-rsync: connection unexpectedly closed (0 bytes received so far) [Receiver]
-rsync error: unexplained error (code 255) at io.c(232) [Receiver=3.2.7]
-
-[2025-06-12 02:25:01] Iniciando sincronización desde Raspberry Pi
-[2025-06-12 02:25:01] Comando rsync a ejecutar: rsync -e ssh -i /root/.ssh/id_rsa -o StrictHostKeyChecking=no -avz pi@192.168.190.29:/home/pi/Documents/rain-gauge-project/DTA /data
-[2025-06-12 02:26:18] 
-[2025-06-12 02:26:18] Rsync stderr: ssh: connect to host 192.168.190.29 port 22: Connection refused
-rsync: connection unexpectedly closed (0 bytes received so far) [Receiver]
-rsync error: unexplained error (code 255) at io.c(232) [Receiver=3.2.7]
-
-[2025-06-12 02:30:01] Iniciando sincronización desde Raspberry Pi
-[2025-06-12 02:30:01] Comando rsync a ejecutar: rsync -e ssh -i /root/.ssh/id_rsa -o StrictHostKeyChecking=no -avz pi@192.168.190.29:/home/pi/Documents/rain-gauge-project/DTA /data
-[2025-06-12 02:31:19] 
-[2025-06-12 02:31:19] Rsync stderr: ssh: connect to host 192.168.190.29 port 22: Connection refused
-rsync: connection unexpectedly closed (0 bytes received so far) [Receiver]
-rsync error: unexplained error (code 255) at io.c(232) [Receiver=3.2.7]
-
-[2025-06-12 02:35:01] Iniciando sincronización desde Raspberry Pi
-[2025-06-12 02:35:01] Comando rsync a ejecutar: rsync -e ssh -i /root/.ssh/id_rsa -o StrictHostKeyChecking=no -avz pi@192.168.190.29:/home/pi/Documents/rain-gauge-project/DTA /data
-[2025-06-12 02:36:18] 
-[2025-06-12 02:36:18] Rsync stderr: ssh: connect to host 192.168.190.29 port 22: Connection refused
-rsync: connection unexpectedly closed (0 bytes received so far) [Receiver]
-rsync error: unexplained error (code 255) at io.c(232) [Receiver=3.2.7]
-
-[2025-06-12 02:40:01] Iniciando sincronización desde Raspberry Pi
-[2025-06-12 02:40:01] Comando rsync a ejecutar: rsync -e ssh -i /root/.ssh/id_rsa -o StrictHostKeyChecking=no -avz pi@192.168.190.29:/home/pi/Documents/rain-gauge-project/DTA /data
-[2025-06-12 02:41:18] 
-[2025-06-12 02:41:18] Rsync stderr: ssh: connect to host 192.168.190.29 port 22: Connection refused
-rsync: connection unexpectedly closed (0 bytes received so far) [Receiver]
-rsync error: unexplained error (code 255) at io.c(232) [Receiver=3.2.7]
-
-[2025-06-12 02:45:01] Iniciando sincronización desde Raspberry Pi
-[2025-06-12 02:45:01] Comando rsync a ejecutar: rsync -e ssh -i /root/.ssh/id_rsa -o StrictHostKeyChecking=no -avz pi@192.168.190.29:/home/pi/Documents/rain-gauge-project/DTA /data
-[2025-06-12 02:46:18] 
-[2025-06-12 02:46:18] Rsync stderr: ssh: connect to host 192.168.190.29 port 22: Connection refused
-rsync: connection unexpectedly closed (0 bytes received so far) [Receiver]
-rsync error: unexplained error (code 255) at io.c(232) [Receiver=3.2.7]
-
-[2025-06-12 02:50:01] Iniciando sincronización desde Raspberry Pi
-[2025-06-12 02:50:01] Comando rsync a ejecutar: rsync -e ssh -i /root/.ssh/id_rsa -o StrictHostKeyChecking=no -avz pi@192.168.190.29:/home/pi/Documents/rain-gauge-project/DTA /data
-[2025-06-12 02:51:22] 
-[2025-06-12 02:51:22] Rsync stderr: ssh: connect to host 192.168.190.29 port 22: Connection refused
-rsync: connection unexpectedly closed (0 bytes received so far) [Receiver]
-rsync error: unexplained error (code 255) at io.c(232) [Receiver=3.2.7]
-
-[2025-06-12 02:55:01] Iniciando sincronización desde Raspberry Pi
-[2025-06-12 02:55:01] Comando rsync a ejecutar: rsync -e ssh -i /root/.ssh/id_rsa -o StrictHostKeyChecking=no -avz pi@192.168.190.29:/home/pi/Documents/rain-gauge-project/DTA /data
-[2025-06-12 02:56:18] 
-[2025-06-12 02:56:18] Rsync stderr: ssh: connect to host 192.168.190.29 port 22: Connection refused
-rsync: connection unexpectedly closed (0 bytes received so far) [Receiver]
-rsync error: unexplained error (code 255) at io.c(232) [Receiver=3.2.7]
-
-[2025-06-12 03:00:01] Iniciando sincronización desde Raspberry Pi
-[2025-06-12 03:00:01] Comando rsync a ejecutar: rsync -e ssh -i /root/.ssh/id_rsa -o StrictHostKeyChecking=no -avz pi@192.168.190.29:/home/pi/Documents/rain-gauge-project/DTA /data
-[2025-06-12 03:01:18] 
-[2025-06-12 03:01:18] Rsync stderr: ssh: connect to host 192.168.190.29 port 22: Connection refused
-rsync: connection unexpectedly closed (0 bytes received so far) [Receiver]
-rsync error: unexplained error (code 255) at io.c(232) [Receiver=3.2.7]
-
-[2025-06-12 03:05:01] Iniciando sincronización desde Raspberry Pi
-[2025-06-12 03:05:01] Comando rsync a ejecutar: rsync -e ssh -i /root/.ssh/id_rsa -o StrictHostKeyChecking=no -avz pi@192.168.190.29:/home/pi/Documents/rain-gauge-project/DTA /data
-[2025-06-12 03:06:18] 
-[2025-06-12 03:06:18] Rsync stderr: ssh: connect to host 192.168.190.29 port 22: Connection refused
-rsync: connection unexpectedly closed (0 bytes received so far) [Receiver]
-rsync error: unexplained error (code 255) at io.c(232) [Receiver=3.2.7]
-
-[2025-06-12 03:10:01] Iniciando sincronización desde Raspberry Pi
-[2025-06-12 03:10:01] Comando rsync a ejecutar: rsync -e ssh -i /root/.ssh/id_rsa -o StrictHostKeyChecking=no -avz pi@192.168.190.29:/home/pi/Documents/rain-gauge-project/DTA /data
-[2025-06-12 03:11:18] 
-[2025-06-12 03:11:18] Rsync stderr: ssh: connect to host 192.168.190.29 port 22: Connection refused
-rsync: connection unexpectedly closed (0 bytes received so far) [Receiver]
-rsync error: unexplained error (code 255) at io.c(232) [Receiver=3.2.7]
-
-[2025-06-12 03:15:01] Iniciando sincronización desde Raspberry Pi
-[2025-06-12 03:15:01] Comando rsync a ejecutar: rsync -e ssh -i /root/.ssh/id_rsa -o StrictHostKeyChecking=no -avz pi@192.168.190.29:/home/pi/Documents/rain-gauge-project/DTA /data
-[2025-06-12 03:16:18] 
-[2025-06-12 03:16:18] Rsync stderr: ssh: connect to host 192.168.190.29 port 22: Connection refused
-rsync: connection unexpectedly closed (0 bytes received so far) [Receiver]
-rsync error: unexplained error (code 255) at io.c(232) [Receiver=3.2.7]
-
-[2025-06-12 03:20:01] Iniciando sincronización desde Raspberry Pi
-[2025-06-12 03:20:01] Comando rsync a ejecutar: rsync -e ssh -i /root/.ssh/id_rsa -o StrictHostKeyChecking=no -avz pi@192.168.190.29:/home/pi/Documents/rain-gauge-project/DTA /data
-[2025-06-12 03:21:18] 
-[2025-06-12 03:21:18] Rsync stderr: ssh: connect to host 192.168.190.29 port 22: Connection refused
-rsync: connection unexpectedly closed (0 bytes received so far) [Receiver]
-rsync error: unexplained error (code 255) at io.c(232) [Receiver=3.2.7]
-
-[2025-06-12 03:25:02] Iniciando sincronización desde Raspberry Pi
-[2025-06-12 03:25:02] Comando rsync a ejecutar: rsync -e ssh -i /root/.ssh/id_rsa -o StrictHostKeyChecking=no -avz pi@192.168.190.29:/home/pi/Documents/rain-gauge-project/DTA /data
-[2025-06-12 03:26:20] 
-[2025-06-12 03:26:20] Rsync stderr: ssh: connect to host 192.168.190.29 port 22: Connection refused
-rsync: connection unexpectedly closed (0 bytes received so far) [Receiver]
-rsync error: unexplained error (code 255) at io.c(232) [Receiver=3.2.7]
-
-[2025-06-12 03:30:01] Iniciando sincronización desde Raspberry Pi
-[2025-06-12 03:30:01] Comando rsync a ejecutar: rsync -e ssh -i /root/.ssh/id_rsa -o StrictHostKeyChecking=no -avz pi@192.168.190.29:/home/pi/Documents/rain-gauge-project/DTA /data
-[2025-06-12 03:31:22] 
-[2025-06-12 03:31:22] Rsync stderr: ssh: connect to host 192.168.190.29 port 22: Connection refused
-rsync: connection unexpectedly closed (0 bytes received so far) [Receiver]
-rsync error: unexplained error (code 255) at io.c(232) [Receiver=3.2.7]
-
-[2025-06-12 03:35:02] Iniciando sincronización desde Raspberry Pi
-[2025-06-12 03:35:02] Comando rsync a ejecutar: rsync -e ssh -i /root/.ssh/id_rsa -o StrictHostKeyChecking=no -avz pi@192.168.190.29:/home/pi/Documents/rain-gauge-project/DTA /data
-[2025-06-12 03:36:31] 
-[2025-06-12 03:36:31] Rsync stderr: ssh: connect to host 192.168.190.29 port 22: Connection refused
-rsync: connection unexpectedly closed (0 bytes received so far) [Receiver]
-rsync error: unexplained error (code 255) at io.c(232) [Receiver=3.2.7]
-
-[2025-06-12 03:40:01] Iniciando sincronización desde Raspberry Pi
-[2025-06-12 03:40:01] Comando rsync a ejecutar: rsync -e ssh -i /root/.ssh/id_rsa -o StrictHostKeyChecking=no -avz pi@192.168.190.29:/home/pi/Documents/rain-gauge-project/DTA /data
-[2025-06-12 03:41:26] 
-[2025-06-12 03:41:26] Rsync stderr: ssh: connect to host 192.168.190.29 port 22: Connection refused
-rsync: connection unexpectedly closed (0 bytes received so far) [Receiver]
-rsync error: unexplained error (code 255) at io.c(232) [Receiver=3.2.7]
-
-[2025-06-12 03:45:01] Iniciando sincronización desde Raspberry Pi
-[2025-06-12 03:45:01] Comando rsync a ejecutar: rsync -e ssh -i /root/.ssh/id_rsa -o StrictHostKeyChecking=no -avz pi@192.168.190.29:/home/pi/Documents/rain-gauge-project/DTA /data
-[2025-06-12 03:46:27] 
-[2025-06-12 03:46:27] Rsync stderr: ssh: connect to host 192.168.190.29 port 22: Connection refused
-rsync: connection unexpectedly closed (0 bytes received so far) [Receiver]
-rsync error: unexplained error (code 255) at io.c(232) [Receiver=3.2.7]
-
-[2025-06-12 03:50:06] Iniciando sincronización desde Raspberry Pi
-[2025-06-12 03:50:06] Comando rsync a ejecutar: rsync -e ssh -i /root/.ssh/id_rsa -o StrictHostKeyChecking=no -avz pi@192.168.190.29:/home/pi/Documents/rain-gauge-project/DTA /data
-[2025-06-12 03:51:31] 
-[2025-06-12 03:51:31] Rsync stderr: ssh: connect to host 192.168.190.29 port 22: Connection refused
-rsync: connection unexpectedly closed (0 bytes received so far) [Receiver]
-rsync error: unexplained error (code 255) at io.c(232) [Receiver=3.2.7]
-
-[2025-06-12 03:55:01] Iniciando sincronización desde Raspberry Pi
-[2025-06-12 03:55:01] Comando rsync a ejecutar: rsync -e ssh -i /root/.ssh/id_rsa -o StrictHostKeyChecking=no -avz pi@192.168.190.29:/home/pi/Documents/rain-gauge-project/DTA /data
-[2025-06-12 03:56:27] 
-[2025-06-12 03:56:27] Rsync stderr: ssh: connect to host 192.168.190.29 port 22: Connection refused
-rsync: connection unexpectedly closed (0 bytes received so far) [Receiver]
-rsync error: unexplained error (code 255) at io.c(232) [Receiver=3.2.7]
-
-[2025-06-12 04:00:02] Iniciando sincronización desde Raspberry Pi
-[2025-06-12 04:00:02] Comando rsync a ejecutar: rsync -e ssh -i /root/.ssh/id_rsa -o StrictHostKeyChecking=no -avz pi@192.168.190.29:/home/pi/Documents/rain-gauge-project/DTA /data
-[2025-06-12 04:01:25] 
-[2025-06-12 04:01:25] Rsync stderr: ssh: connect to host 192.168.190.29 port 22: Connection refused
-rsync: connection unexpectedly closed (0 bytes received so far) [Receiver]
-rsync error: unexplained error (code 255) at io.c(232) [Receiver=3.2.7]
-
-[2025-06-12 04:05:02] Iniciando sincronización desde Raspberry Pi
-[2025-06-12 04:05:02] Comando rsync a ejecutar: rsync -e ssh -i /root/.ssh/id_rsa -o StrictHostKeyChecking=no -avz pi@192.168.190.29:/home/pi/Documents/rain-gauge-project/DTA /data
-[2025-06-12 04:06:26] 
-[2025-06-12 04:06:26] Rsync stderr: ssh: connect to host 192.168.190.29 port 22: Connection refused
-rsync: connection unexpectedly closed (0 bytes received so far) [Receiver]
-rsync error: unexplained error (code 255) at io.c(232) [Receiver=3.2.7]
-
-[2025-06-12 04:10:02] Iniciando sincronización desde Raspberry Pi
-[2025-06-12 04:10:02] Comando rsync a ejecutar: rsync -e ssh -i /root/.ssh/id_rsa -o StrictHostKeyChecking=no -avz pi@192.168.190.29:/home/pi/Documents/rain-gauge-project/DTA /data
-[2025-06-12 04:12:16] 
-[2025-06-12 04:12:16] Rsync stderr: ssh: connect to host 192.168.190.29 port 22: Connection timed out
-rsync: connection unexpectedly closed (0 bytes received so far) [Receiver]
-rsync error: unexplained error (code 255) at io.c(232) [Receiver=3.2.7]
-
-[2025-06-12 04:15:02] Iniciando sincronización desde Raspberry Pi
-[2025-06-12 04:15:02] Comando rsync a ejecutar: rsync -e ssh -i /root/.ssh/id_rsa -o StrictHostKeyChecking=no -avz pi@192.168.190.29:/home/pi/Documents/rain-gauge-project/DTA /data
-[2025-06-12 04:16:41] 
-[2025-06-12 04:16:41] Rsync stderr: ssh: connect to host 192.168.190.29 port 22: Connection refused
-rsync: connection unexpectedly closed (0 bytes received so far) [Receiver]
-rsync error: unexplained error (code 255) at io.c(232) [Receiver=3.2.7]
-
-[2025-06-12 04:20:01] Iniciando sincronización desde Raspberry Pi
-[2025-06-12 04:20:01] Comando rsync a ejecutar: rsync -e ssh -i /root/.ssh/id_rsa -o StrictHostKeyChecking=no -avz pi@192.168.190.29:/home/pi/Documents/rain-gauge-project/DTA /data
-[2025-06-12 04:21:31] 
-[2025-06-12 04:21:31] Rsync stderr: ssh: connect to host 192.168.190.29 port 22: Connection refused
-rsync: connection unexpectedly closed (0 bytes received so far) [Receiver]
-rsync error: unexplained error (code 255) at io.c(232) [Receiver=3.2.7]
-
-[2025-06-12 04:25:02] Iniciando sincronización desde Raspberry Pi
-[2025-06-12 04:25:02] Comando rsync a ejecutar: rsync -e ssh -i /root/.ssh/id_rsa -o StrictHostKeyChecking=no -avz pi@192.168.190.29:/home/pi/Documents/rain-gauge-project/DTA /data
-[2025-06-12 04:26:44] 
-[2025-06-12 04:26:44] Rsync stderr: ssh: connect to host 192.168.190.29 port 22: Connection refused
-rsync: connection unexpectedly closed (0 bytes received so far) [Receiver]
-rsync error: unexplained error (code 255) at io.c(232) [Receiver=3.2.7]
-
-[2025-06-12 04:30:01] Iniciando sincronización desde Raspberry Pi
-[2025-06-12 04:30:01] Comando rsync a ejecutar: rsync -e ssh -i /root/.ssh/id_rsa -o StrictHostKeyChecking=no -avz pi@192.168.190.29:/home/pi/Documents/rain-gauge-project/DTA /data
-[2025-06-12 04:31:33] 
-[2025-06-12 04:31:34] Rsync stderr: ssh: connect to host 192.168.190.29 port 22: Connection refused
-rsync: connection unexpectedly closed (0 bytes received so far) [Receiver]
-rsync error: unexplained error (code 255) at io.c(232) [Receiver=3.2.7]
-
-[2025-06-12 04:35:02] Iniciando sincronización desde Raspberry Pi
-[2025-06-12 04:35:02] Comando rsync a ejecutar: rsync -e ssh -i /root/.ssh/id_rsa -o StrictHostKeyChecking=no -avz pi@192.168.190.29:/home/pi/Documents/rain-gauge-project/DTA /data
-[2025-06-12 04:36:35] 
-[2025-06-12 04:36:35] Rsync stderr: ssh: connect to host 192.168.190.29 port 22: Connection refused
-rsync: connection unexpectedly closed (0 bytes received so far) [Receiver]
-rsync error: unexplained error (code 255) at io.c(232) [Receiver=3.2.7]
-
-[2025-06-12 04:40:06] Iniciando sincronización desde Raspberry Pi
-[2025-06-12 04:40:06] Comando rsync a ejecutar: rsync -e ssh -i /root/.ssh/id_rsa -o StrictHostKeyChecking=no -avz pi@192.168.190.29:/home/pi/Documents/rain-gauge-project/DTA /data
-[2025-06-12 04:42:22] 
-[2025-06-12 04:42:22] Rsync stderr: ssh: connect to host 192.168.190.29 port 22: Connection timed out
-rsync: connection unexpectedly closed (0 bytes received so far) [Receiver]
-rsync error: unexplained error (code 255) at io.c(232) [Receiver=3.2.7]
-
-[2025-06-12 04:45:01] Iniciando sincronización desde Raspberry Pi
-[2025-06-12 04:45:02] Comando rsync a ejecutar: rsync -e ssh -i /root/.ssh/id_rsa -o StrictHostKeyChecking=no -avz pi@192.168.190.29:/home/pi/Documents/rain-gauge-project/DTA /data
-[2025-06-12 04:46:40] 
-[2025-06-12 04:46:40] Rsync stderr: ssh: connect to host 192.168.190.29 port 22: Connection refused
-rsync: connection unexpectedly closed (0 bytes received so far) [Receiver]
-rsync error: unexplained error (code 255) at io.c(232) [Receiver=3.2.7]
-
-[2025-06-12 04:50:04] Iniciando sincronización desde Raspberry Pi
-[2025-06-12 04:50:04] Comando rsync a ejecutar: rsync -e ssh -i /root/.ssh/id_rsa -o StrictHostKeyChecking=no -avz pi@192.168.190.29:/home/pi/Documents/rain-gauge-project/DTA /data
-[2025-06-12 04:51:45] 
-[2025-06-12 04:51:45] Rsync stderr: ssh: connect to host 192.168.190.29 port 22: Connection refused
-rsync: connection unexpectedly closed (0 bytes received so far) [Receiver]
-rsync error: unexplained error (code 255) at io.c(232) [Receiver=3.2.7]
-
-[2025-06-12 04:55:02] Iniciando sincronización desde Raspberry Pi
-[2025-06-12 04:55:02] Comando rsync a ejecutar: rsync -e ssh -i /root/.ssh/id_rsa -o StrictHostKeyChecking=no -avz pi@192.168.190.29:/home/pi/Documents/rain-gauge-project/DTA /data
-[2025-06-12 04:56:29] 
-[2025-06-12 04:56:29] Rsync stderr: ssh: connect to host 192.168.190.29 port 22: Connection refused
-rsync: connection unexpectedly closed (0 bytes received so far) [Receiver]
-rsync error: unexplained error (code 255) at io.c(232) [Receiver=3.2.7]
-
-[2025-06-12 05:00:01] Iniciando sincronización desde Raspberry Pi
-[2025-06-12 05:00:01] Comando rsync a ejecutar: rsync -e ssh -i /root/.ssh/id_rsa -o StrictHostKeyChecking=no -avz pi@192.168.190.29:/home/pi/Documents/rain-gauge-project/DTA /data
-[2025-06-12 05:01:24] 
-[2025-06-12 05:01:24] Rsync stderr: ssh: connect to host 192.168.190.29 port 22: Connection refused
-rsync: connection unexpectedly closed (0 bytes received so far) [Receiver]
-rsync error: unexplained error (code 255) at io.c(232) [Receiver=3.2.7]
-
-[2025-06-12 05:05:01] Iniciando sincronización desde Raspberry Pi
-[2025-06-12 05:05:01] Comando rsync a ejecutar: rsync -e ssh -i /root/.ssh/id_rsa -o StrictHostKeyChecking=no -avz pi@192.168.190.29:/home/pi/Documents/rain-gauge-project/DTA /data
-[2025-06-12 05:06:28] 
-[2025-06-12 05:06:28] Rsync stderr: ssh: connect to host 192.168.190.29 port 22: Connection refused
-rsync: connection unexpectedly closed (0 bytes received so far) [Receiver]
-rsync error: unexplained error (code 255) at io.c(232) [Receiver=3.2.7]
-
-[2025-06-12 05:10:05] Iniciando sincronización desde Raspberry Pi
-[2025-06-12 05:10:05] Comando rsync a ejecutar: rsync -e ssh -i /root/.ssh/id_rsa -o StrictHostKeyChecking=no -avz pi@192.168.190.29:/home/pi/Documents/rain-gauge-project/DTA /data
-[2025-06-12 05:12:20] 
-[2025-06-12 05:12:21] Rsync stderr: ssh: connect to host 192.168.190.29 port 22: Connection timed out
-rsync: connection unexpectedly closed (0 bytes received so far) [Receiver]
-rsync error: unexplained error (code 255) at io.c(232) [Receiver=3.2.7]
-
-[2025-06-12 05:15:02] Iniciando sincronización desde Raspberry Pi
-[2025-06-12 05:15:02] Comando rsync a ejecutar: rsync -e ssh -i /root/.ssh/id_rsa -o StrictHostKeyChecking=no -avz pi@192.168.190.29:/home/pi/Documents/rain-gauge-project/DTA /data
-[2025-06-12 05:16:54] 
-[2025-06-12 05:16:55] Rsync stderr: ssh: connect to host 192.168.190.29 port 22: Connection refused
-rsync: connection unexpectedly closed (0 bytes received so far) [Receiver]
-rsync error: unexplained error (code 255) at io.c(232) [Receiver=3.2.7]
-
-[2025-06-12 05:20:02] Iniciando sincronización desde Raspberry Pi
-[2025-06-12 05:20:03] Comando rsync a ejecutar: rsync -e ssh -i /root/.ssh/id_rsa -o StrictHostKeyChecking=no -avz pi@192.168.190.29:/home/pi/Documents/rain-gauge-project/DTA /data
-[2025-06-12 05:21:48] 
-[2025-06-12 05:21:48] Rsync stderr: ssh: connect to host 192.168.190.29 port 22: Connection refused
-rsync: connection unexpectedly closed (0 bytes received so far) [Receiver]
-rsync error: unexplained error (code 255) at io.c(232) [Receiver=3.2.7]
-
-[2025-06-12 05:25:01] Iniciando sincronización desde Raspberry Pi
-[2025-06-12 05:25:01] Comando rsync a ejecutar: rsync -e ssh -i /root/.ssh/id_rsa -o StrictHostKeyChecking=no -avz pi@192.168.190.29:/home/pi/Documents/rain-gauge-project/DTA /data
-[2025-06-12 05:26:51] 
-[2025-06-12 05:26:52] Rsync stderr: ssh: connect to host 192.168.190.29 port 22: Connection refused
-rsync: connection unexpectedly closed (0 bytes received so far) [Receiver]
-rsync error: unexplained error (code 255) at io.c(232) [Receiver=3.2.7]
-
-[2025-06-12 05:30:02] Iniciando sincronización desde Raspberry Pi
-[2025-06-12 05:30:02] Comando rsync a ejecutar: rsync -e ssh -i /root/.ssh/id_rsa -o StrictHostKeyChecking=no -avz pi@192.168.190.29:/home/pi/Documents/rain-gauge-project/DTA /data
-[2025-06-12 05:31:58] 
-[2025-06-12 05:31:59] Rsync stderr: ssh: connect to host 192.168.190.29 port 22: Connection refused
-rsync: connection unexpectedly closed (0 bytes received so far) [Receiver]
-rsync error: unexplained error (code 255) at io.c(232) [Receiver=3.2.7]
-
-[2025-06-12 05:35:21] Iniciando sincronización desde Raspberry Pi
-[2025-06-12 05:35:23] Comando rsync a ejecutar: rsync -e ssh -i /root/.ssh/id_rsa -o StrictHostKeyChecking=no -avz pi@192.168.190.29:/home/pi/Documents/rain-gauge-project/DTA /data
-[2025-06-12 05:35:42] 
-[2025-06-12 05:35:49] Rsync stderr: ssh: connect to host 192.168.190.29 port 22: No route to host
-rsync: connection unexpectedly closed (0 bytes received so far) [Receiver]
-rsync error: unexplained error (code 255) at io.c(232) [Receiver=3.2.7]
-
-[2025-06-12 12:50:02] Iniciando sincronización desde Raspberry Pi
-[2025-06-12 12:50:02] Comando rsync a ejecutar: rsync -e ssh -i /root/.ssh/id_rsa -o StrictHostKeyChecking=no -avz pi@192.168.190.29:/home/pi/Documents/rain-gauge-project/DTA /data
-[2025-06-12 12:50:02] receiving incremental file list
-
-sent 49 bytes  received 4,520 bytes  9,138.00 bytes/sec
-total size is 1,211,390  speedup is 265.13
-
-[2025-06-12 12:55:01] Iniciando sincronización desde Raspberry Pi
-[2025-06-12 12:55:01] Comando rsync a ejecutar: rsync -e ssh -i /root/.ssh/id_rsa -o StrictHostKeyChecking=no -avz pi@192.168.190.29:/home/pi/Documents/rain-gauge-project/DTA /data
-[2025-06-12 12:55:02] receiving incremental file list
-
-sent 49 bytes  received 4,520 bytes  3,046.00 bytes/sec
-total size is 1,211,390  speedup is 265.13
-
-[2025-06-12 13:00:01] Iniciando sincronización desde Raspberry Pi
-[2025-06-12 13:00:01] Comando rsync a ejecutar: rsync -e ssh -i /root/.ssh/id_rsa -o StrictHostKeyChecking=no -avz pi@192.168.190.29:/home/pi/Documents/rain-gauge-project/DTA /data
-[2025-06-12 13:00:02] receiving incremental file list
-
-sent 49 bytes  received 4,520 bytes  3,046.00 bytes/sec
-total size is 1,211,390  speedup is 265.13
-
-[2025-06-12 13:05:01] Iniciando sincronización desde Raspberry Pi
-[2025-06-12 13:05:01] Comando rsync a ejecutar: rsync -e ssh -i /root/.ssh/id_rsa -o StrictHostKeyChecking=no -avz pi@192.168.190.29:/home/pi/Documents/rain-gauge-project/DTA /data
-[2025-06-12 13:05:01] receiving incremental file list
-
-sent 49 bytes  received 4,516 bytes  9,130.00 bytes/sec
-total size is 1,211,390  speedup is 265.36
-
-[2025-06-12 13:10:02] Iniciando sincronización desde Raspberry Pi
-[2025-06-12 13:10:02] Comando rsync a ejecutar: rsync -e ssh -i /root/.ssh/id_rsa -o StrictHostKeyChecking=no -avz pi@192.168.190.29:/home/pi/Documents/rain-gauge-project/DTA /data
-[2025-06-12 13:10:02] receiving incremental file list
-
-sent 49 bytes  received 4,520 bytes  9,138.00 bytes/sec
-total size is 1,211,390  speedup is 265.13
-
-[2025-06-12 13:15:01] Iniciando sincronización desde Raspberry Pi
-[2025-06-12 13:15:01] Comando rsync a ejecutar: rsync -e ssh -i /root/.ssh/id_rsa -o StrictHostKeyChecking=no -avz pi@192.168.190.29:/home/pi/Documents/rain-gauge-project/DTA /data
-[2025-06-12 13:15:02] receiving incremental file list
-
-sent 49 bytes  received 4,520 bytes  3,046.00 bytes/sec
-total size is 1,211,390  speedup is 265.13
-
-[2025-06-12 13:20:01] Iniciando sincronización desde Raspberry Pi
-[2025-06-12 13:20:01] Comando rsync a ejecutar: rsync -e ssh -i /root/.ssh/id_rsa -o StrictHostKeyChecking=no -avz pi@192.168.190.29:/home/pi/Documents/rain-gauge-project/DTA /data
-[2025-06-12 13:20:01] receiving incremental file list
-
-sent 49 bytes  received 4,520 bytes  9,138.00 bytes/sec
-total size is 1,211,390  speedup is 265.13
-
-[2025-06-12 13:25:01] Iniciando sincronización desde Raspberry Pi
-[2025-06-12 13:25:01] Comando rsync a ejecutar: rsync -e ssh -i /root/.ssh/id_rsa -o StrictHostKeyChecking=no -avz pi@192.168.190.29:/home/pi/Documents/rain-gauge-project/DTA /data
-[2025-06-12 13:25:01] receiving incremental file list
-
-sent 49 bytes  received 4,520 bytes  9,138.00 bytes/sec
-total size is 1,211,390  speedup is 265.13
-
-[2025-06-12 13:30:01] Iniciando sincronización desde Raspberry Pi
-[2025-06-12 13:30:01] Comando rsync a ejecutar: rsync -e ssh -i /root/.ssh/id_rsa -o StrictHostKeyChecking=no -avz pi@192.168.190.29:/home/pi/Documents/rain-gauge-project/DTA /data
-[2025-06-12 13:30:02] receiving incremental file list
-
-sent 49 bytes  received 4,520 bytes  3,046.00 bytes/sec
-total size is 1,211,390  speedup is 265.13
-
-[2025-06-12 13:35:01] Iniciando sincronización desde Raspberry Pi
-[2025-06-12 13:35:01] Comando rsync a ejecutar: rsync -e ssh -i /root/.ssh/id_rsa -o StrictHostKeyChecking=no -avz pi@192.168.190.29:/home/pi/Documents/rain-gauge-project/DTA /data
-[2025-06-12 13:35:01] receiving incremental file list
-
-sent 49 bytes  received 4,520 bytes  9,138.00 bytes/sec
-total size is 1,211,390  speedup is 265.13
-
-[2025-06-12 13:40:01] Iniciando sincronización desde Raspberry Pi
-[2025-06-12 13:40:01] Comando rsync a ejecutar: rsync -e ssh -i /root/.ssh/id_rsa -o StrictHostKeyChecking=no -avz pi@192.168.190.29:/home/pi/Documents/rain-gauge-project/DTA /data
-[2025-06-12 13:40:01] receiving incremental file list
-
-sent 49 bytes  received 4,520 bytes  9,138.00 bytes/sec
-total size is 1,211,390  speedup is 265.13
-
-[2025-06-12 13:45:01] Iniciando sincronización desde Raspberry Pi
-[2025-06-12 13:45:01] Comando rsync a ejecutar: rsync -e ssh -i /root/.ssh/id_rsa -o StrictHostKeyChecking=no -avz pi@192.168.190.29:/home/pi/Documents/rain-gauge-project/DTA /data
-[2025-06-12 13:45:02] receiving incremental file list
-
-sent 49 bytes  received 4,520 bytes  3,046.00 bytes/sec
-total size is 1,211,390  speedup is 265.13
-
-[2025-06-12 13:50:01] Iniciando sincronización desde Raspberry Pi
-[2025-06-12 13:50:01] Comando rsync a ejecutar: rsync -e ssh -i /root/.ssh/id_rsa -o StrictHostKeyChecking=no -avz pi@192.168.190.29:/home/pi/Documents/rain-gauge-project/DTA /data
-[2025-06-12 13:50:01] receiving incremental file list
-
-sent 49 bytes  received 4,516 bytes  9,130.00 bytes/sec
-total size is 1,211,390  speedup is 265.36
-
-[2025-06-12 13:55:01] Iniciando sincronización desde Raspberry Pi
-[2025-06-12 13:55:01] Comando rsync a ejecutar: rsync -e ssh -i /root/.ssh/id_rsa -o StrictHostKeyChecking=no -avz pi@192.168.190.29:/home/pi/Documents/rain-gauge-project/DTA /data
-[2025-06-12 13:55:02] receiving incremental file list
-
-sent 49 bytes  received 4,520 bytes  3,046.00 bytes/sec
-total size is 1,211,390  speedup is 265.13
-
-[2025-06-12 14:00:01] Iniciando sincronización desde Raspberry Pi
-[2025-06-12 14:00:01] Comando rsync a ejecutar: rsync -e ssh -i /root/.ssh/id_rsa -o StrictHostKeyChecking=no -avz pi@192.168.190.29:/home/pi/Documents/rain-gauge-project/DTA /data
-[2025-06-12 14:00:02] receiving incremental file list
-
-sent 49 bytes  received 4,520 bytes  3,046.00 bytes/sec
-total size is 1,211,390  speedup is 265.13
-
-[2025-06-12 14:05:02] Iniciando sincronización desde Raspberry Pi
-[2025-06-12 14:05:02] Comando rsync a ejecutar: rsync -e ssh -i /root/.ssh/id_rsa -o StrictHostKeyChecking=no -avz pi@192.168.190.29:/home/pi/Documents/rain-gauge-project/DTA /data
-[2025-06-12 14:05:02] receiving incremental file list
-
-sent 49 bytes  received 4,520 bytes  9,138.00 bytes/sec
-total size is 1,211,390  speedup is 265.13
-
-[2025-06-12 14:10:01] Iniciando sincronización desde Raspberry Pi
-[2025-06-12 14:10:01] Comando rsync a ejecutar: rsync -e ssh -i /root/.ssh/id_rsa -o StrictHostKeyChecking=no -avz pi@192.168.190.29:/home/pi/Documents/rain-gauge-project/DTA /data
-[2025-06-12 14:10:01] receiving incremental file list
-
-sent 49 bytes  received 4,520 bytes  9,138.00 bytes/sec
-total size is 1,211,390  speedup is 265.13
-
-[2025-06-12 14:15:01] Iniciando sincronización desde Raspberry Pi
-[2025-06-12 14:15:01] Comando rsync a ejecutar: rsync -e ssh -i /root/.ssh/id_rsa -o StrictHostKeyChecking=no -avz pi@192.168.190.29:/home/pi/Documents/rain-gauge-project/DTA /data
-[2025-06-12 14:15:01] receiving incremental file list
-
-sent 49 bytes  received 4,520 bytes  9,138.00 bytes/sec
-total size is 1,211,390  speedup is 265.13
-
-[2025-06-12 14:20:01] Iniciando sincronización desde Raspberry Pi
-[2025-06-12 14:20:01] Comando rsync a ejecutar: rsync -e ssh -i /root/.ssh/id_rsa -o StrictHostKeyChecking=no -avz pi@192.168.190.29:/home/pi/Documents/rain-gauge-project/DTA /data
-[2025-06-12 14:20:02] receiving incremental file list
-
-sent 49 bytes  received 4,520 bytes  3,046.00 bytes/sec
-total size is 1,211,390  speedup is 265.13
-
-[2025-06-12 14:25:01] Iniciando sincronización desde Raspberry Pi
-[2025-06-12 14:25:01] Comando rsync a ejecutar: rsync -e ssh -i /root/.ssh/id_rsa -o StrictHostKeyChecking=no -avz pi@192.168.190.29:/home/pi/Documents/rain-gauge-project/DTA /data
-[2025-06-12 14:25:02] receiving incremental file list
-
-sent 49 bytes  received 4,520 bytes  3,046.00 bytes/sec
-total size is 1,211,390  speedup is 265.13
-
-[2025-06-12 14:30:01] Iniciando sincronización desde Raspberry Pi
-[2025-06-12 14:30:01] Comando rsync a ejecutar: rsync -e ssh -i /root/.ssh/id_rsa -o StrictHostKeyChecking=no -avz pi@192.168.190.29:/home/pi/Documents/rain-gauge-project/DTA /data
-[2025-06-12 14:30:01] receiving incremental file list
-
-sent 49 bytes  received 4,520 bytes  9,138.00 bytes/sec
-total size is 1,211,390  speedup is 265.13
-
-[2025-06-12 14:35:01] Iniciando sincronización desde Raspberry Pi
-[2025-06-12 14:35:01] Comando rsync a ejecutar: rsync -e ssh -i /root/.ssh/id_rsa -o StrictHostKeyChecking=no -avz pi@192.168.190.29:/home/pi/Documents/rain-gauge-project/DTA /data
-[2025-06-12 14:35:01] receiving incremental file list
-
-sent 49 bytes  received 4,520 bytes  9,138.00 bytes/sec
-total size is 1,211,390  speedup is 265.13
-
-[2025-06-12 14:40:01] Iniciando sincronización desde Raspberry Pi
-[2025-06-12 14:40:01] Comando rsync a ejecutar: rsync -e ssh -i /root/.ssh/id_rsa -o StrictHostKeyChecking=no -avz pi@192.168.190.29:/home/pi/Documents/rain-gauge-project/DTA /data
-[2025-06-12 14:40:02] receiving incremental file list
-
-sent 49 bytes  received 4,520 bytes  3,046.00 bytes/sec
-total size is 1,211,390  speedup is 265.13
-
-[2025-06-12 14:45:01] Iniciando sincronización desde Raspberry Pi
-[2025-06-12 14:45:01] Comando rsync a ejecutar: rsync -e ssh -i /root/.ssh/id_rsa -o StrictHostKeyChecking=no -avz pi@192.168.190.29:/home/pi/Documents/rain-gauge-project/DTA /data
-[2025-06-12 14:45:02] receiving incremental file list
-
-sent 49 bytes  received 4,520 bytes  3,046.00 bytes/sec
-total size is 1,211,390  speedup is 265.13
-
-[2025-06-12 14:50:01] Iniciando sincronización desde Raspberry Pi
-[2025-06-12 14:50:01] Comando rsync a ejecutar: rsync -e ssh -i /root/.ssh/id_rsa -o StrictHostKeyChecking=no -avz pi@192.168.190.29:/home/pi/Documents/rain-gauge-project/DTA /data
-[2025-06-12 14:50:02] receiving incremental file list
-
-sent 49 bytes  received 4,520 bytes  9,138.00 bytes/sec
-total size is 1,211,390  speedup is 265.13
-
-[2025-06-12 14:55:01] Iniciando sincronización desde Raspberry Pi
-[2025-06-12 14:55:01] Comando rsync a ejecutar: rsync -e ssh -i /root/.ssh/id_rsa -o StrictHostKeyChecking=no -avz pi@192.168.190.29:/home/pi/Documents/rain-gauge-project/DTA /data
-[2025-06-12 14:55:02] receiving incremental file list
-
-sent 49 bytes  received 4,520 bytes  3,046.00 bytes/sec
-total size is 1,211,390  speedup is 265.13
-
-[2025-06-12 15:00:01] Iniciando sincronización desde Raspberry Pi
-[2025-06-12 15:00:01] Comando rsync a ejecutar: rsync -e ssh -i /root/.ssh/id_rsa -o StrictHostKeyChecking=no -avz pi@192.168.190.29:/home/pi/Documents/rain-gauge-project/DTA /data
-[2025-06-12 15:00:01] receiving incremental file list
-
-sent 49 bytes  received 4,520 bytes  9,138.00 bytes/sec
-total size is 1,211,390  speedup is 265.13
-
-[2025-06-12 15:05:01] Iniciando sincronización desde Raspberry Pi
-[2025-06-12 15:05:01] Comando rsync a ejecutar: rsync -e ssh -i /root/.ssh/id_rsa -o StrictHostKeyChecking=no -avz pi@192.168.190.29:/home/pi/Documents/rain-gauge-project/DTA /data
-[2025-06-12 15:05:02] receiving incremental file list
+[2025-06-13 20:47:01] Iniciando sincronización desde Raspberry Pi
+[2025-06-13 20:47:01] Comando rsync a ejecutar: rsync -e ssh -i /root/.ssh/id_rsa -o StrictHostKeyChecking=no -avz pi@192.168.190.29:/home/pi/Documents/rain-gauge-project/DTA /data
+[2025-06-13 20:47:02] receiving incremental file list
 
 sent 49 bytes  received 4,516 bytes  3,043.33 bytes/sec
 total size is 1,211,390  speedup is 265.36
 
-[2025-06-12 15:10:01] Iniciando sincronización desde Raspberry Pi
-[2025-06-12 15:10:01] Comando rsync a ejecutar: rsync -e ssh -i /root/.ssh/id_rsa -o StrictHostKeyChecking=no -avz pi@192.168.190.29:/home/pi/Documents/rain-gauge-project/DTA /data
-[2025-06-12 15:10:01] receiving incremental file list
-
-sent 49 bytes  received 4,516 bytes  9,130.00 bytes/sec
-total size is 1,211,390  speedup is 265.36
-
-[2025-06-12 15:15:01] Iniciando sincronización desde Raspberry Pi
-[2025-06-12 15:15:01] Comando rsync a ejecutar: rsync -e ssh -i /root/.ssh/id_rsa -o StrictHostKeyChecking=no -avz pi@192.168.190.29:/home/pi/Documents/rain-gauge-project/DTA /data
-[2025-06-12 15:15:02] receiving incremental file list
+[2025-06-13 20:48:01] Iniciando sincronización desde Raspberry Pi
+[2025-06-13 20:48:01] Comando rsync a ejecutar: rsync -e ssh -i /root/.ssh/id_rsa -o StrictHostKeyChecking=no -avz pi@192.168.190.29:/home/pi/Documents/rain-gauge-project/DTA /data
+[2025-06-13 20:48:02] receiving incremental file list
 
 sent 49 bytes  received 4,520 bytes  3,046.00 bytes/sec
 total size is 1,211,390  speedup is 265.13
 
-[2025-06-12 15:20:02] Iniciando sincronización desde Raspberry Pi
-[2025-06-12 15:20:02] Comando rsync a ejecutar: rsync -e ssh -i /root/.ssh/id_rsa -o StrictHostKeyChecking=no -avz pi@192.168.190.29:/home/pi/Documents/rain-gauge-project/DTA /data
-[2025-06-12 15:20:02] receiving incremental file list
+[2025-06-13 20:49:02] Iniciando sincronización desde Raspberry Pi
+[2025-06-13 20:49:02] Comando rsync a ejecutar: rsync -e ssh -i /root/.ssh/id_rsa -o StrictHostKeyChecking=no -avz pi@192.168.190.29:/home/pi/Documents/rain-gauge-project/DTA /data
+[2025-06-13 20:49:02] receiving incremental file list
 
 sent 49 bytes  received 4,520 bytes  9,138.00 bytes/sec
 total size is 1,211,390  speedup is 265.13
 
-[2025-06-12 15:25:01] Iniciando sincronización desde Raspberry Pi
-[2025-06-12 15:25:01] Comando rsync a ejecutar: rsync -e ssh -i /root/.ssh/id_rsa -o StrictHostKeyChecking=no -avz pi@192.168.190.29:/home/pi/Documents/rain-gauge-project/DTA /data
-[2025-06-12 15:25:01] receiving incremental file list
-
-sent 49 bytes  received 4,520 bytes  9,138.00 bytes/sec
-total size is 1,211,390  speedup is 265.13
-
-[2025-06-12 15:30:01] Iniciando sincronización desde Raspberry Pi
-[2025-06-12 15:30:01] Comando rsync a ejecutar: rsync -e ssh -i /root/.ssh/id_rsa -o StrictHostKeyChecking=no -avz pi@192.168.190.29:/home/pi/Documents/rain-gauge-project/DTA /data
-[2025-06-12 15:30:02] receiving incremental file list
-
-sent 49 bytes  received 4,520 bytes  3,046.00 bytes/sec
-total size is 1,211,390  speedup is 265.13
-
-[2025-06-12 15:35:02] Iniciando sincronización desde Raspberry Pi
-[2025-06-12 15:35:02] Comando rsync a ejecutar: rsync -e ssh -i /root/.ssh/id_rsa -o StrictHostKeyChecking=no -avz pi@192.168.190.29:/home/pi/Documents/rain-gauge-project/DTA /data
-[2025-06-12 15:35:02] receiving incremental file list
-
-sent 49 bytes  received 4,520 bytes  9,138.00 bytes/sec
-total size is 1,211,390  speedup is 265.13
-
-[2025-06-12 15:40:01] Iniciando sincronización desde Raspberry Pi
-[2025-06-12 15:40:01] Comando rsync a ejecutar: rsync -e ssh -i /root/.ssh/id_rsa -o StrictHostKeyChecking=no -avz pi@192.168.190.29:/home/pi/Documents/rain-gauge-project/DTA /data
-[2025-06-12 15:40:01] receiving incremental file list
-
-sent 49 bytes  received 4,516 bytes  9,130.00 bytes/sec
-total size is 1,211,390  speedup is 265.36
-
-[2025-06-12 15:45:01] Iniciando sincronización desde Raspberry Pi
-[2025-06-12 15:45:01] Comando rsync a ejecutar: rsync -e ssh -i /root/.ssh/id_rsa -o StrictHostKeyChecking=no -avz pi@192.168.190.29:/home/pi/Documents/rain-gauge-project/DTA /data
-[2025-06-12 15:45:02] receiving incremental file list
-
-sent 49 bytes  received 4,520 bytes  3,046.00 bytes/sec
-total size is 1,211,390  speedup is 265.13
-
-[2025-06-12 15:50:01] Iniciando sincronización desde Raspberry Pi
-[2025-06-12 15:50:01] Comando rsync a ejecutar: rsync -e ssh -i /root/.ssh/id_rsa -o StrictHostKeyChecking=no -avz pi@192.168.190.29:/home/pi/Documents/rain-gauge-project/DTA /data
-[2025-06-12 15:50:01] receiving incremental file list
-
-sent 49 bytes  received 4,520 bytes  9,138.00 bytes/sec
-total size is 1,211,390  speedup is 265.13
-
-[2025-06-12 15:55:01] Iniciando sincronización desde Raspberry Pi
-[2025-06-12 15:55:01] Comando rsync a ejecutar: rsync -e ssh -i /root/.ssh/id_rsa -o StrictHostKeyChecking=no -avz pi@192.168.190.29:/home/pi/Documents/rain-gauge-project/DTA /data
-[2025-06-12 15:55:02] receiving incremental file list
-
-sent 49 bytes  received 4,520 bytes  3,046.00 bytes/sec
-total size is 1,211,390  speedup is 265.13
-
-[2025-06-12 16:00:02] Iniciando sincronización desde Raspberry Pi
-[2025-06-12 16:00:02] Comando rsync a ejecutar: rsync -e ssh -i /root/.ssh/id_rsa -o StrictHostKeyChecking=no -avz pi@192.168.190.29:/home/pi/Documents/rain-gauge-project/DTA /data
-[2025-06-12 16:00:02] receiving incremental file list
-
-sent 49 bytes  received 4,520 bytes  9,138.00 bytes/sec
-total size is 1,211,390  speedup is 265.13
-
-[2025-06-12 16:05:01] Iniciando sincronización desde Raspberry Pi
-[2025-06-12 16:05:01] Comando rsync a ejecutar: rsync -e ssh -i /root/.ssh/id_rsa -o StrictHostKeyChecking=no -avz pi@192.168.190.29:/home/pi/Documents/rain-gauge-project/DTA /data
-[2025-06-12 16:05:02] receiving incremental file list
-
-sent 49 bytes  received 4,520 bytes  3,046.00 bytes/sec
-total size is 1,211,390  speedup is 265.13
-
-[2025-06-12 16:10:01] Iniciando sincronización desde Raspberry Pi
-[2025-06-12 16:10:01] Comando rsync a ejecutar: rsync -e ssh -i /root/.ssh/id_rsa -o StrictHostKeyChecking=no -avz pi@192.168.190.29:/home/pi/Documents/rain-gauge-project/DTA /data
-[2025-06-12 16:10:01] receiving incremental file list
-
-sent 49 bytes  received 4,520 bytes  9,138.00 bytes/sec
-total size is 1,211,390  speedup is 265.13
-
-[2025-06-12 16:15:01] Iniciando sincronización desde Raspberry Pi
-[2025-06-12 16:15:01] Comando rsync a ejecutar: rsync -e ssh -i /root/.ssh/id_rsa -o StrictHostKeyChecking=no -avz pi@192.168.190.29:/home/pi/Documents/rain-gauge-project/DTA /data
-[2025-06-12 16:15:01] receiving incremental file list
-
-sent 49 bytes  received 4,520 bytes  9,138.00 bytes/sec
-total size is 1,211,390  speedup is 265.13
-
-[2025-06-12 16:20:01] Iniciando sincronización desde Raspberry Pi
-[2025-06-12 16:20:01] Comando rsync a ejecutar: rsync -e ssh -i /root/.ssh/id_rsa -o StrictHostKeyChecking=no -avz pi@192.168.190.29:/home/pi/Documents/rain-gauge-project/DTA /data
-[2025-06-12 16:20:02] receiving incremental file list
-
-sent 49 bytes  received 4,520 bytes  3,046.00 bytes/sec
-total size is 1,211,390  speedup is 265.13
-
-[2025-06-12 16:25:01] Iniciando sincronización desde Raspberry Pi
-[2025-06-12 16:25:01] Comando rsync a ejecutar: rsync -e ssh -i /root/.ssh/id_rsa -o StrictHostKeyChecking=no -avz pi@192.168.190.29:/home/pi/Documents/rain-gauge-project/DTA /data
-[2025-06-12 16:25:01] receiving incremental file list
-
-sent 49 bytes  received 4,520 bytes  9,138.00 bytes/sec
-total size is 1,211,390  speedup is 265.13
-
-[2025-06-12 16:30:01] Iniciando sincronización desde Raspberry Pi
-[2025-06-12 16:30:01] Comando rsync a ejecutar: rsync -e ssh -i /root/.ssh/id_rsa -o StrictHostKeyChecking=no -avz pi@192.168.190.29:/home/pi/Documents/rain-gauge-project/DTA /data
-[2025-06-12 16:30:02] receiving incremental file list
-
-sent 49 bytes  received 4,520 bytes  3,046.00 bytes/sec
-total size is 1,211,390  speedup is 265.13
-
-[2025-06-12 16:35:01] Iniciando sincronización desde Raspberry Pi
-[2025-06-12 16:35:01] Comando rsync a ejecutar: rsync -e ssh -i /root/.ssh/id_rsa -o StrictHostKeyChecking=no -avz pi@192.168.190.29:/home/pi/Documents/rain-gauge-project/DTA /data
-[2025-06-12 16:35:01] receiving incremental file list
-
-sent 49 bytes  received 4,520 bytes  9,138.00 bytes/sec
-total size is 1,211,390  speedup is 265.13
-
-[2025-06-12 16:40:01] Iniciando sincronización desde Raspberry Pi
-[2025-06-12 16:40:01] Comando rsync a ejecutar: rsync -e ssh -i /root/.ssh/id_rsa -o StrictHostKeyChecking=no -avz pi@192.168.190.29:/home/pi/Documents/rain-gauge-project/DTA /data
-[2025-06-12 16:40:02] receiving incremental file list
-
-sent 49 bytes  received 4,520 bytes  3,046.00 bytes/sec
-total size is 1,211,390  speedup is 265.13
-
-[2025-06-12 16:45:01] Iniciando sincronización desde Raspberry Pi
-[2025-06-12 16:45:01] Comando rsync a ejecutar: rsync -e ssh -i /root/.ssh/id_rsa -o StrictHostKeyChecking=no -avz pi@192.168.190.29:/home/pi/Documents/rain-gauge-project/DTA /data
-[2025-06-12 16:45:02] receiving incremental file list
-
-sent 49 bytes  received 4,520 bytes  3,046.00 bytes/sec
-total size is 1,211,390  speedup is 265.13
-
-[2025-06-12 16:50:01] Iniciando sincronización desde Raspberry Pi
-[2025-06-12 16:50:01] Comando rsync a ejecutar: rsync -e ssh -i /root/.ssh/id_rsa -o StrictHostKeyChecking=no -avz pi@192.168.190.29:/home/pi/Documents/rain-gauge-project/DTA /data
-[2025-06-12 16:50:02] receiving incremental file list
-
-sent 49 bytes  received 4,516 bytes  3,043.33 bytes/sec
-total size is 1,211,390  speedup is 265.36
-
-[2025-06-12 16:55:01] Iniciando sincronización desde Raspberry Pi
-[2025-06-12 16:55:01] Comando rsync a ejecutar: rsync -e ssh -i /root/.ssh/id_rsa -o StrictHostKeyChecking=no -avz pi@192.168.190.29:/home/pi/Documents/rain-gauge-project/DTA /data
-[2025-06-12 16:55:02] receiving incremental file list
-
-sent 49 bytes  received 4,520 bytes  3,046.00 bytes/sec
-total size is 1,211,390  speedup is 265.13
-
-[2025-06-12 17:00:01] Iniciando sincronización desde Raspberry Pi
-[2025-06-12 17:00:01] Comando rsync a ejecutar: rsync -e ssh -i /root/.ssh/id_rsa -o StrictHostKeyChecking=no -avz pi@192.168.190.29:/home/pi/Documents/rain-gauge-project/DTA /data
-[2025-06-12 17:00:02] receiving incremental file list
-
-sent 49 bytes  received 4,520 bytes  3,046.00 bytes/sec
-total size is 1,211,390  speedup is 265.13
-
-[2025-06-12 17:05:01] Iniciando sincronización desde Raspberry Pi
-[2025-06-12 17:05:01] Comando rsync a ejecutar: rsync -e ssh -i /root/.ssh/id_rsa -o StrictHostKeyChecking=no -avz pi@192.168.190.29:/home/pi/Documents/rain-gauge-project/DTA /data
-[2025-06-12 17:05:02] receiving incremental file list
-
-sent 49 bytes  received 4,520 bytes  3,046.00 bytes/sec
-total size is 1,211,390  speedup is 265.13
-
-[2025-06-12 17:10:01] Iniciando sincronización desde Raspberry Pi
-[2025-06-12 17:10:01] Comando rsync a ejecutar: rsync -e ssh -i /root/.ssh/id_rsa -o StrictHostKeyChecking=no -avz pi@192.168.190.29:/home/pi/Documents/rain-gauge-project/DTA /data
-[2025-06-12 17:10:01] receiving incremental file list
-
-sent 49 bytes  received 4,520 bytes  9,138.00 bytes/sec
-total size is 1,211,390  speedup is 265.13
-
-[2025-06-12 17:15:01] Iniciando sincronización desde Raspberry Pi
-[2025-06-12 17:15:01] Comando rsync a ejecutar: rsync -e ssh -i /root/.ssh/id_rsa -o StrictHostKeyChecking=no -avz pi@192.168.190.29:/home/pi/Documents/rain-gauge-project/DTA /data
-[2025-06-12 17:15:02] receiving incremental file list
-
-sent 49 bytes  received 4,520 bytes  3,046.00 bytes/sec
-total size is 1,211,390  speedup is 265.13
-
-[2025-06-12 17:20:01] Iniciando sincronización desde Raspberry Pi
-[2025-06-12 17:20:01] Comando rsync a ejecutar: rsync -e ssh -i /root/.ssh/id_rsa -o StrictHostKeyChecking=no -avz pi@192.168.190.29:/home/pi/Documents/rain-gauge-project/DTA /data
-[2025-06-12 17:20:02] receiving incremental file list
-
-sent 49 bytes  received 4,520 bytes  3,046.00 bytes/sec
-total size is 1,211,390  speedup is 265.13
-
-[2025-06-12 17:25:01] Iniciando sincronización desde Raspberry Pi
-[2025-06-12 17:25:01] Comando rsync a ejecutar: rsync -e ssh -i /root/.ssh/id_rsa -o StrictHostKeyChecking=no -avz pi@192.168.190.29:/home/pi/Documents/rain-gauge-project/DTA /data
-[2025-06-12 17:25:02] receiving incremental file list
-
-sent 49 bytes  received 4,520 bytes  3,046.00 bytes/sec
-total size is 1,211,390  speedup is 265.13
-
-[2025-06-12 17:30:02] Iniciando sincronización desde Raspberry Pi
-[2025-06-12 17:30:02] Comando rsync a ejecutar: rsync -e ssh -i /root/.ssh/id_rsa -o StrictHostKeyChecking=no -avz pi@192.168.190.29:/home/pi/Documents/rain-gauge-project/DTA /data
-[2025-06-12 17:30:02] receiving incremental file list
-
-sent 49 bytes  received 4,520 bytes  9,138.00 bytes/sec
-total size is 1,211,390  speedup is 265.13
-
-[2025-06-12 17:35:01] Iniciando sincronización desde Raspberry Pi
-[2025-06-12 17:35:01] Comando rsync a ejecutar: rsync -e ssh -i /root/.ssh/id_rsa -o StrictHostKeyChecking=no -avz pi@192.168.190.29:/home/pi/Documents/rain-gauge-project/DTA /data
-[2025-06-12 17:35:02] receiving incremental file list
-
-sent 49 bytes  received 4,520 bytes  3,046.00 bytes/sec
-total size is 1,211,390  speedup is 265.13
-
-[2025-06-12 17:40:01] Iniciando sincronización desde Raspberry Pi
-[2025-06-12 17:40:01] Comando rsync a ejecutar: rsync -e ssh -i /root/.ssh/id_rsa -o StrictHostKeyChecking=no -avz pi@192.168.190.29:/home/pi/Documents/rain-gauge-project/DTA /data
-[2025-06-12 17:40:02] receiving incremental file list
-
-sent 49 bytes  received 4,520 bytes  3,046.00 bytes/sec
-total size is 1,211,390  speedup is 265.13
-
-[2025-06-12 17:45:01] Iniciando sincronización desde Raspberry Pi
-[2025-06-12 17:45:01] Comando rsync a ejecutar: rsync -e ssh -i /root/.ssh/id_rsa -o StrictHostKeyChecking=no -avz pi@192.168.190.29:/home/pi/Documents/rain-gauge-project/DTA /data
-[2025-06-12 17:45:02] receiving incremental file list
-
-sent 49 bytes  received 4,520 bytes  3,046.00 bytes/sec
-total size is 1,211,390  speedup is 265.13
-
-[2025-06-12 17:50:01] Iniciando sincronización desde Raspberry Pi
-[2025-06-12 17:50:01] Comando rsync a ejecutar: rsync -e ssh -i /root/.ssh/id_rsa -o StrictHostKeyChecking=no -avz pi@192.168.190.29:/home/pi/Documents/rain-gauge-project/DTA /data
-[2025-06-12 17:50:01] receiving incremental file list
-
-sent 49 bytes  received 4,520 bytes  9,138.00 bytes/sec
-total size is 1,211,390  speedup is 265.13
-
-[2025-06-12 17:55:01] Iniciando sincronización desde Raspberry Pi
-[2025-06-12 17:55:01] Comando rsync a ejecutar: rsync -e ssh -i /root/.ssh/id_rsa -o StrictHostKeyChecking=no -avz pi@192.168.190.29:/home/pi/Documents/rain-gauge-project/DTA /data
-[2025-06-12 17:55:02] receiving incremental file list
-
-sent 49 bytes  received 4,520 bytes  3,046.00 bytes/sec
-total size is 1,211,390  speedup is 265.13
-
-[2025-06-12 18:00:01] Iniciando sincronización desde Raspberry Pi
-[2025-06-12 18:00:01] Comando rsync a ejecutar: rsync -e ssh -i /root/.ssh/id_rsa -o StrictHostKeyChecking=no -avz pi@192.168.190.29:/home/pi/Documents/rain-gauge-project/DTA /data
-[2025-06-12 18:00:01] receiving incremental file list
-
-sent 49 bytes  received 4,520 bytes  9,138.00 bytes/sec
-total size is 1,211,390  speedup is 265.13
-
-[2025-06-12 18:05:01] Iniciando sincronización desde Raspberry Pi
-[2025-06-12 18:05:01] Comando rsync a ejecutar: rsync -e ssh -i /root/.ssh/id_rsa -o StrictHostKeyChecking=no -avz pi@192.168.190.29:/home/pi/Documents/rain-gauge-project/DTA /data
-[2025-06-12 18:05:02] receiving incremental file list
-
-sent 49 bytes  received 4,520 bytes  3,046.00 bytes/sec
-total size is 1,211,390  speedup is 265.13
-
-[2025-06-12 18:10:01] Iniciando sincronización desde Raspberry Pi
-[2025-06-12 18:10:01] Comando rsync a ejecutar: rsync -e ssh -i /root/.ssh/id_rsa -o StrictHostKeyChecking=no -avz pi@192.168.190.29:/home/pi/Documents/rain-gauge-project/DTA /data
-[2025-06-12 18:10:01] receiving incremental file list
-
-sent 49 bytes  received 4,520 bytes  9,138.00 bytes/sec
-total size is 1,211,390  speedup is 265.13
-
-[2025-06-12 18:15:01] Iniciando sincronización desde Raspberry Pi
-[2025-06-12 18:15:01] Comando rsync a ejecutar: rsync -e ssh -i /root/.ssh/id_rsa -o StrictHostKeyChecking=no -avz pi@192.168.190.29:/home/pi/Documents/rain-gauge-project/DTA /data
-[2025-06-12 18:15:02] receiving incremental file list
-
-sent 49 bytes  received 4,520 bytes  3,046.00 bytes/sec
-total size is 1,211,390  speedup is 265.13
-
-[2025-06-12 18:20:01] Iniciando sincronización desde Raspberry Pi
-[2025-06-12 18:20:01] Comando rsync a ejecutar: rsync -e ssh -i /root/.ssh/id_rsa -o StrictHostKeyChecking=no -avz pi@192.168.190.29:/home/pi/Documents/rain-gauge-project/DTA /data
-[2025-06-12 18:20:01] receiving incremental file list
-
-sent 49 bytes  received 4,516 bytes  9,130.00 bytes/sec
-total size is 1,211,390  speedup is 265.36
-
-[2025-06-12 18:25:01] Iniciando sincronización desde Raspberry Pi
-[2025-06-12 18:25:01] Comando rsync a ejecutar: rsync -e ssh -i /root/.ssh/id_rsa -o StrictHostKeyChecking=no -avz pi@192.168.190.29:/home/pi/Documents/rain-gauge-project/DTA /data
-[2025-06-12 18:25:02] receiving incremental file list
-
-sent 49 bytes  received 4,520 bytes  3,046.00 bytes/sec
-total size is 1,211,390  speedup is 265.13
-
-[2025-06-12 18:30:02] Iniciando sincronización desde Raspberry Pi
-[2025-06-12 18:30:02] Comando rsync a ejecutar: rsync -e ssh -i /root/.ssh/id_rsa -o StrictHostKeyChecking=no -avz pi@192.168.190.29:/home/pi/Documents/rain-gauge-project/DTA /data
-[2025-06-12 18:30:02] receiving incremental file list
-
-sent 49 bytes  received 4,520 bytes  9,138.00 bytes/sec
-total size is 1,211,390  speedup is 265.13
-
-[2025-06-12 18:35:01] Iniciando sincronización desde Raspberry Pi
-[2025-06-12 18:35:01] Comando rsync a ejecutar: rsync -e ssh -i /root/.ssh/id_rsa -o StrictHostKeyChecking=no -avz pi@192.168.190.29:/home/pi/Documents/rain-gauge-project/DTA /data
-[2025-06-12 18:35:02] receiving incremental file list
-
-sent 49 bytes  received 4,516 bytes  3,043.33 bytes/sec
-total size is 1,211,390  speedup is 265.36
-
-[2025-06-12 18:40:01] Iniciando sincronización desde Raspberry Pi
-[2025-06-12 18:40:01] Comando rsync a ejecutar: rsync -e ssh -i /root/.ssh/id_rsa -o StrictHostKeyChecking=no -avz pi@192.168.190.29:/home/pi/Documents/rain-gauge-project/DTA /data
-[2025-06-12 18:40:02] receiving incremental file list
-
-sent 49 bytes  received 4,520 bytes  3,046.00 bytes/sec
-total size is 1,211,390  speedup is 265.13
-
-[2025-06-12 18:45:01] Iniciando sincronización desde Raspberry Pi
-[2025-06-12 18:45:01] Comando rsync a ejecutar: rsync -e ssh -i /root/.ssh/id_rsa -o StrictHostKeyChecking=no -avz pi@192.168.190.29:/home/pi/Documents/rain-gauge-project/DTA /data
-[2025-06-12 18:45:01] receiving incremental file list
-
-sent 49 bytes  received 4,520 bytes  9,138.00 bytes/sec
-total size is 1,211,390  speedup is 265.13
-
-[2025-06-12 18:50:01] Iniciando sincronización desde Raspberry Pi
-[2025-06-12 18:50:01] Comando rsync a ejecutar: rsync -e ssh -i /root/.ssh/id_rsa -o StrictHostKeyChecking=no -avz pi@192.168.190.29:/home/pi/Documents/rain-gauge-project/DTA /data
-[2025-06-12 18:50:01] receiving incremental file list
-
-sent 49 bytes  received 4,520 bytes  9,138.00 bytes/sec
-total size is 1,211,390  speedup is 265.13
-
-[2025-06-12 18:55:01] Iniciando sincronización desde Raspberry Pi
-[2025-06-12 18:55:01] Comando rsync a ejecutar: rsync -e ssh -i /root/.ssh/id_rsa -o StrictHostKeyChecking=no -avz pi@192.168.190.29:/home/pi/Documents/rain-gauge-project/DTA /data
-[2025-06-12 18:55:03] receiving incremental file list
-
-sent 49 bytes  received 4,520 bytes  1,827.60 bytes/sec
-total size is 1,211,390  speedup is 265.13
-
-[2025-06-12 19:00:01] Iniciando sincronización desde Raspberry Pi
-[2025-06-12 19:00:01] Comando rsync a ejecutar: rsync -e ssh -i /root/.ssh/id_rsa -o StrictHostKeyChecking=no -avz pi@192.168.190.29:/home/pi/Documents/rain-gauge-project/DTA /data
-[2025-06-12 19:00:02] receiving incremental file list
-
-sent 49 bytes  received 4,520 bytes  3,046.00 bytes/sec
-total size is 1,211,390  speedup is 265.13
-
-[2025-06-12 19:05:01] Iniciando sincronización desde Raspberry Pi
-[2025-06-12 19:05:01] Comando rsync a ejecutar: rsync -e ssh -i /root/.ssh/id_rsa -o StrictHostKeyChecking=no -avz pi@192.168.190.29:/home/pi/Documents/rain-gauge-project/DTA /data
-[2025-06-12 19:05:02] receiving incremental file list
-
-sent 49 bytes  received 4,520 bytes  3,046.00 bytes/sec
-total size is 1,211,390  speedup is 265.13
-
-[2025-06-12 19:10:01] Iniciando sincronización desde Raspberry Pi
-[2025-06-12 19:10:01] Comando rsync a ejecutar: rsync -e ssh -i /root/.ssh/id_rsa -o StrictHostKeyChecking=no -avz pi@192.168.190.29:/home/pi/Documents/rain-gauge-project/DTA /data
-[2025-06-12 19:10:02] receiving incremental file list
-
-sent 49 bytes  received 4,520 bytes  3,046.00 bytes/sec
-total size is 1,211,390  speedup is 265.13
-
-[2025-06-12 19:15:01] Iniciando sincronización desde Raspberry Pi
-[2025-06-12 19:15:01] Comando rsync a ejecutar: rsync -e ssh -i /root/.ssh/id_rsa -o StrictHostKeyChecking=no -avz pi@192.168.190.29:/home/pi/Documents/rain-gauge-project/DTA /data
-[2025-06-12 19:15:02] receiving incremental file list
-
-sent 49 bytes  received 4,520 bytes  9,138.00 bytes/sec
-total size is 1,211,390  speedup is 265.13
-
-[2025-06-12 19:20:01] Iniciando sincronización desde Raspberry Pi
-[2025-06-12 19:20:01] Comando rsync a ejecutar: rsync -e ssh -i /root/.ssh/id_rsa -o StrictHostKeyChecking=no -avz pi@192.168.190.29:/home/pi/Documents/rain-gauge-project/DTA /data
-[2025-06-12 19:20:02] receiving incremental file list
-
-sent 49 bytes  received 4,520 bytes  3,046.00 bytes/sec
-total size is 1,211,390  speedup is 265.13
-
-[2025-06-12 19:25:01] Iniciando sincronización desde Raspberry Pi
-[2025-06-12 19:25:01] Comando rsync a ejecutar: rsync -e ssh -i /root/.ssh/id_rsa -o StrictHostKeyChecking=no -avz pi@192.168.190.29:/home/pi/Documents/rain-gauge-project/DTA /data
-[2025-06-12 19:25:02] receiving incremental file list
-
-sent 49 bytes  received 4,520 bytes  3,046.00 bytes/sec
-total size is 1,211,390  speedup is 265.13
-
-[2025-06-12 19:30:01] Iniciando sincronización desde Raspberry Pi
-[2025-06-12 19:30:01] Comando rsync a ejecutar: rsync -e ssh -i /root/.ssh/id_rsa -o StrictHostKeyChecking=no -avz pi@192.168.190.29:/home/pi/Documents/rain-gauge-project/DTA /data
-[2025-06-12 19:30:01] receiving incremental file list
-
-sent 49 bytes  received 4,520 bytes  9,138.00 bytes/sec
-total size is 1,211,390  speedup is 265.13
-
-[2025-06-12 19:35:01] Iniciando sincronización desde Raspberry Pi
-[2025-06-12 19:35:01] Comando rsync a ejecutar: rsync -e ssh -i /root/.ssh/id_rsa -o StrictHostKeyChecking=no -avz pi@192.168.190.29:/home/pi/Documents/rain-gauge-project/DTA /data
-[2025-06-12 19:35:02] receiving incremental file list
-
-sent 49 bytes  received 4,520 bytes  3,046.00 bytes/sec
-total size is 1,211,390  speedup is 265.13
-
-[2025-06-12 19:40:01] Iniciando sincronización desde Raspberry Pi
-[2025-06-12 19:40:01] Comando rsync a ejecutar: rsync -e ssh -i /root/.ssh/id_rsa -o StrictHostKeyChecking=no -avz pi@192.168.190.29:/home/pi/Documents/rain-gauge-project/DTA /data
-[2025-06-12 19:40:01] receiving incremental file list
-
-sent 49 bytes  received 4,520 bytes  9,138.00 bytes/sec
-total size is 1,211,390  speedup is 265.13
-
-[2025-06-12 19:45:01] Iniciando sincronización desde Raspberry Pi
-[2025-06-12 19:45:01] Comando rsync a ejecutar: rsync -e ssh -i /root/.ssh/id_rsa -o StrictHostKeyChecking=no -avz pi@192.168.190.29:/home/pi/Documents/rain-gauge-project/DTA /data
-[2025-06-12 19:45:02] receiving incremental file list
-
-sent 49 bytes  received 4,520 bytes  3,046.00 bytes/sec
-total size is 1,211,390  speedup is 265.13
-
-[2025-06-12 19:50:01] Iniciando sincronización desde Raspberry Pi
-[2025-06-12 19:50:01] Comando rsync a ejecutar: rsync -e ssh -i /root/.ssh/id_rsa -o StrictHostKeyChecking=no -avz pi@192.168.190.29:/home/pi/Documents/rain-gauge-project/DTA /data
-[2025-06-12 19:50:02] receiving incremental file list
-
-sent 49 bytes  received 4,520 bytes  3,046.00 bytes/sec
-total size is 1,211,390  speedup is 265.13
-
-[2025-06-12 19:55:01] Iniciando sincronización desde Raspberry Pi
-[2025-06-12 19:55:01] Comando rsync a ejecutar: rsync -e ssh -i /root/.ssh/id_rsa -o StrictHostKeyChecking=no -avz pi@192.168.190.29:/home/pi/Documents/rain-gauge-project/DTA /data
-[2025-06-12 19:55:02] receiving incremental file list
-
-sent 49 bytes  received 4,520 bytes  3,046.00 bytes/sec
-total size is 1,211,390  speedup is 265.13
-
-[2025-06-12 20:00:01] Iniciando sincronización desde Raspberry Pi
-[2025-06-12 20:00:01] Comando rsync a ejecutar: rsync -e ssh -i /root/.ssh/id_rsa -o StrictHostKeyChecking=no -avz pi@192.168.190.29:/home/pi/Documents/rain-gauge-project/DTA /data
-[2025-06-12 20:00:02] receiving incremental file list
-
-sent 49 bytes  received 4,520 bytes  3,046.00 bytes/sec
-total size is 1,211,390  speedup is 265.13
-
-[2025-06-12 20:05:01] Iniciando sincronización desde Raspberry Pi
-[2025-06-12 20:05:01] Comando rsync a ejecutar: rsync -e ssh -i /root/.ssh/id_rsa -o StrictHostKeyChecking=no -avz pi@192.168.190.29:/home/pi/Documents/rain-gauge-project/DTA /data
-[2025-06-12 20:05:02] receiving incremental file list
-
-sent 49 bytes  received 4,520 bytes  3,046.00 bytes/sec
-total size is 1,211,390  speedup is 265.13
-
-[2025-06-12 20:10:01] Iniciando sincronización desde Raspberry Pi
-[2025-06-12 20:10:01] Comando rsync a ejecutar: rsync -e ssh -i /root/.ssh/id_rsa -o StrictHostKeyChecking=no -avz pi@192.168.190.29:/home/pi/Documents/rain-gauge-project/DTA /data
-[2025-06-12 20:10:01] receiving incremental file list
-
-sent 49 bytes  received 4,520 bytes  9,138.00 bytes/sec
-total size is 1,211,390  speedup is 265.13
-
-[2025-06-12 20:15:01] Iniciando sincronización desde Raspberry Pi
-[2025-06-12 20:15:01] Comando rsync a ejecutar: rsync -e ssh -i /root/.ssh/id_rsa -o StrictHostKeyChecking=no -avz pi@192.168.190.29:/home/pi/Documents/rain-gauge-project/DTA /data
-[2025-06-12 20:15:02] receiving incremental file list
-
-sent 49 bytes  received 4,520 bytes  3,046.00 bytes/sec
-total size is 1,211,390  speedup is 265.13
-
-[2025-06-12 20:20:01] Iniciando sincronización desde Raspberry Pi
-[2025-06-12 20:20:01] Comando rsync a ejecutar: rsync -e ssh -i /root/.ssh/id_rsa -o StrictHostKeyChecking=no -avz pi@192.168.190.29:/home/pi/Documents/rain-gauge-project/DTA /data
-[2025-06-12 20:20:02] receiving incremental file list
-
-sent 49 bytes  received 4,520 bytes  3,046.00 bytes/sec
-total size is 1,211,390  speedup is 265.13
-
-[2025-06-12 20:25:01] Iniciando sincronización desde Raspberry Pi
-[2025-06-12 20:25:01] Comando rsync a ejecutar: rsync -e ssh -i /root/.ssh/id_rsa -o StrictHostKeyChecking=no -avz pi@192.168.190.29:/home/pi/Documents/rain-gauge-project/DTA /data
-[2025-06-12 20:25:02] receiving incremental file list
-
-sent 49 bytes  received 4,520 bytes  3,046.00 bytes/sec
-total size is 1,211,390  speedup is 265.13
-
-[2025-06-12 20:30:01] Iniciando sincronización desde Raspberry Pi
-[2025-06-12 20:30:01] Comando rsync a ejecutar: rsync -e ssh -i /root/.ssh/id_rsa -o StrictHostKeyChecking=no -avz pi@192.168.190.29:/home/pi/Documents/rain-gauge-project/DTA /data
-[2025-06-12 20:30:02] receiving incremental file list
-
-sent 49 bytes  received 4,520 bytes  3,046.00 bytes/sec
-total size is 1,211,390  speedup is 265.13
-
-[2025-06-12 20:35:01] Iniciando sincronización desde Raspberry Pi
-[2025-06-12 20:35:01] Comando rsync a ejecutar: rsync -e ssh -i /root/.ssh/id_rsa -o StrictHostKeyChecking=no -avz pi@192.168.190.29:/home/pi/Documents/rain-gauge-project/DTA /data
-[2025-06-12 20:35:01] receiving incremental file list
-
-sent 49 bytes  received 4,520 bytes  9,138.00 bytes/sec
-total size is 1,211,390  speedup is 265.13
-
-[2025-06-12 20:40:01] Iniciando sincronización desde Raspberry Pi
-[2025-06-12 20:40:01] Comando rsync a ejecutar: rsync -e ssh -i /root/.ssh/id_rsa -o StrictHostKeyChecking=no -avz pi@192.168.190.29:/home/pi/Documents/rain-gauge-project/DTA /data
-[2025-06-12 20:40:02] receiving incremental file list
-
-sent 49 bytes  received 4,520 bytes  3,046.00 bytes/sec
-total size is 1,211,390  speedup is 265.13
-
-[2025-06-12 20:45:02] Iniciando sincronización desde Raspberry Pi
-[2025-06-12 20:45:02] Comando rsync a ejecutar: rsync -e ssh -i /root/.ssh/id_rsa -o StrictHostKeyChecking=no -avz pi@192.168.190.29:/home/pi/Documents/rain-gauge-project/DTA /data
-[2025-06-12 20:45:02] receiving incremental file list
-
-sent 49 bytes  received 4,520 bytes  9,138.00 bytes/sec
-total size is 1,211,390  speedup is 265.13
-
-[2025-06-12 20:50:01] Iniciando sincronización desde Raspberry Pi
-[2025-06-12 20:50:01] Comando rsync a ejecutar: rsync -e ssh -i /root/.ssh/id_rsa -o StrictHostKeyChecking=no -avz pi@192.168.190.29:/home/pi/Documents/rain-gauge-project/DTA /data
-[2025-06-12 20:50:02] receiving incremental file list
-
-sent 49 bytes  received 4,516 bytes  3,043.33 bytes/sec
-total size is 1,211,390  speedup is 265.36
-
-[2025-06-12 20:55:01] Iniciando sincronización desde Raspberry Pi
-[2025-06-12 20:55:01] Comando rsync a ejecutar: rsync -e ssh -i /root/.ssh/id_rsa -o StrictHostKeyChecking=no -avz pi@192.168.190.29:/home/pi/Documents/rain-gauge-project/DTA /data
-[2025-06-12 20:55:01] receiving incremental file list
-
-sent 49 bytes  received 4,520 bytes  9,138.00 bytes/sec
-total size is 1,211,390  speedup is 265.13
-
-[2025-06-12 21:00:01] Iniciando sincronización desde Raspberry Pi
-[2025-06-12 21:00:01] Comando rsync a ejecutar: rsync -e ssh -i /root/.ssh/id_rsa -o StrictHostKeyChecking=no -avz pi@192.168.190.29:/home/pi/Documents/rain-gauge-project/DTA /data
-[2025-06-12 21:00:01] receiving incremental file list
-
-sent 49 bytes  received 4,520 bytes  9,138.00 bytes/sec
-total size is 1,211,390  speedup is 265.13
-
-[2025-06-12 21:05:01] Iniciando sincronización desde Raspberry Pi
-[2025-06-12 21:05:01] Comando rsync a ejecutar: rsync -e ssh -i /root/.ssh/id_rsa -o StrictHostKeyChecking=no -avz pi@192.168.190.29:/home/pi/Documents/rain-gauge-project/DTA /data
-[2025-06-12 21:05:02] receiving incremental file list
-
-sent 49 bytes  received 4,520 bytes  3,046.00 bytes/sec
-total size is 1,211,390  speedup is 265.13
-
-[2025-06-12 21:10:01] Iniciando sincronización desde Raspberry Pi
-[2025-06-12 21:10:01] Comando rsync a ejecutar: rsync -e ssh -i /root/.ssh/id_rsa -o StrictHostKeyChecking=no -avz pi@192.168.190.29:/home/pi/Documents/rain-gauge-project/DTA /data
-[2025-06-12 21:10:01] receiving incremental file list
-
-sent 49 bytes  received 4,520 bytes  9,138.00 bytes/sec
-total size is 1,211,390  speedup is 265.13
-
-[2025-06-12 21:15:01] Iniciando sincronización desde Raspberry Pi
-[2025-06-12 21:15:01] Comando rsync a ejecutar: rsync -e ssh -i /root/.ssh/id_rsa -o StrictHostKeyChecking=no -avz pi@192.168.190.29:/home/pi/Documents/rain-gauge-project/DTA /data
-[2025-06-12 21:15:02] receiving incremental file list
-
-sent 49 bytes  received 4,520 bytes  3,046.00 bytes/sec
-total size is 1,211,390  speedup is 265.13
-
-[2025-06-12 21:20:01] Iniciando sincronización desde Raspberry Pi
-[2025-06-12 21:20:01] Comando rsync a ejecutar: rsync -e ssh -i /root/.ssh/id_rsa -o StrictHostKeyChecking=no -avz pi@192.168.190.29:/home/pi/Documents/rain-gauge-project/DTA /data
-[2025-06-12 21:20:02] receiving incremental file list
-
-sent 49 bytes  received 4,520 bytes  3,046.00 bytes/sec
-total size is 1,211,390  speedup is 265.13
-
-[2025-06-12 21:25:01] Iniciando sincronización desde Raspberry Pi
-[2025-06-12 21:25:01] Comando rsync a ejecutar: rsync -e ssh -i /root/.ssh/id_rsa -o StrictHostKeyChecking=no -avz pi@192.168.190.29:/home/pi/Documents/rain-gauge-project/DTA /data
-[2025-06-12 21:25:02] receiving incremental file list
+[2025-06-13 20:50:01] Iniciando sincronización desde Raspberry Pi
+[2025-06-13 20:50:01] Comando rsync a ejecutar: rsync -e ssh -i /root/.ssh/id_rsa -o StrictHostKeyChecking=no -avz pi@192.168.190.29:/home/pi/Documents/rain-gauge-project/DTA /data
+[2025-06-13 20:50:02] receiving incremental file list
 
 sent 49 bytes  received 4,520 bytes  3,046.00 bytes/sec
 total size is 1,211,390  speedup is 265.13

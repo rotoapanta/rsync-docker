@@ -168,3 +168,26 @@ For support, email robertocarlos.toapanta@gmail.com or join our Discord channel.
 
 [![linkedin](https://img.shields.io/badge/linkedin-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/roberto-carlos-toapanta-g/)
 [![twitter](https://img.shields.io/badge/twitter-1DA1F2?style=for-the-badge&logo=twitter&logoColor=white)](https://twitter.com/rotoapanta)
+
+## 📁 Estructura del Proyecto
+
+```plaintext
+rsync-docker/
+├── .env                  # Variables de entorno (no se suben a Git)
+├── .gitignore            # Archivos y carpetas ignoradas por Git
+├── crontab.txt           # Configuración de tareas programadas (cron)
+├── Dockerfile            # Imagen Docker para el contenedor de sincronización
+├── docker-compose.yml    # Orquestador de servicios y volúmenes Docker
+├── main.py               # Entrada principal para ejecución manual de la sincronización
+├── run_sync.sh           # Script llamado por cron para ejecutar sincronización
+├── start.sh              # Script de inicio dentro del contenedor
+├── start_host.sh         # Script de ayuda para construir y ejecutar desde el host
+├── logs/                 # Carpeta para logs de sincronización y errores
+│   ├── cron.log          # Log de actividad del cron
+│   ├── from_pi.log       # Log de sincronización desde Raspberry Pi
+│   └── startup.log       # Log de diagnóstico inicial
+├── data/                 # Carpeta destino de los archivos sincronizados (volumen montado)
+├── managers/
+│   └── sync_manager.py   # Lógica principal para ejecutar rsync y enviar notificaciones
+└── utils/
+    └── telegram_utils.py # Funciones de utilidad para enviar mensajes por Telegram

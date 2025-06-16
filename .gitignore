@@ -1,0 +1,15 @@
+# Archivos de entorno
+.env
+
+# Directorios de logs
+logs/
+
+# Archivos de caché de Python
+__pycache__/
+*.pyc
+
+# Archivos de datos sincronizados
+data/
+
+# Claves SSH (si están directamente en el directorio del proyecto y no en ~/.ssh/)
+# id_rsa_rsync

@@ -62,6 +62,7 @@ rsync-docker/
 │   └── sync_manager.py   # Lógica principal para ejecutar rsync y enviar notificaciones
 └── utils/
     └── telegram_utils.py # Funciones de utilidad para enviar mensajes por Telegram
+```
 
 ## Configuration
 

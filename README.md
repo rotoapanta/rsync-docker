@@ -140,8 +140,7 @@ For support, email robertocarlos.toapanta@gmail.com or join our Discord channel.
 
 ## More Info
 
-* [Official documentation for py-zabbix](https://py-zabbix.readthedocs.io/en/latest/)
-* [Install py-zabbix 1.1.7](https://pypi.org/project/pyzabbix/)
+* [Cómo usar Rsync para sincronizar directorios locales y remotos](https://www.digitalocean.com/community/tutorials/how-to-use-rsync-to-sync-local-and-remote-directories-es)
 
 ## Links
 

@@ -42,48 +42,26 @@ This project provides a Docker-based solution to automatically synchronize data 
 
 ## Project Structure
 
-RSYNC-DOCKER/
-├── .env                  # Variables de entorno (IGNORADO por Git)
-├── .gitignore            # Archivos y carpetas a ignorar por Git
-├── crontab.txt           # Configuración de los jobs de cron
-├── Dockerfile            # Define la imagen Docker del servicio
-├── docker-compose.yml    # Define el servicio Docker y sus volúmenes
-├── main.py               # Punto de entrada principal para ejecutar la sincronización
-├── run_sync.sh           # Script wrapper para ejecutar la sincronización desde cron
-├── start.sh              # Script inicial que se ejecuta al iniciar el contenedor
-├── start_host.sh         # (Opcional) Script para ejecutar commands específicos al host
-├── logs/                 # Directorio para los archivos de log (IGNORADO por Git)
-│   ├── cron.log
-│   ├── from_pi.log
-│   └── startup.log
-├── data/                 # Directorio donde se guardan los datos sincronizados (IGNORADO por Git)
-└── managers/
-    └── sync_manager.py   # Lógica principal para ejecutar Rsync y manejar notificaciones
-└── utils/
-    └── telegram_utils.py # Funciones de utilidad para enviar mensajes a Telegram
-
-
-RSYNC-DOCKER/
-├── .env # Variables de entorno (IGNORADO por Git)
-├── .gitignore # Archivos y carpetas a ignorar por Git
-├── crontab.txt # Configuración de los jobs de cron
-├── Dockerfile # Define la imagen Docker del servicio
-├── docker-compose.yml # Define el servicio Docker y sus volúmenes
-├── main.py # Punto de entrada principal para ejecutar la sincronización
-├── run_sync.sh # Script wrapper para ejecutar la sincronización desde cron
-├── start.sh # Script inicial que se ejecuta al iniciar el contenedor
-├── start_host.sh # (Opcional) Script para ejecutar commands específicos al host
-├── logs/ # Directorio para los archivos de log (IGNORADO por Git)
-│ ├── cron.log
-│ ├── from_pi.log
-│ └── startup.log
-├── data/ # Directorio donde se guardan los datos sincronizados (IGNORADO por Git)
+```plaintext
+rsync-docker/
+├── .env                  # Variables de entorno (no se suben a Git)
+├── .gitignore            # Archivos y carpetas ignoradas por Git
+├── crontab.txt           # Configuración de tareas programadas (cron)
+├── Dockerfile            # Imagen Docker para el contenedor de sincronización
+├── docker-compose.yml    # Orquestador de servicios y volúmenes Docker
+├── main.py               # Entrada principal para ejecución manual de la sincronización
+├── run_sync.sh           # Script llamado por cron para ejecutar sincronización
+├── start.sh              # Script de inicio dentro del contenedor
+├── start_host.sh         # Script de ayuda para construir y ejecutar desde el host
+├── logs/                 # Carpeta para logs de sincronización y errores
+│   ├── cron.log          # Log de actividad del cron
+│   ├── from_pi.log       # Log de sincronización desde Raspberry Pi
+│   └── startup.log       # Log de diagnóstico inicial
+├── data/                 # Carpeta destino de los archivos sincronizados (volumen montado)
 ├── managers/
-│ └── sync_manager.py # Lógica principal para ejecutar Rsync y manejar notificaciones
+│   └── sync_manager.py   # Lógica principal para ejecutar rsync y enviar notificaciones
 └── utils/
-└── telegram_utils.py # Funciones de utilidad para enviar mensajes a Telegram
-
----
+    └── telegram_utils.py # Funciones de utilidad para enviar mensajes por Telegram
 
 ## Configuration
 
@@ -167,27 +145,4 @@ For support, email robertocarlos.toapanta@gmail.com or join our Discord channel.
 ## Links
 
 [![linkedin](https://img.shields.io/badge/linkedin-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/roberto-carlos-toapanta-g/)
-[![twitter](https://img.shields.io/badge/twitter-1DA1F2?style=for-the-badge&logo=twitter&logoColor=white)](https://twitter.com/rotoapanta)
-
-## 📁 Estructura del Proyecto
-
-```plaintext
-rsync-docker/
-├── .env                  # Variables de entorno (no se suben a Git)
-├── .gitignore            # Archivos y carpetas ignoradas por Git
-├── crontab.txt           # Configuración de tareas programadas (cron)
-├── Dockerfile            # Imagen Docker para el contenedor de sincronización
-├── docker-compose.yml    # Orquestador de servicios y volúmenes Docker
-├── main.py               # Entrada principal para ejecución manual de la sincronización
-├── run_sync.sh           # Script llamado por cron para ejecutar sincronización
-├── start.sh              # Script de inicio dentro del contenedor
-├── start_host.sh         # Script de ayuda para construir y ejecutar desde el host
-├── logs/                 # Carpeta para logs de sincronización y errores
-│   ├── cron.log          # Log de actividad del cron
-│   ├── from_pi.log       # Log de sincronización desde Raspberry Pi
-│   └── startup.log       # Log de diagnóstico inicial
-├── data/                 # Carpeta destino de los archivos sincronizados (volumen montado)
-├── managers/
-│   └── sync_manager.py   # Lógica principal para ejecutar rsync y enviar notificaciones
-└── utils/
-    └── telegram_utils.py # Funciones de utilidad para enviar mensajes por Telegram
+[![twitter](https://img.shields.io/badge/twitter-1DA1F2?style=for-the-badge&logo=twitter&logoColor=white)](https://twitter.com/rotoapanta

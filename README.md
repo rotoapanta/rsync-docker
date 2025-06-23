@@ -139,8 +139,9 @@ $ ssh -i ~/.ssh/id_rsa_rsync pi@<raspberry_pi_ip_address>
 ```bash
 $ ./start_host.sh
 ```
+## Usage
 
-🧪 Manual Test
+1. Manual Test
 
 Run a manual sync:
 
@@ -148,7 +149,7 @@ Run a manual sync:
 docker exec -it rsync_docker /app/run_sync.sh from
 ```
 
-📬 Notifications
+## Notifications
 
 You will receive Telegram notifications if:
 

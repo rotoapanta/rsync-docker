@@ -8,7 +8,6 @@
 ![Docker](https://img.shields.io/badge/docker-ready-blue)
 ![GitHub issues](https://img.shields.io/github/issues/rotoapanta/rsync-docker)
 ![Last Commit](https://img.shields.io/github/last-commit/rotoapanta/rsync-docker)
-![License](https://img.shields.io/github/license/rotoapanta/rsync-docker)
 ![GPLv3](https://img.shields.io/badge/license-GPLv3-blue.svg)
 ![GitHub repo size](https://img.shields.io/github/repo-size/rotoapanta/rsync-docker)
 ![Supported Platforms](https://img.shields.io/badge/platform-Linux%20|%20macOS-green)
@@ -19,11 +18,17 @@
 - [Overview](#overview)
 - [Features](#features)
 - [Project Structure](#project-structure)
+- [Requirements](#requirements)
 - [Configuration](#configuration)
+  - [Clone the Repository](#1-clone-the-repository)
+  - [Edit `.env` File](#2-create-and-edit-your-env-file)
+  - [Setup SSH Access](#3-set-up-ssh-access-to-raspberry-pi)
+  - [Build and Run](#4-build-and-run-the-container)
 - [Manual Test](#manual-test)
 - [Notifications](#notifications)
 - [License](#license)
-
+- [Authors](#authors)
+- [Links](#links)
 # Getting started
 
 ## Overview
@@ -63,6 +68,17 @@ rsync-docker/
 └── utils/
     └── telegram_utils.py # Funciones de utilidad para enviar mensajes por Telegram
 ```
+
+## Requirements
+
+- Docker >= 20.x
+
+- docker-compose >= v2.x
+(On modern systems, docker compose replaces docker-compose command)
+
+- SSH access to Raspberry Pi with public key (no password)
+
+- Telegram Bot Token (optional for notifications)
 
 ## Configuration
 

@@ -22,13 +22,18 @@
 - [Configuration](#configuration)
   - [Clone the Repository](#1-clone-the-repository)
   - [Edit `.env` File](#2-create-and-edit-your-env-file)
-  - [Setup SSH Access](#3-set-up-ssh-access-to-raspberry-pi)
+  - [Set Up SSH Access](#3-set-up-ssh-access-to-raspberry-pi)
   - [Build and Run](#4-build-and-run-the-container)
-- [Manual Test](#manual-test)
+- [Usage](#usage)
+  - [Manual Test](#manual-test)
 - [Notifications](#notifications)
+- [Feedback](#feedback)
+- [Support](#support)
 - [License](#license)
 - [Authors](#authors)
+- [More Info](#more-info)
 - [Links](#links)
+
 # Getting started
 
 ## Overview

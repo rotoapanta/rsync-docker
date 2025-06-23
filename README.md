@@ -26,6 +26,7 @@
   - [Build and Run](#4-build-and-run-the-container)
 - [Usage](#usage)
   - [Manual Test](#manual-test)
+- [Cron Schedule](#cron-schedule)
 - [Notifications](#notifications)
 - [Feedback](#feedback)
 - [Support](#support)
@@ -153,6 +154,31 @@ Run a manual sync:
 ```bash
 docker exec -it rsync_docker /app/run_sync.sh from
 ```
+
+## Cron Schedule
+
+The sync process is automatically scheduled inside the container using cron.
+
+By default, the schedule is defined in the crontab.txt file:
+
+```plaintext
+*/30 * * * * /bin/bash /app/run_sync.sh from >> /logs/cron.log 2>&1
+```
+This means:
+
+    The sync will run every 30 minutes
+
+    You can change this schedule by editing the crontab.txt file and rebuilding the container (./start_host.sh).
+
+### Example schedules:
+
+| Schedule        | Description                           |
+|-----------------|---------------------------------------|
+| `*/5 * * * *`   | Run every 5 minutes                    |
+| `0 * * * *`     | Run once every hour (at HH:00)         |
+| `5 * * * *`     | Run once every hour (at HH:05)         |
+| `*/30 * * * *`  | Run every 30 minutes                   |
+| `0 2 * * *`     | Run daily at 02:00 AM                  |
 
 ## Notifications
 

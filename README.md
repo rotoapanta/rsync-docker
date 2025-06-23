@@ -97,9 +97,25 @@ RSYNC_TO=/data
 
 Make sure your host machine can connect to the Raspberry Pi via SSH without password:
 
+1️⃣ Generate a key pair (on your host machine, not inside the container):
+
 ```bash
-$ ssh-copy-id -i ~/.ssh/id_rsa_rsync.pub pi@192.168.1.100
+ssh-keygen -t rsa -b 2048 -f ~/.ssh/id_rsa_rsync
 ```
+👉 If you already have one, do not overwrite it.
+
+2️⃣ Copy your public key to the Raspberry Pi:
+
+```bash
+ssh-copy-id -i ~/.ssh/id_rsa_rsync.pub pi@<raspberry_pi_ip_address>
+```
+Verify that the connection works without a password:
+
+```bash
+ssh -i ~/.ssh/id_rsa_rsync pi@<raspberry_pi_ip_address>
+```
+
+✅ You should be able to connect without entering a password.
 
 4. Construye y ejecuta el contenedor:
 

@@ -15,6 +15,8 @@
 
 # Contents
 
+# Contents
+
 - [Overview](#overview)
 - [Features](#features)
 - [Project Structure](#project-structure)
@@ -27,6 +29,7 @@
 - [Usage](#usage)
   - [Manual Test](#manual-test)
 - [Cron Schedule](#cron-schedule)
+- [Telegram Bot Usage](#telegram-bot-usage)
 - [Notifications](#notifications)
 - [Feedback](#feedback)
 - [Support](#support)
@@ -179,6 +182,23 @@ This means:
 | `5 * * * *`     | Run once every hour (at HH:05)         |
 | `*/30 * * * *`  | Run every 30 minutes                   |
 | `0 2 * * *`     | Run daily at 02:00 AM                  |
+
+## Telegram Bot Usage
+
+The service includes a Telegram bot that notifies you about the status of synchronizations and allows you to trigger a manual sync.
+
+### Bot Commands:
+
+To interact with the bot, find it on Telegram (using the bot username you configured with `@BotFather`) and send the following commands:
+
+- `/start` or `/help`: Displays a welcome message and a list of available commands.
+- `/sync`: **Triggers a manual data synchronization** from the Raspberry Pi to your configured local folder (`RSYNC_DEST_HOST_PATH`).  
+  The bot will confirm that the sync has started and will notify you of the result once it completes.
+
+**Important:**  
+Make sure that your `TELEGRAM_CHAT_ID` in the `.env` file is the ID of the chat where you want to interact with the bot.  
+For security reasons, the bot will only respond to commands from that `chat_id`.
+
 
 ## Notifications
 

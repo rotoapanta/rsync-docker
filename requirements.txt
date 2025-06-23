@@ -1,0 +1,7 @@
+# requirements.txt
+# Otras dependencias que ya tengas, por ejemplo:
+# paramiko
+# scp
+
+requests
+python-telegram-bot==13.7

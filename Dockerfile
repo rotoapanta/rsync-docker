@@ -24,8 +24,15 @@ RUN chmod +x /app/start.sh && \
     chmod 0644 /app/crontab.txt && \
     crontab /app/crontab.txt
 
-# Instalar dependencias Python
-RUN pip install requests
+# Copiar el archivo de requisitos
+COPY requirements.txt /app/
+
+# Instalar todas las dependencias Python de requirements.txt
+RUN pip install --no-cache-dir -r /app/requirements.txt
+
+# Eliminar la línea anterior de 'pip install requests' ya que ahora está en requirements.txt
+# RUN pip install requests 
+# --- FIN DE MODIFICACIONES ---
 
 # Comando de inicio
 CMD ["/app/start.sh"]

@@ -100,43 +100,44 @@ Make sure your host machine can connect to the Raspberry Pi via SSH without pass
 - Generate a key pair (on your host machine, not inside the container):
 
 ```bash
-ssh-keygen -t rsa -b 2048 -f ~/.ssh/id_rsa_rsync
+$ ssh-keygen -t rsa -b 2048 -f ~/.ssh/id_rsa_rsync
 ```
 👉 If you already have one, do not overwrite it.
 
 - Copy your public key to the Raspberry Pi:
 
 ```bash
-ssh-copy-id -i ~/.ssh/id_rsa_rsync.pub pi@<raspberry_pi_ip_address>
+$ ssh-copy-id -i ~/.ssh/id_rsa_rsync.pub pi@<raspberry_pi_ip_address>
 ```
 Verify that the connection works without a password:
 
 ```bash
-ssh -i ~/.ssh/id_rsa_rsync pi@<raspberry_pi_ip_address>
+$ ssh -i ~/.ssh/id_rsa_rsync pi@<raspberry_pi_ip_address>
 ```
 
 ✅ You should be able to connect without entering a password.
 
-4. Construye y ejecuta el contenedor:
+4. Build and Run the Container:
 
 ```bash
-./start_host.sh
+$ ./start_host.sh
 ```
 
-🧪 Prueba manual
+🧪 Manual Test
 
-Ejecuta una sincronización inmediata:
+Run a manual sync:
 
+```bash
 docker exec -it rsync_docker /app/run_sync.sh from
+```
 
-📬 Notificaciones
+📬 Notifications
 
-Recibirás notificaciones en Telegram si:
+You will receive Telegram notifications if:
 
-    ✅ La sincronización fue exitosa
+    ✅ The synchronization was successful
 
-    ❌ Ocurrió un error o fallo
-
+    ❌  An error or failure occurred during the process
 
 ## Feedback
 

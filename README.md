@@ -49,24 +49,25 @@ This project provides a Docker-based solution to automatically synchronize data 
 
 ```plaintext
 rsync-docker/
-├── .env                  # Variables de entorno (no se suben a Git)
-├── .gitignore            # Archivos y carpetas ignoradas por Git
-├── crontab.txt           # Configuración de tareas programadas (cron)
-├── Dockerfile            # Imagen Docker para el contenedor de sincronización
-├── docker-compose.yml    # Orquestador de servicios y volúmenes Docker
-├── main.py               # Entrada principal para ejecución manual de la sincronización
-├── run_sync.sh           # Script llamado por cron para ejecutar sincronización
-├── start.sh              # Script de inicio dentro del contenedor
-├── start_host.sh         # Script de ayuda para construir y ejecutar desde el host
-├── logs/                 # Carpeta para logs de sincronización y errores
-│   ├── cron.log          # Log de actividad del cron
-│   ├── from_pi.log       # Log de sincronización desde Raspberry Pi
-│   └── startup.log       # Log de diagnóstico inicial
-├── data/                 # Carpeta destino de los archivos sincronizados (volumen montado)
+├── .env                  # Environment variables (not committed to Git)
+├── .gitignore            # Files and folders ignored by Git
+├── crontab.txt           # Cron job configuration
+├── Dockerfile            # Docker image for the sync container
+├── docker-compose.yml    # Docker service and volume orchestration
+├── main.py               # Main entry point for manual sync execution
+├── run_sync.sh           # Script called by cron to perform sync
+├── start.sh              # Startup script inside the container
+├── start_host.sh         # Helper script to build and run from the host
+├── logs/                 # Folder for sync and error logs
+│   ├── cron.log          # Cron activity log
+│   ├── from_pi.log       # Sync log from Raspberry Pi
+│   └── startup.log       # Initial diagnostics log
+├── data/                 # Destination folder for synced files (mounted volume)
 ├── managers/
-│   └── sync_manager.py   # Lógica principal para ejecutar rsync y enviar notificaciones
+│   └── sync_manager.py   # Core logic for running rsync and sending notifications
 └── utils/
-    └── telegram_utils.py # Funciones de utilidad para enviar mensajes por Telegram
+    └── telegram_utils.py # Utility functions to send messages via Telegram
+
 ```
 
 ## Requirements

@@ -1603,3 +1603,14 @@ rsync error: unexplained error (code 255) at io.c(232) [Receiver=3.2.7]
 rsync: connection unexpectedly closed (0 bytes received so far) [Receiver]
 rsync error: unexplained error (code 255) at io.c(232) [Receiver=3.2.7]
 
+[2025-06-23 17:00:01] Espacio en disco disponible en /data: 347.60 GB (Total: 915.32 GB, Usado: 521.16 GB)
+[2025-06-23 17:00:01] Iniciando sincronización desde Raspberry Pi
+[2025-06-23 17:00:01] Comando rsync a ejecutar: rsync -e ssh -i /root/.ssh/id_rsa -o StrictHostKeyChecking=no -avz pi@192.168.100.29:/home/pi/Documents/rain-gauge-project/DTA /data
+[2025-06-23 17:00:01] Intento 1/3 para sincronizar.
+[2025-06-23 17:01:26] 
+[2025-06-23 17:01:26] Rsync stderr (Intento 1): ssh: connect to host 192.168.100.29 port 22: Connection refused
+rsync: connection unexpectedly closed (0 bytes received so far) [Receiver]
+rsync error: unexplained error (code 255) at io.c(232) [Receiver=3.2.7]
+
+[2025-06-23 17:01:26] Reintentando en 5 segundos...
+[2025-06-23 17:01:31] Intento 2/3 para sincronizar.

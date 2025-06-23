@@ -3843,3 +3843,246 @@ total size is 1,211,390  speedup is 265.13
 sent 49 bytes  received 4,520 bytes  9,138.00 bytes/sec
 total size is 1,211,390  speedup is 265.13
 
+[2025-06-23 20:40:02] Espacio en disco disponible en /data: 347.42 GB (Total: 915.32 GB, Usado: 521.33 GB)
+[2025-06-23 20:40:02] Iniciando sincronización desde Raspberry Pi
+[2025-06-23 20:40:02] Comando rsync a ejecutar: rsync -e ssh -i /root/.ssh/id_rsa -o StrictHostKeyChecking=no -avz pi@192.168.190.29:/home/pi/Documents/rain-gauge-project/DTA /data
+[2025-06-23 20:40:02] Intento 1/3 para sincronizar.
+[2025-06-23 20:40:02] receiving incremental file list
+
+sent 49 bytes  received 4,520 bytes  9,138.00 bytes/sec
+total size is 1,211,390  speedup is 265.13
+
+[2025-06-23 20:42:02] Espacio en disco disponible en /data: 347.42 GB (Total: 915.32 GB, Usado: 521.34 GB)
+[2025-06-23 20:42:02] Iniciando sincronización desde Raspberry Pi
+[2025-06-23 20:42:02] Comando rsync a ejecutar: rsync -e ssh -i /root/.ssh/id_rsa -o StrictHostKeyChecking=no -avz pi@192.168.190.29:/home/pi/Documents/rain-gauge-project/DTA /data
+[2025-06-23 20:42:02] Intento 1/3 para sincronizar.
+[2025-06-23 20:42:02] receiving incremental file list
+
+sent 49 bytes  received 4,520 bytes  9,138.00 bytes/sec
+total size is 1,211,390  speedup is 265.13
+
+[2025-06-23 20:44:02] Espacio en disco disponible en /data: 347.42 GB (Total: 915.32 GB, Usado: 521.34 GB)
+[2025-06-23 20:44:02] Iniciando sincronización desde Raspberry Pi
+[2025-06-23 20:44:02] Comando rsync a ejecutar: rsync -e ssh -i /root/.ssh/id_rsa -o StrictHostKeyChecking=no -avz pi@192.168.190.29:/home/pi/Documents/rain-gauge-project/DTA /data
+[2025-06-23 20:44:02] Intento 1/3 para sincronizar.
+[2025-06-23 20:44:03] receiving incremental file list
+
+sent 49 bytes  received 4,520 bytes  9,138.00 bytes/sec
+total size is 1,211,390  speedup is 265.13
+
+[2025-06-23 20:46:02] Espacio en disco disponible en /data: 347.42 GB (Total: 915.32 GB, Usado: 521.34 GB)
+[2025-06-23 20:46:02] Iniciando sincronización desde Raspberry Pi
+[2025-06-23 20:46:02] Comando rsync a ejecutar: rsync -e ssh -i /root/.ssh/id_rsa -o StrictHostKeyChecking=no -avz pi@192.168.190.29:/home/pi/Documents/rain-gauge-project/DTA /data
+[2025-06-23 20:46:02] Intento 1/3 para sincronizar.
+[2025-06-23 20:46:02] receiving incremental file list
+
+sent 49 bytes  received 4,520 bytes  9,138.00 bytes/sec
+total size is 1,211,390  speedup is 265.13
+
+[2025-06-23 20:48:02] Espacio en disco disponible en /data: 347.42 GB (Total: 915.32 GB, Usado: 521.34 GB)
+[2025-06-23 20:48:02] Iniciando sincronización desde Raspberry Pi
+[2025-06-23 20:48:02] Comando rsync a ejecutar: rsync -e ssh -i /root/.ssh/id_rsa -o StrictHostKeyChecking=no -avz pi@192.168.190.29:/home/pi/Documents/rain-gauge-project/DTA /data
+[2025-06-23 20:48:02] Intento 1/3 para sincronizar.
+[2025-06-23 20:48:03] receiving incremental file list
+
+sent 49 bytes  received 4,520 bytes  3,046.00 bytes/sec
+total size is 1,211,390  speedup is 265.13
+
+[2025-06-23 20:52:03] Espacio en disco disponible en /data: 347.40 GB (Total: 915.32 GB, Usado: 521.36 GB)
+[2025-06-23 20:52:03] Iniciando sincronización desde Raspberry Pi
+[2025-06-23 20:52:03] Comando rsync a ejecutar: rsync -e ssh -i /root/.ssh/id_rsa -o StrictHostKeyChecking=no -avz pi@192.168.190.29:/home/pi/Documents/rain-gauge-project/DTA /data
+[2025-06-23 20:52:03] Intento 1/3 para sincronizar.
+[2025-06-23 20:52:04] receiving incremental file list
+
+sent 49 bytes  received 4,520 bytes  3,046.00 bytes/sec
+total size is 1,211,390  speedup is 265.13
+
+[2025-06-23 20:54:03] Espacio en disco disponible en /data: 347.42 GB (Total: 915.32 GB, Usado: 521.34 GB)
+[2025-06-23 20:54:03] Iniciando sincronización desde Raspberry Pi
+[2025-06-23 20:54:03] Comando rsync a ejecutar: rsync -e ssh -i /root/.ssh/id_rsa -o StrictHostKeyChecking=no -avz pi@192.168.190.29:/home/pi/Documents/rain-gauge-project/DTA /data
+[2025-06-23 20:54:03] Intento 1/3 para sincronizar.
+[2025-06-23 20:54:04] receiving incremental file list
+
+sent 49 bytes  received 4,520 bytes  3,046.00 bytes/sec
+total size is 1,211,390  speedup is 265.13
+
+[2025-06-23 20:56:03] Espacio en disco disponible en /data: 347.42 GB (Total: 915.32 GB, Usado: 521.34 GB)
+[2025-06-23 20:56:03] Iniciando sincronización desde Raspberry Pi
+[2025-06-23 20:56:03] Comando rsync a ejecutar: rsync -e ssh -i /root/.ssh/id_rsa -o StrictHostKeyChecking=no -avz pi@192.168.190.29:/home/pi/Documents/rain-gauge-project/DTA /data
+[2025-06-23 20:56:03] Intento 1/3 para sincronizar.
+[2025-06-23 20:56:04] receiving incremental file list
+
+sent 49 bytes  received 4,520 bytes  3,046.00 bytes/sec
+total size is 1,211,390  speedup is 265.13
+
+[2025-06-23 20:57:30] Espacio en disco disponible en /data: 347.42 GB (Total: 915.32 GB, Usado: 521.34 GB)
+[2025-06-23 20:57:30] Iniciando sincronización desde Raspberry Pi
+[2025-06-23 20:57:30] Comando rsync a ejecutar: rsync -e ssh -i /root/.ssh/id_rsa -o StrictHostKeyChecking=no -avz pi@192.168.190.29:/home/pi/Documents/rain-gauge-project/DTA /data
+[2025-06-23 20:57:30] Intento 1/3 para sincronizar.
+[2025-06-23 20:57:31] receiving incremental file list
+
+sent 49 bytes  received 4,520 bytes  3,046.00 bytes/sec
+total size is 1,211,390  speedup is 265.13
+
+[2025-06-23 20:57:46] Espacio en disco disponible en /data: 347.42 GB (Total: 915.32 GB, Usado: 521.34 GB)
+[2025-06-23 20:57:46] Iniciando sincronización desde Raspberry Pi
+[2025-06-23 20:57:46] Comando rsync a ejecutar: rsync -e ssh -i /root/.ssh/id_rsa -o StrictHostKeyChecking=no -avz pi@192.168.190.29:/home/pi/Documents/rain-gauge-project/DTA /data
+[2025-06-23 20:57:46] Intento 1/3 para sincronizar.
+[2025-06-23 20:57:46] Espacio en disco disponible en /data: 347.42 GB (Total: 915.32 GB, Usado: 521.34 GB)
+[2025-06-23 20:57:46] Iniciando sincronización desde Raspberry Pi
+[2025-06-23 20:57:46] Comando rsync a ejecutar: rsync -e ssh -i /root/.ssh/id_rsa -o StrictHostKeyChecking=no -avz pi@192.168.190.29:/home/pi/Documents/rain-gauge-project/DTA /data
+[2025-06-23 20:57:46] Intento 1/3 para sincronizar.
+[2025-06-23 20:57:47] receiving incremental file list
+
+sent 49 bytes  received 4,520 bytes  3,046.00 bytes/sec
+total size is 1,211,390  speedup is 265.13
+
+[2025-06-23 20:57:47] receiving incremental file list
+
+sent 49 bytes  received 4,520 bytes  3,046.00 bytes/sec
+total size is 1,211,390  speedup is 265.13
+
+[2025-06-23 20:57:55] Espacio en disco disponible en /data: 347.42 GB (Total: 915.32 GB, Usado: 521.34 GB)
+[2025-06-23 20:57:55] Iniciando sincronización desde Raspberry Pi
+[2025-06-23 20:57:55] Comando rsync a ejecutar: rsync -e ssh -i /root/.ssh/id_rsa -o StrictHostKeyChecking=no -avz pi@192.168.190.29:/home/pi/Documents/rain-gauge-project/DTA /data
+[2025-06-23 20:57:55] Intento 1/3 para sincronizar.
+[2025-06-23 20:57:56] receiving incremental file list
+
+sent 49 bytes  received 4,520 bytes  3,046.00 bytes/sec
+total size is 1,211,390  speedup is 265.13
+
+[2025-06-23 20:58:01] Espacio en disco disponible en /data: 347.42 GB (Total: 915.32 GB, Usado: 521.34 GB)
+[2025-06-23 20:58:01] Iniciando sincronización desde Raspberry Pi
+[2025-06-23 20:58:01] Comando rsync a ejecutar: rsync -e ssh -i /root/.ssh/id_rsa -o StrictHostKeyChecking=no -avz pi@192.168.190.29:/home/pi/Documents/rain-gauge-project/DTA /data
+[2025-06-23 20:58:01] Intento 1/3 para sincronizar.
+[2025-06-23 20:58:01] receiving incremental file list
+
+sent 49 bytes  received 4,520 bytes  9,138.00 bytes/sec
+total size is 1,211,390  speedup is 265.13
+
+[2025-06-23 20:58:03] Espacio en disco disponible en /data: 347.42 GB (Total: 915.32 GB, Usado: 521.34 GB)
+[2025-06-23 20:58:03] Iniciando sincronización desde Raspberry Pi
+[2025-06-23 20:58:03] Comando rsync a ejecutar: rsync -e ssh -i /root/.ssh/id_rsa -o StrictHostKeyChecking=no -avz pi@192.168.190.29:/home/pi/Documents/rain-gauge-project/DTA /data
+[2025-06-23 20:58:03] Intento 1/3 para sincronizar.
+[2025-06-23 20:58:04] receiving incremental file list
+
+sent 49 bytes  received 4,516 bytes  3,043.33 bytes/sec
+total size is 1,211,390  speedup is 265.36
+
+[2025-06-23 21:00:03] Espacio en disco disponible en /data: 347.42 GB (Total: 915.32 GB, Usado: 521.34 GB)
+[2025-06-23 21:00:03] Iniciando sincronización desde Raspberry Pi
+[2025-06-23 21:00:03] Comando rsync a ejecutar: rsync -e ssh -i /root/.ssh/id_rsa -o StrictHostKeyChecking=no -avz pi@192.168.190.29:/home/pi/Documents/rain-gauge-project/DTA /data
+[2025-06-23 21:00:03] Intento 1/3 para sincronizar.
+[2025-06-23 21:00:05] receiving incremental file list
+
+sent 49 bytes  received 4,516 bytes  1,826.00 bytes/sec
+total size is 1,211,390  speedup is 265.36
+
+[2025-06-23 21:02:03] Espacio en disco disponible en /data: 347.42 GB (Total: 915.32 GB, Usado: 521.34 GB)
+[2025-06-23 21:02:03] Iniciando sincronización desde Raspberry Pi
+[2025-06-23 21:02:03] Comando rsync a ejecutar: rsync -e ssh -i /root/.ssh/id_rsa -o StrictHostKeyChecking=no -avz pi@192.168.190.29:/home/pi/Documents/rain-gauge-project/DTA /data
+[2025-06-23 21:02:03] Intento 1/3 para sincronizar.
+[2025-06-23 21:02:04] receiving incremental file list
+
+sent 49 bytes  received 4,520 bytes  3,046.00 bytes/sec
+total size is 1,211,390  speedup is 265.13
+
+[2025-06-23 21:04:03] Espacio en disco disponible en /data: 347.42 GB (Total: 915.32 GB, Usado: 521.34 GB)
+[2025-06-23 21:04:03] Iniciando sincronización desde Raspberry Pi
+[2025-06-23 21:04:03] Comando rsync a ejecutar: rsync -e ssh -i /root/.ssh/id_rsa -o StrictHostKeyChecking=no -avz pi@192.168.190.29:/home/pi/Documents/rain-gauge-project/DTA /data
+[2025-06-23 21:04:03] Intento 1/3 para sincronizar.
+[2025-06-23 21:04:04] receiving incremental file list
+
+sent 49 bytes  received 4,520 bytes  3,046.00 bytes/sec
+total size is 1,211,390  speedup is 265.13
+
+[2025-06-23 21:06:03] Espacio en disco disponible en /data: 347.42 GB (Total: 915.32 GB, Usado: 521.34 GB)
+[2025-06-23 21:06:03] Iniciando sincronización desde Raspberry Pi
+[2025-06-23 21:06:03] Comando rsync a ejecutar: rsync -e ssh -i /root/.ssh/id_rsa -o StrictHostKeyChecking=no -avz pi@192.168.190.29:/home/pi/Documents/rain-gauge-project/DTA /data
+[2025-06-23 21:06:03] Intento 1/3 para sincronizar.
+[2025-06-23 21:06:05] receiving incremental file list
+
+sent 49 bytes  received 4,516 bytes  1,826.00 bytes/sec
+total size is 1,211,390  speedup is 265.36
+
+[2025-06-23 21:08:03] Espacio en disco disponible en /data: 347.42 GB (Total: 915.32 GB, Usado: 521.34 GB)
+[2025-06-23 21:08:03] Iniciando sincronización desde Raspberry Pi
+[2025-06-23 21:08:03] Comando rsync a ejecutar: rsync -e ssh -i /root/.ssh/id_rsa -o StrictHostKeyChecking=no -avz pi@192.168.190.29:/home/pi/Documents/rain-gauge-project/DTA /data
+[2025-06-23 21:08:03] Intento 1/3 para sincronizar.
+[2025-06-23 21:08:06] receiving incremental file list
+
+sent 49 bytes  received 4,516 bytes  1,304.29 bytes/sec
+total size is 1,211,390  speedup is 265.36
+
+[2025-06-23 21:10:03] Espacio en disco disponible en /data: 347.42 GB (Total: 915.32 GB, Usado: 521.34 GB)
+[2025-06-23 21:10:03] Iniciando sincronización desde Raspberry Pi
+[2025-06-23 21:10:03] Comando rsync a ejecutar: rsync -e ssh -i /root/.ssh/id_rsa -o StrictHostKeyChecking=no -avz pi@192.168.190.29:/home/pi/Documents/rain-gauge-project/DTA /data
+[2025-06-23 21:10:03] Intento 1/3 para sincronizar.
+[2025-06-23 21:10:05] receiving incremental file list
+
+sent 49 bytes  received 4,520 bytes  1,827.60 bytes/sec
+total size is 1,211,390  speedup is 265.13
+
+[2025-06-23 21:11:08] Espacio en disco disponible en /data: 347.42 GB (Total: 915.32 GB, Usado: 521.34 GB)
+[2025-06-23 21:11:08] Iniciando sincronización desde Raspberry Pi
+[2025-06-23 21:11:08] Comando rsync a ejecutar: rsync -e ssh -i /root/.ssh/id_rsa -o StrictHostKeyChecking=no -avz pi@192.168.190.29:/home/pi/Documents/rain-gauge-project/DTA /data
+[2025-06-23 21:11:08] Intento 1/3 para sincronizar.
+[2025-06-23 21:11:09] receiving incremental file list
+
+sent 49 bytes  received 4,520 bytes  3,046.00 bytes/sec
+total size is 1,211,390  speedup is 265.13
+
+[2025-06-23 21:12:03] Espacio en disco disponible en /data: 347.42 GB (Total: 915.32 GB, Usado: 521.34 GB)
+[2025-06-23 21:12:03] Iniciando sincronización desde Raspberry Pi
+[2025-06-23 21:12:03] Comando rsync a ejecutar: rsync -e ssh -i /root/.ssh/id_rsa -o StrictHostKeyChecking=no -avz pi@192.168.190.29:/home/pi/Documents/rain-gauge-project/DTA /data
+[2025-06-23 21:12:03] Intento 1/3 para sincronizar.
+[2025-06-23 21:12:04] receiving incremental file list
+
+sent 49 bytes  received 4,520 bytes  3,046.00 bytes/sec
+total size is 1,211,390  speedup is 265.13
+
+[2025-06-23 21:14:03] Espacio en disco disponible en /data: 347.41 GB (Total: 915.32 GB, Usado: 521.34 GB)
+[2025-06-23 21:14:03] Iniciando sincronización desde Raspberry Pi
+[2025-06-23 21:14:03] Comando rsync a ejecutar: rsync -e ssh -i /root/.ssh/id_rsa -o StrictHostKeyChecking=no -avz pi@192.168.190.29:/home/pi/Documents/rain-gauge-project/DTA /data
+[2025-06-23 21:14:03] Intento 1/3 para sincronizar.
+[2025-06-23 21:14:04] receiving incremental file list
+
+sent 49 bytes  received 4,520 bytes  3,046.00 bytes/sec
+total size is 1,211,390  speedup is 265.13
+
+[2025-06-23 21:16:03] Espacio en disco disponible en /data: 347.38 GB (Total: 915.32 GB, Usado: 521.37 GB)
+[2025-06-23 21:16:03] Iniciando sincronización desde Raspberry Pi
+[2025-06-23 21:16:03] Comando rsync a ejecutar: rsync -e ssh -i /root/.ssh/id_rsa -o StrictHostKeyChecking=no -avz pi@192.168.190.29:/home/pi/Documents/rain-gauge-project/DTA /data
+[2025-06-23 21:16:03] Intento 1/3 para sincronizar.
+[2025-06-23 21:16:04] receiving incremental file list
+
+sent 49 bytes  received 4,520 bytes  9,138.00 bytes/sec
+total size is 1,211,390  speedup is 265.13
+
+[2025-06-23 21:16:20] Espacio en disco disponible en /data: 347.38 GB (Total: 915.32 GB, Usado: 521.37 GB)
+[2025-06-23 21:16:20] Iniciando sincronización desde Raspberry Pi
+[2025-06-23 21:16:20] Comando rsync a ejecutar: rsync -e ssh -i /root/.ssh/id_rsa -o StrictHostKeyChecking=no -avz pi@192.168.190.29:/home/pi/Documents/rain-gauge-project/DTA /data
+[2025-06-23 21:16:20] Intento 1/3 para sincronizar.
+[2025-06-23 21:16:21] receiving incremental file list
+
+sent 49 bytes  received 4,520 bytes  3,046.00 bytes/sec
+total size is 1,211,390  speedup is 265.13
+
+[2025-06-23 21:18:03] Espacio en disco disponible en /data: 347.35 GB (Total: 915.32 GB, Usado: 521.41 GB)
+[2025-06-23 21:18:03] Iniciando sincronización desde Raspberry Pi
+[2025-06-23 21:18:03] Comando rsync a ejecutar: rsync -e ssh -i /root/.ssh/id_rsa -o StrictHostKeyChecking=no -avz pi@192.168.190.29:/home/pi/Documents/rain-gauge-project/DTA /data
+[2025-06-23 21:18:03] Intento 1/3 para sincronizar.
+[2025-06-23 21:18:04] receiving incremental file list
+
+sent 49 bytes  received 4,520 bytes  3,046.00 bytes/sec
+total size is 1,211,390  speedup is 265.13
+
+[2025-06-23 21:20:03] Espacio en disco disponible en /data: 347.34 GB (Total: 915.32 GB, Usado: 521.41 GB)
+[2025-06-23 21:20:03] Iniciando sincronización desde Raspberry Pi
+[2025-06-23 21:20:03] Comando rsync a ejecutar: rsync -e ssh -i /root/.ssh/id_rsa -o StrictHostKeyChecking=no -avz pi@192.168.190.29:/home/pi/Documents/rain-gauge-project/DTA /data
+[2025-06-23 21:20:03] Intento 1/3 para sincronizar.
+[2025-06-23 21:20:04] receiving incremental file list
+
+sent 49 bytes  received 4,516 bytes  3,043.33 bytes/sec
+total size is 1,211,390  speedup is 265.36
+

@@ -23,7 +23,7 @@
 - [Requirements](#requirements)
 - [Configuration](#configuration)
   - [Clone the Repository](#1-clone-the-repository)
-  - [Edit `.env` File](#2-create-and-edit-your-env-file)
+  - [Edit .env File](#2-create-and-edit-your-env-file)
   - [Set Up SSH Access](#3-set-up-ssh-access-to-raspberry-pi)
   - [Build and Run](#4-build-and-run-the-container)
 - [Usage](#usage)

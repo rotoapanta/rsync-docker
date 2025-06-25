@@ -31,6 +31,9 @@ sync_function_callback = None
 change_cron_interval_callback = None
 disable_auto_sync_callback = None
 enable_auto_sync_callback = None
+disk_status_callback = None
+show_log_callback = None
+
 stop_sync_flag = threading.Event()
 
 # --- Funciones de Utilidad ---
@@ -67,7 +70,10 @@ def start_command(update, context):
         [InlineKeyboardButton("⏱️ Set Interval", callback_data='set_interval')],
         [InlineKeyboardButton("✅ Enable Auto Sync", callback_data='enable_sync'),
          InlineKeyboardButton("🚫 Disable Auto Sync", callback_data='disable_sync')],
-        [InlineKeyboardButton("🛑 Stop Sync", callback_data='stop_sync')],
+        [InlineKeyboardButton("🛑 Stop Sync", callback_data='stop_sync'),
+         InlineKeyboardButton("🟢 Clear Stop Flag", callback_data='clear_stop')],
+        [InlineKeyboardButton("💾 Disk Status", callback_data='disk_status'),
+         InlineKeyboardButton("📄 Show Log", callback_data='show_log')]
     ]
     reply_markup = InlineKeyboardMarkup(keyboard)
 
@@ -96,7 +102,6 @@ def help_command(update, context):
 
 def start_sync_command(update, context):
     chat_id = str(update.message.chat_id)
-    user = update.message.from_user
 
     if chat_id != TELEGRAM_CHAT_ID:
         update.message.reply_text("Lo siento, no estás autorizado.")
@@ -112,7 +117,6 @@ def start_sync_command(update, context):
 
 def set_interval_command(update, context):
     chat_id = str(update.message.chat_id)
-    user = update.message.from_user
 
     if chat_id != TELEGRAM_CHAT_ID:
         update.message.reply_text("Lo siento, no estás autorizado.")
@@ -134,7 +138,6 @@ def set_interval_command(update, context):
 
 def disable_sync_command(update, context):
     chat_id = str(update.message.chat_id)
-    user = update.message.from_user
 
     if chat_id != TELEGRAM_CHAT_ID:
         update.message.reply_text("Lo siento, no estás autorizado.")
@@ -146,7 +149,6 @@ def disable_sync_command(update, context):
 
 def enable_sync_command(update, context):
     chat_id = str(update.message.chat_id)
-    user = update.message.from_user
 
     if chat_id != TELEGRAM_CHAT_ID:
         update.message.reply_text("Lo siento, no estás autorizado.")
@@ -158,7 +160,6 @@ def enable_sync_command(update, context):
 
 def stop_sync_command(update, context):
     chat_id = str(update.message.chat_id)
-    user = update.message.from_user
 
     if chat_id != TELEGRAM_CHAT_ID:
         update.message.reply_text("Lo siento, no estás autorizado.")
@@ -174,7 +175,6 @@ def stop_sync_command(update, context):
 def button_callback(update, context):
     query = update.callback_query
     query.answer()
-    user = query.from_user
     chat_id = str(query.message.chat_id)
 
     if chat_id != TELEGRAM_CHAT_ID:
@@ -201,6 +201,20 @@ def button_callback(update, context):
         if not stop_sync_flag.is_set():
             stop_sync_flag.set()
 
+    elif query.data == 'clear_stop':
+        stop_sync_flag.clear()
+        query.edit_message_text("🟢 Sync flag cleared. Ready to run again.")
+
+    elif query.data == 'disk_status':
+        if disk_status_callback:
+            threading.Thread(target=disk_status_callback).start()
+        query.edit_message_text("💾 Checking disk status...")
+
+    elif query.data == 'show_log':
+        if show_log_callback:
+            threading.Thread(target=show_log_callback).start()
+        query.edit_message_text("📄 Sending latest log...")
+
     elif query.data == 'set_interval':
         query.edit_message_text("Use `/set_interval <minutes>` ⏱️")
 
@@ -208,16 +222,21 @@ def error_handler(update, context):
     logger.warning(f'Update "{update}" caused error "{context.error}"')
 
 # --- Arranque del Listener ---
-def start_telegram_bot_listener(sync_func, cron_change_func, disable_sync_func, enable_sync_func):
+def start_telegram_bot_listener(sync_func, cron_change_func, disable_sync_func, enable_sync_func,
+                                disk_func=None, log_func=None):
     global sync_function_callback
     global change_cron_interval_callback
     global disable_auto_sync_callback
     global enable_auto_sync_callback
+    global disk_status_callback
+    global show_log_callback
 
     sync_function_callback = sync_func
     change_cron_interval_callback = cron_change_func
     disable_auto_sync_callback = disable_sync_func
     enable_auto_sync_callback = enable_sync_func
+    disk_status_callback = disk_func
+    show_log_callback = log_func
 
     if not TELEGRAM_BOT_TOKEN or not bot:
         logger.error("No TELEGRAM_BOT_TOKEN. Bot no arrancará.")

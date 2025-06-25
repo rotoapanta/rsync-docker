@@ -370,3 +370,11 @@
 2025-06-25 19:05:26,447 - WARNING - Update "None" caused error "Conflict: terminated by other getUpdates request; make sure that only one bot instance is running"
 2025-06-25 19:05:26,607 - ERROR - Error while getting Updates: Conflict: terminated by other getUpdates request; make sure that only one bot instance is running
 2025-06-25 19:05:26,608 - WARNING - Update "None" caused error "Conflict: terminated by other getUpdates request; make sure that only one bot instance is running"
+2025-06-25 19:05:26,768 - ERROR - Error while getting Updates: Conflict: terminated by other getUpdates request; make sure that only one bot instance is running
+2025-06-25 19:05:26,768 - WARNING - Update "None" caused error "Conflict: terminated by other getUpdates request; make sure that only one bot instance is running"
+2025-06-25 19:05:27,484 - ERROR - Error while getting Updates: Conflict: terminated by other getUpdates request; make sure that only one bot instance is running
+2025-06-25 19:05:27,484 - WARNING - Update "None" caused error "Conflict: terminated by other getUpdates request; make sure that only one bot instance is running"
+2025-06-25 19:05:34,318 - ERROR - Error while getting Updates: Conflict: terminated by other getUpdates request; make sure that only one bot instance is running
+2025-06-25 19:05:34,319 - WARNING - Update "None" caused error "Conflict: terminated by other getUpdates request; make sure that only one bot instance is running"
+2025-06-25 19:05:39,005 - ERROR - Error while getting Updates: Conflict: terminated by other getUpdates request; make sure that only one bot instance is running
+2025-06-25 19:05:39,005 - WARNING - Update "None" caused error "Conflict: terminated by other getUpdates request; make sure that only one bot instance is running"

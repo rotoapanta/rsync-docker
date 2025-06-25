@@ -4,7 +4,12 @@ import datetime
 import time
 import shutil
 
-from utils.telegram_utils import send_telegram
+# Importa la función send_telegram y la bandera stop_sync_flag de telegram_utils
+# Necesitamos ajustar el sys.path para que pueda encontrar el módulo utils
+import sys
+sys.path.append(os.path.join(os.path.dirname(__file__), '..', 'utils'))
+from utils.telegram_utils import send_telegram, stop_sync_flag
+
 
 # Constantes globales del módulo
 LOG_DIR = "/logs"
@@ -13,11 +18,22 @@ DATA_DIR = "/data" # Directorio de destino local
 class SyncManager:
     def __init__(self):
         self.rsync_from = os.getenv("RSYNC_FROM")
+        # Ya no se necesita esta línea si siempre usas el volumen montado /data
+        # self.RSYNC_DEST_HOST_PATH = os.getenv("RSYNC_DEST_HOST_PATH")
         self.max_retries = 3
         self.retry_delay_seconds = 5
 
         # Umbral de espacio en disco para alertas (ej. 10 GB)
         self.disk_space_threshold_gb = 10
+
+        # Asegúrate de que RSYNC_FROM y DATA_DIR (que es la ruta interna)
+        # estén definidos al inicio, si no, fallaría aquí.
+        if not self.rsync_from:
+            error_msg = "ERROR CRÍTICO: La variable 'rsync_from' (RSYNC_FROM) no está definida."
+            self._log_message(error_msg, os.path.join(LOG_DIR, "error.log"))
+            send_telegram(f"❌ *Error interno: Origen de Rsync (RSYNC_FROM) no definido.*")
+            raise ValueError(error_msg)
+        # DATA_DIR es una constante, pero un chequeo defensivo podría ir aquí si fuera dinámico.
 
     def _log_message(self, message: str, logfile: str):
         """
@@ -52,13 +68,13 @@ class SyncManager:
                 alert_msg = f"⚠️ *Alerta de Espacio en Disco Bajo:*\n" \
                             f"Quedan {free_gb:.2f} GB libres de {total_gb:.2f} GB en `{path}`.\n" \
                             f"Umbral de alerta: {self.disk_space_threshold_gb} GB."
-                send_telegram(alert_msg)
+                send_telegram(alert_msg) # Utiliza la función send_telegram importada
                 self._log_message(alert_msg, log_file)
             return True
         except Exception as e:
             error_msg = f"❌ *Error al verificar espacio en disco en {path}:* `{e}`"
             self._log_message(error_msg, log_file)
-            send_telegram(error_msg)
+            send_telegram(error_msg) # Utiliza la función send_telegram importada
             return False
 
     def run_rsync(self, direction: str):
@@ -77,17 +93,27 @@ class SyncManager:
             send_telegram(f"❌ *Error interno: Intento de sincronización con dirección no soportada: {direction}*")
             return
 
-        if src is None:
+        # No es necesario chequear src y dest de nuevo si ya los chequeamos en __init__
+        # y DATA_DIR es una constante.
+        # Solo si rsync_from pudiera cambiar a None después de init por alguna razón.
+        if src is None: # Redundante si el init ya lanza un error, pero no hace daño
             self._log_message(f"ERROR CRÍTICO: La variable 'src' (RSYNC_FROM) es None para la dirección '{direction}'", log_file)
             send_telegram(f"❌ *Error interno: Origen de Rsync (RSYNC_FROM) no definido para {desc}*")
             return
-        if dest is None:
+        if dest is None: # Esto no debería ocurrir, DATA_DIR es constante
             self._log_message(f"ERROR CRÍTICO: La variable 'dest' es None para la dirección '{direction}'", log_file)
             send_telegram(f"❌ *Error interno: Destino de Rsync no definido para {desc}*")
             return
 
+        # --- AÑADIDO: Verificar la bandera de detención antes de iniciar Rsync ---
+        if stop_sync_flag.is_set():
+            self._log_message("Sincronización cancelada: el comando /stop fue emitido. La bandera de detención se ha limpiado.", log_file)
+            send_telegram(f"❌ *Sincronización {desc} cancelada*: El comando `/stop` fue recibido. Bandera de detención eliminada.")
+            stop_sync_flag.clear() # Limpia la bandera para futuras sincronizaciones
+            return
+        # -----------------------------------------------------------------------
+
         # Verificación de espacio en disco antes de la sincronización
-        # Esto es importante para detener la sincronización si no hay espacio.
         if not self._check_disk_space(dest, log_file):
             self._log_message("Sincronización abortada debido a un error en la verificación de espacio en disco.", log_file)
             send_telegram(f"❌ *Sincronización {desc} abortada: Problema al verificar espacio en disco.*")
@@ -98,7 +124,7 @@ class SyncManager:
         cmd = [
             "rsync",
             "-e", "ssh -i /root/.ssh/id_rsa -o StrictHostKeyChecking=no",
-            "-avz",
+            "-avz", # -a para archivo, -v para verboso (más detalles), -z para compresión
             src,
             dest
         ]
@@ -120,7 +146,7 @@ class SyncManager:
                             if len(parts) > 1:
                                 received_bytes_str = parts[1].split("bytes")[0].strip().replace(",", "")
                                 break
-                    
+                     
                     received_bytes = int(received_bytes_str)
 
                     # Obtener info de espacio en disco para el mensaje de éxito
@@ -133,13 +159,13 @@ class SyncManager:
                     if received_bytes > 100:
                         telegram_message = f"✅📥 *Sincronización exitosa {desc} - Cambios detectados y transferidos*\n\n"
                         telegram_message += "```\n" + "\n".join(output_lines[-5:]) + "\n```"
-                        telegram_message += disk_info_message # AÑADIDO: Información de disco
+                        telegram_message += disk_info_message
                         send_telegram(telegram_message)
                     else:
                         telegram_message = f"✅🔄 *Sincronización exitosa {desc} - Sin cambios para transferir*\n"
-                        telegram_message += disk_info_message # AÑADIDO: Información de disco
+                        telegram_message += disk_info_message
                         send_telegram(telegram_message)
-                    return
+                    return # Salir de la función al completar con éxito
                 else:
                     self._log_message(f"Rsync stderr (Intento {attempt}): {result.stderr}", log_file)
                     if attempt < self.max_retries:
@@ -169,3 +195,7 @@ class SyncManager:
                 else:
                     telegram_message = f"❌🚨 *Excepción al sincronizar {desc} después de {self.max_retries} intentos*\n`{e}`"
                     send_telegram(telegram_message)
+         
+        # Asegurarse de que la bandera se limpie después de que todos los intentos hayan terminado (fallidos o no)
+        stop_sync_flag.clear()
+        self._log_message("Stop sync flag cleared after run_rsync completion.", log_file)

@@ -102,21 +102,81 @@ def status_report():
         import requests
 
         RASPBERRY_URL = "http://192.168.190.29:8000/status"
-        response = requests.get(RASPBERRY_URL, timeout=5)
-        response.raise_for_status()
-        data = response.json()
+        raspberry_data = requests.get(RASPBERRY_URL, timeout=5).json()
 
-        # 📝 Formatear mensaje con datos del Raspberry Pi
+        r_hostname = raspberry_data.get("hostname", "?")
+        r_ip = raspberry_data.get("ip", "?")
+        r_cpu = raspberry_data.get("cpu", 0)
+        r_ram = raspberry_data.get("ram", 0)
+        r_disk = raspberry_data.get("disk", 0)
+        r_temp = raspberry_data.get("temp", 0)
+        r_batt = raspberry_data.get("battery", {})
+        r_volt = r_batt.get("voltage", "?")
+        r_status = r_batt.get("status", "?")
+
+        r_disk_info = raspberry_data.get("disk_info", {})
+        r_total = r_disk_info.get("total", "?")
+        r_used = r_disk_info.get("used", "?")
+        r_free = r_disk_info.get("free", "?")
+
+        usb_disks = raspberry_data.get("usb", [])
+
+        def get_icon(value, thresholds=(50, 80)):
+            if value >= thresholds[1]:
+                return "🔴"
+            elif value >= thresholds[0]:
+                return "🟠"
+            else:
+                return "🟢"
+
+        cpu_icon = get_icon(r_cpu)
+        ram_icon = get_icon(r_ram)
+        disk_icon = get_icon(r_disk)
+        temp_icon = get_icon(r_temp, thresholds=(50, 70))
+
         message = (
-            f"📊 *Estado del Raspberry Pi*\n\n"
-            f"🖥️ *Hostname:* `{data['hostname']}`\n"
-            f"🌐 *IP:* `{data['ip']}`\n"
-            f"🧠 *CPU:* `{data['cpu']} %`\n"
-            f"🍓 *RAM:* `{data['ram']} %`\n"
-            f"💽 *Disco:* `{data['disk']} %`\n"
-            f"🌡️ *Temp:* `{data['temp']} °C`\n"
-            f"🔋 *Batería:* `{data['battery']['voltage']} V` | {data['battery']['status']}"
+            f"🍓 *Estado del Raspberry Pi*\n\n"
+            f"🖥️ *Hostname:* `{r_hostname}`\n"
+            f"🌐 *IP:* `{r_ip}`\n"
+            f"{cpu_icon} *CPU:* `{r_cpu:.1f}%`\n"
+            f"{ram_icon} *RAM:* `{r_ram:.1f}%`\n"
+            f"{disk_icon} *Disco:* `{r_disk:.1f}%`\n"
+            f"┌─── 📁 `/` ───┐\n"
+            f"├ 🧱 Total: `{r_total} GB`\n"
+            f"├ 📂 Usado: `{r_used} GB`\n"
+            f"└ 📦 Libre: `{r_free} GB`\n"
+            f"{temp_icon} *Temp:* `{r_temp} °C`\n"
+            f"🔋 *Batería:* `{r_volt} V` | `{r_status}`"
         )
+
+        if usb_disks:
+            message += f"\n\n🧷 *USBs conectadas:*\n"
+            for usb in usb_disks:
+                mount = usb.get("mount", "?")
+                device = usb.get("device", "?")
+                total = usb.get("total", 0)
+                used = usb.get("used", 0)
+                free = usb.get("free", 0)
+                percent = (used / total * 100) if total else 0
+
+                icon = "🟢"
+                alert = ""
+
+                if percent >= 90:
+                    icon = "🔴"
+                    alert = "⚠️ *CRÍTICO* - Poco espacio libre"
+                elif percent >= 80:
+                    icon = "🟠"
+                    alert = "⚠️ *ALERTA* - Bajo espacio libre"
+
+                message += (
+                    f"{icon} `{mount}` ({device})\n"
+                    f"├ 💽 Total: `{total:.2f} GB`\n"
+                    f"├ 📂 Usado: `{used:.2f} GB`\n"
+                    f"└ 📦 Libre: `{free:.2f} GB`\n"
+                )
+                if alert:
+                    message += f"   {alert}\n"
 
         send_telegram(message)
 

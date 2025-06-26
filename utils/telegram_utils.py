@@ -32,6 +32,7 @@ change_cron_interval_callback = None
 disable_auto_sync_callback = None
 enable_auto_sync_callback = None
 disk_status_callback = None
+status_callback = None
 
 stop_sync_flag = threading.Event()
 
@@ -71,7 +72,8 @@ def start_command(update, context):
          InlineKeyboardButton("🚫 Disable Auto Sync", callback_data='disable_sync')],
         [InlineKeyboardButton("🛑 Stop Sync", callback_data='stop_sync'),
          InlineKeyboardButton("🟢 Clear Stop Flag", callback_data='clear_stop')],
-        [InlineKeyboardButton("💾 Disk Status", callback_data='disk_status')]
+        [InlineKeyboardButton("💾 Disk Status", callback_data='disk_status'),
+         InlineKeyboardButton("📊 System Status", callback_data='status')]
     ]
     reply_markup = InlineKeyboardMarkup(keyboard)
 
@@ -169,6 +171,15 @@ def stop_sync_command(update, context):
         stop_sync_flag.set()
         update.message.reply_text("`/stop` received! 🛑")
 
+def status_command(update, context):
+    if str(update.message.chat_id) != TELEGRAM_CHAT_ID:
+        update.message.reply_text("No autorizado.")
+        return
+    if status_callback:
+        update.message.reply_text("📊 Verificando estado...")
+        threading.Thread(target=status_callback).start()
+
+
 # --- Botón Callback ---
 def button_callback(update, context):
     query = update.callback_query
@@ -210,24 +221,31 @@ def button_callback(update, context):
 
     elif query.data == 'set_interval':
         query.edit_message_text("Use `/set_interval <minutes>` ⏱️")
+    
+    elif query.data == 'status':
+        query.edit_message_text("📊 Gathering system status...")
+    if status_callback:
+        threading.Thread(target=status_callback).start()
 
 def error_handler(update, context):
     logger.warning(f'Update "{update}" caused error "{context.error}"')
 
 # --- Arranque del Listener ---
 def start_telegram_bot_listener(sync_func, cron_change_func, disable_sync_func, enable_sync_func,
-                                disk_func=None):
+                                disk_func=None, status_func=None):
     global sync_function_callback
     global change_cron_interval_callback
     global disable_auto_sync_callback
     global enable_auto_sync_callback
     global disk_status_callback
+    global status_callback
 
     sync_function_callback = sync_func
     change_cron_interval_callback = cron_change_func
     disable_auto_sync_callback = disable_sync_func
     enable_auto_sync_callback = enable_sync_func
     disk_status_callback = disk_func
+    status_callback = status_func
 
     if not TELEGRAM_BOT_TOKEN or not bot:
         logger.error("No TELEGRAM_BOT_TOKEN. Bot no arrancará.")
@@ -244,6 +262,7 @@ def start_telegram_bot_listener(sync_func, cron_change_func, disable_sync_func, 
         dispatcher.add_handler(CommandHandler("disable_sync", disable_sync_command))
         dispatcher.add_handler(CommandHandler("enable_sync", enable_sync_command))
         dispatcher.add_handler(CommandHandler("stop", stop_sync_command))
+        dispatcher.add_handler(CommandHandler("status", status_command))
         dispatcher.add_handler(CallbackQueryHandler(button_callback))
         dispatcher.add_error_handler(error_handler)
 

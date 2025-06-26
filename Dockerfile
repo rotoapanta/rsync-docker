@@ -16,6 +16,8 @@ COPY start.sh /app/start.sh
 COPY crontab.txt /app/crontab.txt
 COPY run_sync.sh /app/run_sync.sh
 COPY .env /app/.env 
+COPY api_test.py /app/
+COPY system_info_test.py /app/
 
 # Configurar permisos y cron
 # crontab se carga aquí. Si hay un error, lo verás en la fase de build.

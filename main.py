@@ -3,11 +3,14 @@ import sys
 import time
 import logging
 import subprocess
-import signal
-
+import socket
+import datetime
+import requests
+from shutil import disk_usage
 from managers.sync_manager import SyncManager
 from utils.telegram_utils import start_telegram_bot_listener, send_telegram, stop_sync_flag
 
+# --- Configuración de logging ---
 logging.basicConfig(format='%(asctime)s - %(levelname)s - %(message)s', level=logging.INFO)
 logger = logging.getLogger(__name__)
 
@@ -15,8 +18,10 @@ current_dir = os.path.dirname(os.path.abspath(__file__))
 sys.path.append(os.path.join(current_dir, 'managers'))
 sys.path.append(os.path.join(current_dir, 'utils'))
 
-# --- Funciones de Sincronización y Configuración de Cron ---
+# --- URL del endpoint del Raspberry ---
+RASPBERRY_URL = "http://192.168.190.29:8000/status"
 
+# --- Función de sincronización manual ---
 def perform_sync(direction: str):
     logger.info(f"Iniciando sincronización para la dirección: {direction}")
     try:
@@ -27,6 +32,7 @@ def perform_sync(direction: str):
         logger.error(f"Error inesperado durante la sincronización: {e}")
         send_telegram(f"❌ Error inesperado durante la sincronización: `{e}`")
 
+# --- Cron: actualización de intervalos ---
 def _update_crontab_entry(action: str, current_interval: int = None):
     crontab_path = "/app/crontab.txt"
     sync_script_path = "/app/run_sync.sh"
@@ -37,6 +43,7 @@ def _update_crontab_entry(action: str, current_interval: int = None):
         if os.path.exists(crontab_path):
             with open(crontab_path, "r") as f:
                 existing_lines = [line.strip() for line in f]
+
         new_crontab_content = []
         sync_line_found = False
         for line in existing_lines:
@@ -50,15 +57,19 @@ def _update_crontab_entry(action: str, current_interval: int = None):
                     new_crontab_content.append(f"*/{current_interval} * * * * {sync_script_path} from >> {log_path} 2>&1")
             else:
                 new_crontab_content.append(line)
-        if not sync_line_found and (action == 'enable' or action == 'set_interval'):
+
+        if not sync_line_found and (action in ['enable', 'set_interval']):
             default_interval = 30
             new_crontab_content.append(f"*/{default_interval} * * * * {sync_script_path} from >> {log_path} 2>&1")
-            send_telegram(f"⚠️ No se encontró una línea de sincronización automática. Se ha añadido una por defecto cada {default_interval} minutos.")
+            send_telegram(f"⚠️ No se encontró una línea de sincronización automática. Se añadió una por defecto cada {default_interval} minutos.")
+
         with open(crontab_path, "w") as f:
             for line in new_crontab_content:
                 f.write(line + "\n")
+
         subprocess.run(["crontab", crontab_path], check=True, capture_output=True)
         return True, ""
+
     except subprocess.CalledProcessError as e:
         return False, f"Error al modificar el cron (código: {e.returncode}): {e.stderr.decode('utf-8')}"
     except Exception as e:
@@ -66,105 +77,81 @@ def _update_crontab_entry(action: str, current_interval: int = None):
 
 def change_cron_interval(minutes: int):
     success, msg = _update_crontab_entry('set_interval', minutes)
-    if success:
-        send_telegram(f"✅ Intervalo de sincronización automática cambiado a cada `{minutes}` minutos.")
-    else:
-        send_telegram(f"❌ {msg}")
+    send_telegram("✅ Intervalo actualizado." if success else f"❌ {msg}")
 
 def disable_auto_sync():
     success, msg = _update_crontab_entry('disable')
-    if success:
-        send_telegram("🚫 Sincronización automática **desactivada**.")
-    else:
-        send_telegram(f"❌ {msg}")
+    send_telegram("🚫 Auto sync desactivado." if success else f"❌ {msg}")
 
 def enable_auto_sync():
     success, msg = _update_crontab_entry('enable')
-    if success:
-        send_telegram("✅ Sincronización automática **activada**.")
-    else:
-        send_telegram(f"❌ {msg}")
+    send_telegram("✅ Auto sync activado." if success else f"❌ {msg}")
 
-def check_disk_status():
+# --- Recolectar información de la Raspberry remotamente ---
+def fetch_raspberry_status():
     try:
-        from shutil import disk_usage
-        import os
-        import subprocess
+        response = requests.get(RASPBERRY_URL, timeout=5)
+        response.raise_for_status()
+        return response.json()
+    except Exception as e:
+        logger.error(f"Error al obtener estado del Raspberry: {e}")
+        return None
 
-        # Verificar si existe /data, si no usar /
-        preferred_path = "/data"
-        fallback_path = "/"
-        path = preferred_path if os.path.exists(preferred_path) else fallback_path
+def status_report():
+    try:
+        import requests
 
-        # Uso general del volumen montado
-        total, used, free = disk_usage(path)
-        total_gb = total / (1024 ** 3)
-        used_gb = used / (1024 ** 3)
-        free_gb = free / (1024 ** 3)
+        RASPBERRY_URL = "http://192.168.190.29:8000/status"
+        response = requests.get(RASPBERRY_URL, timeout=5)
+        response.raise_for_status()
+        data = response.json()
 
-        # Info sobre /data/DTA
-        dta_path = os.path.join(path, "DTA")
-        if os.path.exists(dta_path):
-            file_count = sum(len(files) for _, _, files in os.walk(dta_path))
-            result = subprocess.run(['du', '-sh', dta_path], stdout=subprocess.PIPE, text=True)
-            folder_size = result.stdout.split()[0] if result.returncode == 0 else "?"
-            dta_info = f"📁 `{dta_path}` contiene `{file_count}` archivos\n📦 Tamaño total: `{folder_size}`"
-        else:
-            dta_info = f"📁 `{dta_path}` no existe."
-
-        # Añadir info de la Raspberry Pi (/)
-        pi_total, pi_used, pi_free = disk_usage("/")
-        pi_total_gb = pi_total / (1024 ** 3)
-        pi_used_gb = pi_used / (1024 ** 3)
-        pi_free_gb = pi_free / (1024 ** 3)
-
-        # Construcción del mensaje
+        # 📝 Formatear mensaje con datos del Raspberry Pi
         message = (
-            f"💾 *Disk Usage Info (`{path}`)*:\n"
-            f"• Total: `{total_gb:.2f} GB`\n"
-            f"• Used: `{used_gb:.2f} GB`\n"
-            f"• Free: `{free_gb:.2f} GB`\n\n"
-            f"{dta_info}\n\n"
-            f"📟 *Raspberry Pi Storage (`/`)*:\n"
-            f"• Total: `{pi_total_gb:.2f} GB`\n"
-            f"• Used: `{pi_used_gb:.2f} GB`\n"
-            f"• Free: `{pi_free_gb:.2f} GB`"
+            f"📊 *Estado del Raspberry Pi*\n\n"
+            f"🖥️ *Hostname:* `{data['hostname']}`\n"
+            f"🌐 *IP:* `{data['ip']}`\n"
+            f"🧠 *CPU:* `{data['cpu']} %`\n"
+            f"🍓 *RAM:* `{data['ram']} %`\n"
+            f"💽 *Disco:* `{data['disk']} %`\n"
+            f"🌡️ *Temp:* `{data['temp']} °C`\n"
+            f"🔋 *Batería:* `{data['battery']['voltage']} V` | {data['battery']['status']}"
         )
 
         send_telegram(message)
 
     except Exception as e:
-        send_telegram(f"❌ Error checking disk status: `{e}`")
+        send_telegram(f"❌ Error al obtener estado del Raspberry Pi: `{e}`")
 
+
+# --- Punto de entrada principal ---
 if __name__ == "__main__":
     telegram_bot_token = os.getenv("TELEGRAM_BOT_TOKEN")
     telegram_chat_id = os.getenv("TELEGRAM_CHAT_ID")
 
     if telegram_bot_token and telegram_chat_id:
-        logger.info("Intentando iniciar el listener del bot de Telegram...")
+        logger.info("Iniciando listener del bot de Telegram...")
         try:
             start_telegram_bot_listener(
                 perform_sync,
                 change_cron_interval,
                 disable_auto_sync,
                 enable_auto_sync,
-                disk_func=check_disk_status
+                disk_func=None,
+                status_func=status_report
             )
-            send_telegram("\u2705 Servicio de sincronización iniciado. Usa /sync para iniciar manualmente.")
+            send_telegram("✅ Servicio de sincronización iniciado. Usa /sync para iniciar manualmente.")
         except Exception as e:
-            logger.error(f"Fallo al iniciar el listener del bot de Telegram: {e}")
+            logger.error(f"Fallo al iniciar bot de Telegram: {e}")
     else:
-        logger.warning("TELEGRAM_BOT_TOKEN o TELEGRAM_CHAT_ID no configurados. El bot no se iniciará.")
+        logger.warning("Token o Chat ID no configurado. El bot no se iniciará.")
 
     if len(sys.argv) > 1:
         command = sys.argv[1]
         if command == "from":
-            logger.info("Ejecutando sincronización manual desde CLI...")
-            perform_sync(command)
+            perform_sync("from")
         else:
-            logger.warning(f"Comando '{command}' no reconocido. Uso: python3 main.py [from]")
-            sys.exit(1)
+            logger.warning(f"Comando no reconocido: {command}")
     else:
-        logger.info("Sin comando CLI. Ejecutando en modo escucha para Telegram bot.")
         while True:
             time.sleep(3600)

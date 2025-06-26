@@ -32,7 +32,6 @@ change_cron_interval_callback = None
 disable_auto_sync_callback = None
 enable_auto_sync_callback = None
 disk_status_callback = None
-show_log_callback = None
 
 stop_sync_flag = threading.Event()
 
@@ -72,8 +71,7 @@ def start_command(update, context):
          InlineKeyboardButton("🚫 Disable Auto Sync", callback_data='disable_sync')],
         [InlineKeyboardButton("🛑 Stop Sync", callback_data='stop_sync'),
          InlineKeyboardButton("🟢 Clear Stop Flag", callback_data='clear_stop')],
-        [InlineKeyboardButton("💾 Disk Status", callback_data='disk_status'),
-         InlineKeyboardButton("📄 Show Log", callback_data='show_log')]
+        [InlineKeyboardButton("💾 Disk Status", callback_data='disk_status')]
     ]
     reply_markup = InlineKeyboardMarkup(keyboard)
 
@@ -210,11 +208,6 @@ def button_callback(update, context):
             threading.Thread(target=disk_status_callback).start()
         query.edit_message_text("💾 Checking disk status...")
 
-    elif query.data == 'show_log':
-        if show_log_callback:
-            threading.Thread(target=show_log_callback).start()
-        query.edit_message_text("📄 Sending latest log...")
-
     elif query.data == 'set_interval':
         query.edit_message_text("Use `/set_interval <minutes>` ⏱️")
 
@@ -223,20 +216,18 @@ def error_handler(update, context):
 
 # --- Arranque del Listener ---
 def start_telegram_bot_listener(sync_func, cron_change_func, disable_sync_func, enable_sync_func,
-                                disk_func=None, log_func=None):
+                                disk_func=None):
     global sync_function_callback
     global change_cron_interval_callback
     global disable_auto_sync_callback
     global enable_auto_sync_callback
     global disk_status_callback
-    global show_log_callback
 
     sync_function_callback = sync_func
     change_cron_interval_callback = cron_change_func
     disable_auto_sync_callback = disable_sync_func
     enable_auto_sync_callback = enable_sync_func
     disk_status_callback = disk_func
-    show_log_callback = log_func
 
     if not TELEGRAM_BOT_TOKEN or not bot:
         logger.error("No TELEGRAM_BOT_TOKEN. Bot no arrancará.")

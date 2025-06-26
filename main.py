@@ -88,18 +88,51 @@ def enable_auto_sync():
 def check_disk_status():
     try:
         from shutil import disk_usage
-        path = "/data"
+        import os
+        import subprocess
+
+        # Verificar si existe /data, si no usar /
+        preferred_path = "/data"
+        fallback_path = "/"
+        path = preferred_path if os.path.exists(preferred_path) else fallback_path
+
+        # Uso general del volumen montado
         total, used, free = disk_usage(path)
         total_gb = total / (1024 ** 3)
         used_gb = used / (1024 ** 3)
         free_gb = free / (1024 ** 3)
+
+        # Info sobre /data/DTA
+        dta_path = os.path.join(path, "DTA")
+        if os.path.exists(dta_path):
+            file_count = sum(len(files) for _, _, files in os.walk(dta_path))
+            result = subprocess.run(['du', '-sh', dta_path], stdout=subprocess.PIPE, text=True)
+            folder_size = result.stdout.split()[0] if result.returncode == 0 else "?"
+            dta_info = f"📁 `{dta_path}` contiene `{file_count}` archivos\n📦 Tamaño total: `{folder_size}`"
+        else:
+            dta_info = f"📁 `{dta_path}` no existe."
+
+        # Añadir info de la Raspberry Pi (/)
+        pi_total, pi_used, pi_free = disk_usage("/")
+        pi_total_gb = pi_total / (1024 ** 3)
+        pi_used_gb = pi_used / (1024 ** 3)
+        pi_free_gb = pi_free / (1024 ** 3)
+
+        # Construcción del mensaje
         message = (
-            f"📮 *Disk Usage Info (`{path}`)*:\n"
+            f"💾 *Disk Usage Info (`{path}`)*:\n"
             f"• Total: `{total_gb:.2f} GB`\n"
             f"• Used: `{used_gb:.2f} GB`\n"
-            f"• Free: `{free_gb:.2f} GB`"
+            f"• Free: `{free_gb:.2f} GB`\n\n"
+            f"{dta_info}\n\n"
+            f"📟 *Raspberry Pi Storage (`/`)*:\n"
+            f"• Total: `{pi_total_gb:.2f} GB`\n"
+            f"• Used: `{pi_used_gb:.2f} GB`\n"
+            f"• Free: `{pi_free_gb:.2f} GB`"
         )
+
         send_telegram(message)
+
     except Exception as e:
         send_telegram(f"❌ Error checking disk status: `{e}`")
 

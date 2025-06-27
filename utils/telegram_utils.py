@@ -1,10 +1,17 @@
 """
-This module provides utility functions and command handlers for a Telegram bot
-that interacts with a Raspberry Pi synchronization service. It handles
-communication with the Telegram API, processes user commands, and triggers
-corresponding actions in the main application logic (e.g., synchronization,
-cron job modifications, system status reports).
+File: utils/telegram_utils.py
+Description: This module provides utility functions and command handlers for a Telegram bot
+             that interacts with a Raspberry Pi synchronization service. It handles
+             communication with the Telegram API, processes user commands, and triggers
+             corresponding actions in the main application logic (e.g., synchronization,
+             cron job modifications, system status reports).
+
+Author: Roberto Toapanta
+Date: 2025-06-27
+Version: 1.0.0
+License: MIT License
 """
+
 import os
 import telegram
 import logging

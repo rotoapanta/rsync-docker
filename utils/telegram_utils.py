@@ -34,23 +34,16 @@ enable_auto_sync_callback = None
 disk_status_callback = None
 status_callback = None
 
-# La variable stop_sync_flag se ha eliminado de este módulo
-# ya que su control directo por el usuario a través del bot ya no es una funcionalidad deseada.
-
 # --- Funciones de Utilidad ---
 def send_telegram(message: str) -> None:
     if bot and TELEGRAM_CHAT_ID:
         try:
-            # Importante: Si sigues viendo errores de "BadRequest: Can't parse entities: character '.' is reserved...",
-            # deberás cambiar 'Markdown' a 'MarkdownV2' y escapar manualmente los caracteres problemáticos
-            # en los mensajes, o implementar una función de escape global como se sugirió anteriormente.
             bot.send_message(chat_id=TELEGRAM_CHAT_ID, text=message, parse_mode='Markdown')
             logger.info(f"Mensaje de Telegram enviado: {message[:50]}...")
         except telegram.error.Unauthorized:
             logger.error("Error: Token inválido.")
         except telegram.error.BadRequest as e:
             logger.error(f"Error BadRequest: {e}")
-            # Agrega el log del mensaje original para depuración si ocurre un BadRequest
             logger.error(f"Message causing BadRequest: {message}")
         except Exception as e:
             logger.error(f"Error al enviar mensaje: {e}")
@@ -71,10 +64,9 @@ def start_command(update, context):
         "Choose an option or use /help for all commands:"
     )
 
-    # Teclado sin botones de stop/clear
     keyboard = [
         [InlineKeyboardButton("🚀 Sync Now", callback_data='sync_now')],
-        [InlineKeyboardButton("⏱️ Set Interval", callback_data='set_interval')],
+        [InlineKeyboardButton("⏱️ Set Interval", callback_data='set_interval_menu')], # Cambiado para mostrar el menú de intervalos
         [InlineKeyboardButton("✅ Enable Auto Sync", callback_data='enable_sync'),
          InlineKeyboardButton("🚫 Disable Auto Sync", callback_data='disable_sync')],
         [InlineKeyboardButton("💾 Disk Status", callback_data='disk_status'),
@@ -93,11 +85,11 @@ def help_command(update, context):
         update.message.reply_text("Lo siento, no estás autorizado.")
         return
 
-    # Mensaje de ayuda sin el comando /stop
     help_message = (
         "Here are the commands:\n"
         "`/sync` - Manual sync 🚀\n"
-        "`/set_interval` - Change interval ⏱️\n"
+        "`/set_interval <minutes>` - Change auto sync interval (manual) ⏱️\n"
+        "`/set_interval` - Show interval options ⏱️\n" # Añadido
         "`/disable_sync` - Disable auto sync 🚫\n"
         "`/enable_sync` - Enable auto sync ✅\n"
         "`/start` - Show menu with buttons\n"
@@ -114,7 +106,6 @@ def start_sync_command(update, context):
         update.message.reply_text("Lo siento, no estás autorizado.")
         return
 
-    # Se elimina la verificación de stop_sync_flag aquí
     update.message.reply_text("`/sync` received! Starting sync... 🚀", parse_mode='Markdown')
     if sync_function_callback:
         threading.Thread(target=sync_function_callback, args=("from",)).start()
@@ -127,18 +118,34 @@ def set_interval_command(update, context):
         return
 
     args = context.args
-    if not args or not args[0].isdigit():
-        update.message.reply_text("Usage: `/set_interval <minutes>`", parse_mode='Markdown')
+    if not args:
+        # Si no hay argumentos, mostrar el menú de selección
+        keyboard = [
+            [InlineKeyboardButton("Cada 1 minutos", callback_data='set_interval_1')],
+            [InlineKeyboardButton("Cada 15 minutos", callback_data='set_interval_15')],
+            [InlineKeyboardButton("Cada 30 minutos", callback_data='set_interval_30')],
+            [InlineKeyboardButton("Cada hora (60 min)", callback_data='set_interval_60')],
+            [InlineKeyboardButton("Cada 4 horas (240 min)", callback_data='set_interval_240')],
+            [InlineKeyboardButton("Cada 24 horas (1440 min)", callback_data='set_interval_1440')],
+            [InlineKeyboardButton("Introducir manualmente", callback_data='set_interval_manual_prompt')] # Nueva opción
+        ]
+        reply_markup = InlineKeyboardMarkup(keyboard)
+        update.message.reply_text("Selecciona un intervalo de sincronización o introduce uno manualmente:", reply_markup=reply_markup)
         return
 
-    minutes = int(args[0])
-    if minutes <= 0:
-        update.message.reply_text("Must be > 0 minutes.")
-        return
+    # Si hay argumentos, intentar establecer el intervalo manualmente
+    try:
+        minutes = int(args[0])
+        if minutes <= 0:
+            update.message.reply_text("El intervalo debe ser un número positivo de minutos.")
+            return
 
-    if change_cron_interval_callback:
-        update.message.reply_text(f"Changing interval to every `{minutes}` min...")
-        threading.Thread(target=change_cron_interval_callback, args=(minutes,)).start()
+        if change_cron_interval_callback:
+            update.message.reply_text(f"Cambiando el intervalo a cada `{minutes}` minutos...")
+            threading.Thread(target=change_cron_interval_callback, args=(minutes,)).start()
+    except ValueError:
+        update.message.reply_text("Uso incorrecto. Por favor, introduce un número de minutos válido, o usa `/set_interval` sin argumentos para ver las opciones.", parse_mode='Markdown')
+
 
 def disable_sync_command(update, context):
     chat_id = str(update.message.chat_id)
@@ -148,7 +155,7 @@ def disable_sync_command(update, context):
         return
 
     if disable_auto_sync_callback:
-        update.message.reply_text("Disabling auto sync... 🚫")
+        update.message.reply_text("Desactivando la sincronización automática... 🚫")
         threading.Thread(target=disable_auto_sync_callback).start()
 
 def enable_sync_command(update, context):
@@ -159,10 +166,8 @@ def enable_sync_command(update, context):
         return
 
     if enable_auto_sync_callback:
-        update.message.reply_text("Enabling auto sync... ✅")
+        update.message.reply_text("Activando la sincronización automática... ✅")
         threading.Thread(target=enable_auto_sync_callback).start()
-
-# La función stop_sync_command se ha eliminado.
 
 def disk_status_command(update, context):
     if str(update.message.chat_id) != TELEGRAM_CHAT_ID:
@@ -194,27 +199,51 @@ def button_callback(update, context):
             threading.Thread(target=sync_function_callback, args=("from",)).start()
 
     elif query.data == 'enable_sync':
-        query.edit_message_text("Enabling auto sync... ✅")
+        query.edit_message_text("Activando la sincronización automática... ✅")
         if enable_auto_sync_callback:
             threading.Thread(target=enable_auto_sync_callback).start()
 
     elif query.data == 'disable_sync':
-        query.edit_message_text("Disabling auto sync... 🚫")
+        query.edit_message_text("Desactivando la sincronización automática... 🚫")
         if disable_auto_sync_callback:
             threading.Thread(target=disable_auto_sync_callback).start()
 
-    # Se eliminan los casos para 'stop_sync' y 'clear_stop' del callback.
-
     elif query.data == 'disk_status':
-        query.edit_message_text("💾 Checking disk status...")
+        query.edit_message_text("💾 Verificando estado del disco...")
         if disk_status_callback:
             threading.Thread(target=disk_status_callback).start()
 
-    elif query.data == 'set_interval':
-        query.edit_message_text("Use `/set_interval <minutes>` ⏱️", parse_mode='Markdown')
+    elif query.data == 'set_interval_menu': # Nuevo: Muestra el menú de intervalos
+        keyboard = [
+            [InlineKeyboardButton("Cada 1 minutos", callback_data='set_interval_1')],
+            [InlineKeyboardButton("Cada 15 minutos", callback_data='set_interval_15')],
+            [InlineKeyboardButton("Cada 30 minutos", callback_data='set_interval_30')],
+            [InlineKeyboardButton("Cada hora (60 min)", callback_data='set_interval_60')],
+            [InlineKeyboardButton("Cada 4 horas (240 min)", callback_data='set_interval_240')],
+            [InlineKeyboardButton("Cada 24 horas (1440 min)", callback_data='set_interval_1440')],
+            [InlineKeyboardButton("Introducir manualmente", callback_data='set_interval_manual_prompt')]
+        ]
+        reply_markup = InlineKeyboardMarkup(keyboard)
+        query.edit_message_text("Selecciona un intervalo de sincronización o introduce uno manualmente:", reply_markup=reply_markup)
+
+    elif query.data.startswith('set_interval_'):
+        if query.data == 'set_interval_manual_prompt':
+            # Mensaje para que el usuario sepa cómo introducir el valor manual
+            context.bot.send_message(chat_id=chat_id, text="Por favor, introduce el intervalo deseado en minutos con el comando: `/set_interval <minutos>`", parse_mode='Markdown')
+            query.edit_message_reply_markup(reply_markup=None) # Quita los botones para evitar doble clic
+
+        else:
+            minutes_str = query.data.replace('set_interval_', '')
+            try:
+                minutes = int(minutes_str)
+                query.edit_message_text(f"Cambiando el intervalo a cada `{minutes}` minutos...")
+                if change_cron_interval_callback:
+                    threading.Thread(target=change_cron_interval_callback, args=(minutes,)).start()
+            except ValueError:
+                query.edit_message_text("Error: Intervalo de tiempo no válido.")
 
     elif query.data == 'status':
-        query.edit_message_text("📊 Gathering system status...")
+        query.edit_message_text("📊 Obteniendo estado del sistema...")
         if status_callback:
             threading.Thread(target=status_callback).start()
 
@@ -252,8 +281,6 @@ def start_telegram_bot_listener(sync_func, cron_change_func, disable_sync_func, 
         dispatcher.add_handler(CommandHandler("set_interval", set_interval_command))
         dispatcher.add_handler(CommandHandler("disable_sync", disable_sync_command))
         dispatcher.add_handler(CommandHandler("enable_sync", enable_sync_command))
-        # Se elimina el manejador para el comando /stop
-        # dispatcher.add_handler(CommandHandler("stop", stop_sync_command))
         dispatcher.add_handler(CommandHandler("disk_status", disk_status_command))
         dispatcher.add_handler(CommandHandler("status", status_command))
         dispatcher.add_handler(CallbackQueryHandler(button_callback))

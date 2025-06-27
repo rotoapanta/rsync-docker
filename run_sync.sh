@@ -3,6 +3,9 @@
 # Asegura que el PATH tenga los comandos necesarios
 export PATH="/usr/local/bin:/usr/bin:/bin"
 
+# Crear el directorio de logs si no existe
+mkdir -p /app/logs #
+
 # Cargar variables de entorno desde .env si está disponible
 ENV_FILE="/app/.env"
 if [ -f "$ENV_FILE" ]; then

@@ -43,6 +43,7 @@ def _update_crontab_entry(action: str, current_interval: int = None):
     sync_script_path = "/app/run_sync.sh"
     log_path = "/app/logs/cron.log"
     sync_line_marker = f"{sync_script_path} from"
+
     try:
         existing_lines = []
         if os.path.exists(crontab_path):
@@ -50,23 +51,26 @@ def _update_crontab_entry(action: str, current_interval: int = None):
                 existing_lines = [line.strip() for line in f]
 
         new_crontab_content = []
-        sync_line_found = False
+        found_and_updated = False
+
         for line in existing_lines:
-            if sync_line_marker in line:
-                sync_line_found = True
+            if sync_line_marker in line and not found_and_updated:
                 if action == 'disable':
                     new_crontab_content.append(f"#{line}" if not line.startswith("#") else line)
                 elif action == 'enable':
                     new_crontab_content.append(line[1:] if line.startswith("#") else line)
                 elif action == 'set_interval':
                     new_crontab_content.append(f"*/{current_interval} * * * * {sync_script_path} from >> {log_path} 2>&1")
+                found_and_updated = True
+            elif sync_line_marker in line and found_and_updated:
+                pass # Eliminamos líneas duplicadas
             else:
                 new_crontab_content.append(line)
 
-        if not sync_line_found and (action in ['enable', 'set_interval']):
+        if not found_and_updated and (action in ['enable', 'set_interval']):
             default_interval = 30
-            new_crontab_content.append(f"*/{default_interval} * * * * {sync_script_path} from >> {log_path} 2>&1")
-            send_telegram(f"⚠️ No se encontró una línea de sincronización automática. Se añadió una por defecto cada {default_interval} minutos.")
+            new_crontab_content.append(f"*/{current_interval if action == 'set_interval' else default_interval} * * * * {sync_script_path} from >> {log_path} 2>&1")
+            send_telegram(f"⚠️ No se encontró una línea de sincronización automática. Se añadió una por defecto cada {current_interval if action == 'set_interval' else default_interval} minutos.")
 
         with open(crontab_path, "w") as f:
             for line in new_crontab_content:
@@ -113,6 +117,53 @@ def get_icon(value, thresholds=(50, 80)):
         return "🟠"
     else:
         return "🟢"
+
+# Nueva función para obtener el intervalo de sincronización actual
+def _get_current_sync_interval() -> str:
+    """
+    Obtiene el intervalo de sincronización actual del crontab.
+    Retorna el intervalo en minutos o 'Desconocido/Desactivado' si no se encuentra.
+    """
+    try:
+        # Ejecuta crontab -l para listar las tareas
+        result = subprocess.run(["crontab", "-l"], capture_output=True, text=True, check=True)
+        crontab_output = result.stdout
+
+        sync_script_path = "/app/run_sync.sh from"
+        
+        for line in crontab_output.splitlines():
+            # Busca la línea que contiene el script de sincronización
+            if sync_script_path in line:
+                # Si la línea está comentada, está desactivado
+                if line.strip().startswith('#'):
+                    return "Desactivado"
+                
+                # Extrae la parte de los minutos (la primera sección del cron)
+                parts = line.strip().split()
+                if len(parts) > 0:
+                    minutes_part = parts[0]
+                    # Si es */N, extrae N
+                    if minutes_part.startswith('*/'):
+                        try:
+                            interval = int(minutes_part[2:])
+                            return f"Cada {interval} minutos"
+                        except ValueError:
+                            return "Intervalo irregular" # Si no es un número
+                    elif minutes_part == '*':
+                        return "Cada minuto"
+                    elif minutes_part.isdigit():
+                        return f"A los {minutes_part} minutos de cada hora"
+                    else:
+                        return "Intervalo personalizado" # Para casos más complejos (e.g., "0,30")
+        
+        return "No configurado" # Si no se encuentra la línea de sync
+    except subprocess.CalledProcessError:
+        logger.error("Error al ejecutar crontab -l. Cron no instalado o permiso denegado.")
+        return "Error al leer cron"
+    except Exception as e:
+        logger.error(f"Error inesperado al obtener intervalo de cron: {e}")
+        return "Error al leer cron"
+
 
 def disk_status_report():
     """
@@ -187,7 +238,7 @@ def disk_status_report():
                     f"└ 📦 Libre: `{free:.2f} GB`\n"
                 )
                 if alert:
-                    message += f"    {alert}\n" # 4 espacios para identación
+                    message += f"    {alert}\n"
 
     except Exception as e:
         message += f"❌ Error al obtener estado de disco de Raspberry Pi: `{e}`"
@@ -217,6 +268,9 @@ def status_report():
         ram_icon = get_icon(r_ram)
         temp_icon = get_icon(r_temp, thresholds=(50, 70))
 
+        # Obtener el intervalo de sincronización actual
+        sync_interval_info = _get_current_sync_interval()
+
         message = (
             f"🍓 *Estado del Raspberry Pi (Sistema)*\n\n"
             f"🖥️ *Hostname:* `{r_hostname}`\n"
@@ -224,7 +278,8 @@ def status_report():
             f"{cpu_icon} *CPU:* `{r_cpu:.1f}%`\n"
             f"{ram_icon} *RAM:* `{r_ram:.1f}%`\n"
             f"{temp_icon} *Temp:* `{r_temp} °C`\n"
-            f"🔋 *Batería:* `{r_volt} V` | `{r_status}`"
+            f"🔋 *Batería:* `{r_volt} V` | `{r_status}`\n"
+            f"🔄 *Sinc. Auto:* `{sync_interval_info}`" # <--- ¡Nueva línea!
         )
         send_telegram(message)
 
@@ -248,7 +303,7 @@ if __name__ == "__main__":
                 disk_func=disk_status_report, # Se pasa la función de reporte de estado del disco
                 status_func=status_report     # Se pasa la función de reporte de estado general
             )
-            send_telegram("✅ Servicio de sincronización iniciado. Usa /sync para iniciar manualmente.")
+            send_telegram("✅ Servicio de sincronización iniciado\. Usa /sync para iniciar manualmente\.")
         except Exception as e:
             logger.error(f"Fallo al iniciar bot de Telegram: {e}")
     else:

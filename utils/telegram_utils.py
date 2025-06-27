@@ -91,7 +91,7 @@ def help_command(update, context):
     help_message = (
         "Here are the commands:\n"
         "`/sync` - Manual sync 🚀\n"
-        "`/set_interval <minutes>` - Change interval ⏱️\n"
+        "`/set_interval` - Change interval ⏱️\n"
         "`/disable_sync` - Disable auto sync 🚫\n"
         "`/enable_sync` - Enable auto sync ✅\n"
         "`/stop` - Stop current sync 🛑\n"

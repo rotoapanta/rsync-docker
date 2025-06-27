@@ -34,18 +34,24 @@ enable_auto_sync_callback = None
 disk_status_callback = None
 status_callback = None
 
-stop_sync_flag = threading.Event()
+# La variable stop_sync_flag se ha eliminado de este módulo
+# ya que su control directo por el usuario a través del bot ya no es una funcionalidad deseada.
 
 # --- Funciones de Utilidad ---
 def send_telegram(message: str) -> None:
     if bot and TELEGRAM_CHAT_ID:
         try:
+            # Importante: Si sigues viendo errores de "BadRequest: Can't parse entities: character '.' is reserved...",
+            # deberás cambiar 'Markdown' a 'MarkdownV2' y escapar manualmente los caracteres problemáticos
+            # en los mensajes, o implementar una función de escape global como se sugirió anteriormente.
             bot.send_message(chat_id=TELEGRAM_CHAT_ID, text=message, parse_mode='Markdown')
             logger.info(f"Mensaje de Telegram enviado: {message[:50]}...")
         except telegram.error.Unauthorized:
             logger.error("Error: Token inválido.")
         except telegram.error.BadRequest as e:
             logger.error(f"Error BadRequest: {e}")
+            # Agrega el log del mensaje original para depuración si ocurre un BadRequest
+            logger.error(f"Message causing BadRequest: {message}")
         except Exception as e:
             logger.error(f"Error al enviar mensaje: {e}")
     else:
@@ -65,13 +71,12 @@ def start_command(update, context):
         "Choose an option or use /help for all commands:"
     )
 
+    # Teclado sin botones de stop/clear
     keyboard = [
         [InlineKeyboardButton("🚀 Sync Now", callback_data='sync_now')],
         [InlineKeyboardButton("⏱️ Set Interval", callback_data='set_interval')],
         [InlineKeyboardButton("✅ Enable Auto Sync", callback_data='enable_sync'),
          InlineKeyboardButton("🚫 Disable Auto Sync", callback_data='disable_sync')],
-        [InlineKeyboardButton("🛑 Stop Sync", callback_data='stop_sync'),
-         InlineKeyboardButton("🟢 Clear Stop Flag", callback_data='clear_stop')],
         [InlineKeyboardButton("💾 Disk Status", callback_data='disk_status'),
          InlineKeyboardButton("📊 System Status", callback_data='status')]
     ]
@@ -88,16 +93,16 @@ def help_command(update, context):
         update.message.reply_text("Lo siento, no estás autorizado.")
         return
 
+    # Mensaje de ayuda sin el comando /stop
     help_message = (
         "Here are the commands:\n"
         "`/sync` - Manual sync 🚀\n"
         "`/set_interval` - Change interval ⏱️\n"
         "`/disable_sync` - Disable auto sync 🚫\n"
         "`/enable_sync` - Enable auto sync ✅\n"
-        "`/stop` - Stop current sync 🛑\n"
         "`/start` - Show menu with buttons\n"
-        "`/disk_status` - Show disk usage 💾\n" # Añadido
-        "`/status` - Show system status 📊\n" # Añadido
+        "`/disk_status` - Show disk usage 💾\n"
+        "`/status` - Show system status 📊\n"
         "`/help` - This help\n"
     )
     update.message.reply_text(help_message, parse_mode='Markdown')
@@ -109,11 +114,8 @@ def start_sync_command(update, context):
         update.message.reply_text("Lo siento, no estás autorizado.")
         return
 
-    if stop_sync_flag.is_set():
-        update.message.reply_text("Sync stopped by /stop. Clear flag first.")
-        return
-
-    update.message.reply_text("`/sync` received! Starting sync... 🚀")
+    # Se elimina la verificación de stop_sync_flag aquí
+    update.message.reply_text("`/sync` received! Starting sync... 🚀", parse_mode='Markdown')
     if sync_function_callback:
         threading.Thread(target=sync_function_callback, args=("from",)).start()
 
@@ -126,7 +128,7 @@ def set_interval_command(update, context):
 
     args = context.args
     if not args or not args[0].isdigit():
-        update.message.reply_text("Usage: `/set_interval <minutes>`")
+        update.message.reply_text("Usage: `/set_interval <minutes>`", parse_mode='Markdown')
         return
 
     minutes = int(args[0])
@@ -160,27 +162,21 @@ def enable_sync_command(update, context):
         update.message.reply_text("Enabling auto sync... ✅")
         threading.Thread(target=enable_auto_sync_callback).start()
 
-def stop_sync_command(update, context):
-    chat_id = str(update.message.chat_id)
+# La función stop_sync_command se ha eliminado.
 
-    if chat_id != TELEGRAM_CHAT_ID:
-        update.message.reply_text("Lo siento, no estás autorizado.")
-        return
-
-    if stop_sync_flag.is_set():
-        update.message.reply_text("Sync already stopped.")
-    else:
-        stop_sync_flag.set()
-        update.message.reply_text("`/stop` received! 🛑")
-
-def status_command(update, context):
+def disk_status_command(update, context):
     if str(update.message.chat_id) != TELEGRAM_CHAT_ID:
         update.message.reply_text("No autorizado.")
         return
-    if status_callback:
-        update.message.reply_text("📊 Verificando estado...")
-        threading.Thread(target=status_callback).start()
+    if disk_status_callback:
+        update.message.reply_text("💾 Verificando estado del disco...")
+        threading.Thread(target=disk_status_callback).start()
 
+def status_command(update, context):
+    if str(update.message.chat_id) != TELEGRAM_CHAT_ID:
+        update.message.reply_text("📊 Verificando estado general del sistema...")
+        if status_callback:
+            threading.Thread(target=status_callback).start()
 
 # --- Botón Callback ---
 def button_callback(update, context):
@@ -207,27 +203,20 @@ def button_callback(update, context):
         if disable_auto_sync_callback:
             threading.Thread(target=disable_auto_sync_callback).start()
 
-    elif query.data == 'stop_sync':
-        query.edit_message_text("Stopping sync... 🛑")
-        if not stop_sync_flag.is_set():
-            stop_sync_flag.set()
-
-    elif query.data == 'clear_stop':
-        stop_sync_flag.clear()
-        query.edit_message_text("🟢 Sync flag cleared. Ready to run again.")
-
-    elif query.data == 'set_interval':
-        query.edit_message_text("Use `/set_interval <minutes>` ⏱️")
+    # Se eliminan los casos para 'stop_sync' y 'clear_stop' del callback.
 
     elif query.data == 'disk_status':
+        query.edit_message_text("💾 Checking disk status...")
         if disk_status_callback:
             threading.Thread(target=disk_status_callback).start()
-        query.edit_message_text("💾 Checking disk status...")
-    
+
+    elif query.data == 'set_interval':
+        query.edit_message_text("Use `/set_interval <minutes>` ⏱️", parse_mode='Markdown')
+
     elif query.data == 'status':
         query.edit_message_text("📊 Gathering system status...")
-    if status_callback:
-        threading.Thread(target=status_callback).start()
+        if status_callback:
+            threading.Thread(target=status_callback).start()
 
 def error_handler(update, context):
     logger.warning(f'Update "{update}" caused error "{context.error}"')
@@ -263,7 +252,9 @@ def start_telegram_bot_listener(sync_func, cron_change_func, disable_sync_func, 
         dispatcher.add_handler(CommandHandler("set_interval", set_interval_command))
         dispatcher.add_handler(CommandHandler("disable_sync", disable_sync_command))
         dispatcher.add_handler(CommandHandler("enable_sync", enable_sync_command))
-        dispatcher.add_handler(CommandHandler("stop", stop_sync_command))
+        # Se elimina el manejador para el comando /stop
+        # dispatcher.add_handler(CommandHandler("stop", stop_sync_command))
+        dispatcher.add_handler(CommandHandler("disk_status", disk_status_command))
         dispatcher.add_handler(CommandHandler("status", status_command))
         dispatcher.add_handler(CallbackQueryHandler(button_callback))
         dispatcher.add_error_handler(error_handler)

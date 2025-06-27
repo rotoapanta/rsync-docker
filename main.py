@@ -6,20 +6,26 @@ import subprocess
 import socket
 import datetime
 import requests
-from shutil import disk_usage
-from managers.sync_manager import SyncManager
-from utils.telegram_utils import start_telegram_bot_listener, send_telegram, stop_sync_flag
+from shutil import disk_usage # Importar disk_usage desde shutil
+
+# Importa la función send_telegram y NO la bandera stop_sync_flag de telegram_utils
+# Ajusta el sys.path para que pueda encontrar el módulo utils y managers
+current_dir = os.path.dirname(os.path.abspath(__file__))
+sys.path.append(os.path.join(current_dir, 'managers'))
+sys.path.append(os.path.join(current_dir, 'utils'))
+
+from utils.telegram_utils import start_telegram_bot_listener, send_telegram
+from managers.sync_manager import SyncManager # Importar SyncManager
 
 # --- Configuración de logging ---
 logging.basicConfig(format='%(asctime)s - %(levelname)s - %(message)s', level=logging.INFO)
 logger = logging.getLogger(__name__)
 
-current_dir = os.path.dirname(os.path.abspath(__file__))
-sys.path.append(os.path.join(current_dir, 'managers'))
-sys.path.append(os.path.join(current_dir, 'utils'))
-
 # --- URL del endpoint del Raspberry ---
 RASPBERRY_URL = "http://192.168.190.29:8000/status"
+
+# --- Constante del directorio de datos ---
+DATA_DIR = "/data" # Directorio de destino local en el contenedor
 
 # --- Función de sincronización manual ---
 def perform_sync(direction: str):
@@ -87,34 +93,127 @@ def enable_auto_sync():
     success, msg = _update_crontab_entry('enable')
     send_telegram("✅ Auto sync activado." if success else f"❌ {msg}")
 
-# --- Recolectar información de la Raspberry remotamente ---
-def fetch_raspberry_status():
+# --- Funciones para obtener información de disco y sistema ---
+
+def _get_local_disk_info(path: str) -> tuple[float, float, float]:
+    """
+    Obtiene el espacio total, usado y libre en GB para una ruta local.
+    Devuelve (total_gb, used_gb, free_gb).
+    """
+    total, used, free = disk_usage(path)
+    total_gb = total / (1024**3)
+    used_gb = used / (1024**3)
+    free_gb = free / (1024**3)
+    return total_gb, used_gb, free_gb
+
+def disk_status_report():
+    """
+    Reporta el estado del disco del contenedor Docker (donde se monta /data)
+    y el estado del disco de la Raspberry Pi.
+    """
+    message = "💾 *Estado del Almacenamiento*\n\n"
+
+    # 1. Información del disco del contenedor Docker (ruta /data)
+    try:
+        total_docker_gb, used_docker_gb, free_docker_gb = _get_local_disk_info(DATA_DIR)
+        message += (
+            f"📦 *Contenedor Docker* (`{DATA_DIR}`):\n"
+            f"├ 🧱 Total: `{total_docker_gb:.2f} GB`\n"
+            f"├ 📂 Usado: `{used_docker_gb:.2f} GB`\n"
+            f"└ 📦 Libre: `{free_docker_gb:.2f} GB`\n\n"
+        )
+        if free_docker_gb < 10: # Puedes ajustar este umbral
+            message += "⚠️ *Alerta: Bajo espacio en disco en el contenedor Docker!*\n\n"
+    except Exception as e:
+        message += f"❌ Error al obtener espacio del contenedor: `{e}`\n\n"
+        logger.error(f"Error al obtener espacio del contenedor: {e}")
+
+    # 2. Información del disco de la Raspberry Pi
     try:
         response = requests.get(RASPBERRY_URL, timeout=5)
         response.raise_for_status()
-        return response.json()
+        raspberry_data = response.json()
+
+        r_disk_info = raspberry_data.get("disk_info", {})
+        r_total = r_disk_info.get("total", "?")
+        r_used = r_disk_info.get("used", "?")
+        r_free = r_disk_info.get("free", "?")
+        r_disk_percent = raspberry_data.get("disk", 0) # Porcentaje de uso del disco principal de la Pi
+
+        def get_disk_icon(percent_usage):
+            if percent_usage >= 80:
+                return "🔴"
+            elif percent_usage >= 50:
+                return "🟠"
+            else:
+                return "🟢"
+
+        disk_icon = get_disk_icon(r_disk_percent)
+
+        message += (
+            f"🍓 *Raspberry Pi* (Partición Root `/`):\n"
+            f"┌─── {disk_icon} *Uso:* `{r_disk_percent:.1f}%` ───┐\n"
+            f"├ 🧱 Total: `{r_total} GB`\n"
+            f"├ 📂 Usado: `{r_used} GB`\n"
+            f"└ 📦 Libre: `{r_free} GB`\n"
+        )
+        if r_free < 10: # Puedes ajustar este umbral
+            message += "⚠️ *Alerta: Bajo espacio en disco en la Raspberry Pi!*"
+
+        # Añadir información de USBs conectadas a la Raspberry Pi
+        usb_disks = raspberry_data.get("usb", [])
+        if usb_disks:
+            message += f"\n\n🧷 *USBs conectadas al Raspberry Pi:*\n"
+            for usb in usb_disks:
+                mount = usb.get("mount", "?")
+                device = usb.get("device", "?")
+                total = usb.get("total", 0)
+                used = usb.get("used", 0)
+                free = usb.get("free", 0)
+                percent = (used / total * 100) if total else 0
+
+                icon = "🟢"
+                alert = ""
+
+                if percent >= 90:
+                    icon = "🔴"
+                    alert = "⚠️ *CRÍTICO* - Poco espacio libre"
+                elif percent >= 80:
+                    icon = "🟠"
+                    alert = "⚠️ *ALERTA* - Bajo espacio libre"
+
+                message += (
+                    f"{icon} `{mount}` ({device})\n"
+                    f"├ 💽 Total: `{total:.2f} GB`\n"
+                    f"├ 📂 Usado: `{used:.2f} GB`\n"
+                    f"└ 📦 Libre: `{free:.2f} GB`\n"
+                )
+                if alert:
+                    message += f"    {alert}\n" # 4 espacios para identación
+
     except Exception as e:
-        logger.error(f"Error al obtener estado del Raspberry: {e}")
-        return None
+        message += f"❌ Error al obtener estado de disco de Raspberry Pi: `{e}`"
+        logger.error(f"Error al obtener estado de disco de Raspberry Pi: {e}")
+
+    send_telegram(message)
 
 def status_report():
     try:
-        import requests
-
-        RASPBERRY_URL = "http://192.168.190.29:8000/status"
-        raspberry_data = requests.get(RASPBERRY_URL, timeout=5).json()
+        response = requests.get(RASPBERRY_URL, timeout=5)
+        response.raise_for_status()
+        raspberry_data = response.json()
 
         r_hostname = raspberry_data.get("hostname", "?")
         r_ip = raspberry_data.get("ip", "?")
         r_cpu = raspberry_data.get("cpu", 0)
         r_ram = raspberry_data.get("ram", 0)
-        r_disk = raspberry_data.get("disk", 0)
+        r_disk = raspberry_data.get("disk", 0) # Uso general del disco
         r_temp = raspberry_data.get("temp", 0)
         r_batt = raspberry_data.get("battery", {})
         r_volt = r_batt.get("voltage", "?")
         r_status = r_batt.get("status", "?")
 
-        r_disk_info = raspberry_data.get("disk_info", {})
+        r_disk_info = raspberry_data.get("disk_info", {}) # Info detallada de la partición root
         r_total = r_disk_info.get("total", "?")
         r_used = r_disk_info.get("used", "?")
         r_free = r_disk_info.get("free", "?")
@@ -131,6 +230,7 @@ def status_report():
 
         cpu_icon = get_icon(r_cpu)
         ram_icon = get_icon(r_ram)
+        # disk_icon se usará para el uso general de la partición root
         disk_icon = get_icon(r_disk)
         temp_icon = get_icon(r_temp, thresholds=(50, 70))
 
@@ -140,7 +240,7 @@ def status_report():
             f"🌐 *IP:* `{r_ip}`\n"
             f"{cpu_icon} *CPU:* `{r_cpu:.1f}%`\n"
             f"{ram_icon} *RAM:* `{r_ram:.1f}%`\n"
-            f"{disk_icon} *Disco:* `{r_disk:.1f}%`\n"
+            f"{disk_icon} *Disco:* `{r_disk:.1f}%`\n" # Uso general del disco de la Pi
             f"┌─── 📁 `/` ───┐\n"
             f"├ 🧱 Total: `{r_total} GB`\n"
             f"├ 📂 Usado: `{r_used} GB`\n"
@@ -149,6 +249,8 @@ def status_report():
             f"🔋 *Batería:* `{r_volt} V` | `{r_status}`"
         )
 
+        # La sección de USBs ya está cubierta por disk_status_report,
+        # pero si quieres redundancia o una vista general aquí también, se mantiene.
         if usb_disks:
             message += f"\n\n🧷 *USBs conectadas:*\n"
             for usb in usb_disks:
@@ -176,12 +278,12 @@ def status_report():
                     f"└ 📦 Libre: `{free:.2f} GB`\n"
                 )
                 if alert:
-                    message += f"   {alert}\n"
+                    message += f"    {alert}\n"
 
         send_telegram(message)
 
     except Exception as e:
-        send_telegram(f"❌ Error al obtener estado del Raspberry Pi: `{e}`")
+        send_telegram(f"❌ Error al obtener estado general del Raspberry Pi: `{e}`")
 
 
 # --- Punto de entrada principal ---
@@ -197,9 +299,10 @@ if __name__ == "__main__":
                 change_cron_interval,
                 disable_auto_sync,
                 enable_auto_sync,
-                disk_func=None,
-                status_func=status_report
+                disk_func=disk_status_report, # Se pasa la función de reporte de estado del disco
+                status_func=status_report     # Se pasa la función de reporte de estado general
             )
+            # Asegúrate de escapar el punto final si usas MarkdownV2 en send_telegram
             send_telegram("✅ Servicio de sincronización iniciado. Usa /sync para iniciar manualmente.")
         except Exception as e:
             logger.error(f"Fallo al iniciar bot de Telegram: {e}")
@@ -213,5 +316,7 @@ if __name__ == "__main__":
         else:
             logger.warning(f"Comando no reconocido: {command}")
     else:
+        # Esto es importante para mantener el contenedor en ejecución si no se pasa un comando
+        logger.info("Modo de ejecución principal: Manteniendo el servicio de bot y cron...")
         while True:
-            time.sleep(3600)
+            time.sleep(3600) # Duerme por una hora para mantener el contenedor activo

@@ -146,3 +146,380 @@ total size is 2,422,780  speedup is 265.60
 sent 74 bytes  received 9,048 bytes  6,081.33 bytes/sec
 total size is 2,422,780  speedup is 265.60
 
+[2025-06-27 19:31:03] Disk space available on /data: 341.10 GB (Total: 915.32 GB, Used: 527.65 GB)
+[2025-06-27 19:31:03] Initiating synchronization from Raspberry Pi
+[2025-06-27 19:31:03] Rsync command to execute: rsync -e ssh -i /root/.ssh/id_rsa -o StrictHostKeyChecking=no -avz pi@192.168.190.29:/home/pi/Documents/rain-gauge-project/DTA /data
+[2025-06-27 19:31:03] Attempt 1/3 to synchronize.
+[2025-06-27 19:31:04] receiving incremental file list
+
+sent 74 bytes  received 9,048 bytes  6,081.33 bytes/sec
+total size is 2,422,780  speedup is 265.60
+
+[2025-06-27 19:32:03] Disk space available on /data: 341.10 GB (Total: 915.32 GB, Used: 527.65 GB)
+[2025-06-27 19:32:03] Initiating synchronization from Raspberry Pi
+[2025-06-27 19:32:03] Rsync command to execute: rsync -e ssh -i /root/.ssh/id_rsa -o StrictHostKeyChecking=no -avz pi@192.168.190.29:/home/pi/Documents/rain-gauge-project/DTA /data
+[2025-06-27 19:32:03] Attempt 1/3 to synchronize.
+[2025-06-27 19:32:04] receiving incremental file list
+
+sent 74 bytes  received 9,048 bytes  6,081.33 bytes/sec
+total size is 2,422,780  speedup is 265.60
+
+[2025-06-27 19:33:03] Disk space available on /data: 341.10 GB (Total: 915.32 GB, Used: 527.65 GB)
+[2025-06-27 19:33:03] Initiating synchronization from Raspberry Pi
+[2025-06-27 19:33:03] Rsync command to execute: rsync -e ssh -i /root/.ssh/id_rsa -o StrictHostKeyChecking=no -avz --stats --itemize-changes pi@192.168.190.29:/home/pi/Documents/rain-gauge-project/DTA /data
+[2025-06-27 19:33:03] Attempt 1/3 to synchronize.
+[2025-06-27 19:33:04] receiving incremental file list
+
+Number of files: 384 (reg: 334, dir: 50)
+Number of created files: 0
+Number of deleted files: 0
+Number of regular files transferred: 0
+Total file size: 2,422,780 bytes
+Total transferred file size: 0 bytes
+Literal data: 0 bytes
+Matched data: 0 bytes
+File list size: 8,983
+File list generation time: 0.001 seconds
+File list transfer time: 0.000 seconds
+Total bytes sent: 74
+Total bytes received: 9,048
+
+sent 74 bytes  received 9,048 bytes  6,081.33 bytes/sec
+total size is 2,422,780  speedup is 265.60
+
+[2025-06-27 19:33:04] 
+[2025-06-27 19:34:03] Disk space available on /data: 341.03 GB (Total: 915.32 GB, Used: 527.73 GB)
+[2025-06-27 19:34:03] Initiating synchronization from Raspberry Pi
+[2025-06-27 19:34:03] Rsync command to execute: rsync -e ssh -i /root/.ssh/id_rsa -o StrictHostKeyChecking=no -avz --stats --itemize-changes pi@192.168.190.29:/home/pi/Documents/rain-gauge-project/DTA /data
+[2025-06-27 19:34:03] Attempt 1/3 to synchronize.
+[2025-06-27 19:34:03] receiving incremental file list
+
+Number of files: 384 (reg: 334, dir: 50)
+Number of created files: 0
+Number of deleted files: 0
+Number of regular files transferred: 0
+Total file size: 2,422,780 bytes
+Total transferred file size: 0 bytes
+Literal data: 0 bytes
+Matched data: 0 bytes
+File list size: 8,983
+File list generation time: 0.001 seconds
+File list transfer time: 0.000 seconds
+Total bytes sent: 74
+Total bytes received: 9,048
+
+sent 74 bytes  received 9,048 bytes  18,244.00 bytes/sec
+total size is 2,422,780  speedup is 265.60
+
+[2025-06-27 19:34:03] Warning: Permanently added '192.168.190.29' (ED25519) to the list of known hosts.
+
+[2025-06-27 19:35:03] Disk space available on /data: 341.02 GB (Total: 915.32 GB, Used: 527.73 GB)
+[2025-06-27 19:35:03] Initiating synchronization from Raspberry Pi
+[2025-06-27 19:35:03] Rsync command to execute: rsync -e ssh -i /root/.ssh/id_rsa -o StrictHostKeyChecking=no -avz --stats --itemize-changes pi@192.168.190.29:/home/pi/Documents/rain-gauge-project/DTA /data
+[2025-06-27 19:35:03] Attempt 1/3 to synchronize.
+[2025-06-27 19:35:03] receiving incremental file list
+
+Number of files: 384 (reg: 334, dir: 50)
+Number of created files: 0
+Number of deleted files: 0
+Number of regular files transferred: 0
+Total file size: 2,422,780 bytes
+Total transferred file size: 0 bytes
+Literal data: 0 bytes
+Matched data: 0 bytes
+File list size: 8,983
+File list generation time: 0.001 seconds
+File list transfer time: 0.000 seconds
+Total bytes sent: 74
+Total bytes received: 9,048
+
+sent 74 bytes  received 9,048 bytes  18,244.00 bytes/sec
+total size is 2,422,780  speedup is 265.60
+
+[2025-06-27 19:35:03] 
+[2025-06-27 19:36:03] Disk space available on /data: 340.97 GB (Total: 915.32 GB, Used: 527.79 GB)
+[2025-06-27 19:36:03] Initiating synchronization from Raspberry Pi
+[2025-06-27 19:36:03] Rsync command to execute: rsync -e ssh -i /root/.ssh/id_rsa -o StrictHostKeyChecking=no -avz pi@192.168.190.29:/home/pi/Documents/rain-gauge-project/DTA /data
+[2025-06-27 19:36:03] Attempt 1/3 to synchronize.
+[2025-06-27 19:36:03] receiving incremental file list
+
+sent 74 bytes  received 9,048 bytes  18,244.00 bytes/sec
+total size is 2,422,780  speedup is 265.60
+
+[2025-06-27 19:36:14] Disk space available on /data: 340.97 GB (Total: 915.32 GB, Used: 527.79 GB)
+[2025-06-27 19:36:14] Initiating synchronization from Raspberry Pi
+[2025-06-27 19:36:14] Rsync command to execute: rsync -e ssh -i /root/.ssh/id_rsa -o StrictHostKeyChecking=no -avz pi@192.168.190.29:/home/pi/Documents/rain-gauge-project/DTA /data
+[2025-06-27 19:36:14] Attempt 1/3 to synchronize.
+[2025-06-27 19:36:14] receiving incremental file list
+
+sent 74 bytes  received 9,048 bytes  18,244.00 bytes/sec
+total size is 2,422,780  speedup is 265.60
+
+[2025-06-27 19:37:02] Disk space available on /data: 340.96 GB (Total: 915.32 GB, Used: 527.79 GB)
+[2025-06-27 19:37:02] Initiating synchronization from Raspberry Pi
+[2025-06-27 19:37:02] Rsync command to execute: rsync -e ssh -i /root/.ssh/id_rsa -o StrictHostKeyChecking=no -avz pi@192.168.190.29:/home/pi/Documents/rain-gauge-project/DTA /data
+[2025-06-27 19:37:02] Attempt 1/3 to synchronize.
+[2025-06-27 19:37:03] receiving incremental file list
+
+sent 74 bytes  received 9,048 bytes  6,081.33 bytes/sec
+total size is 2,422,780  speedup is 265.60
+
+[2025-06-27 19:38:02] Disk space available on /data: 340.96 GB (Total: 915.32 GB, Used: 527.80 GB)
+[2025-06-27 19:38:02] Initiating synchronization from Raspberry Pi
+[2025-06-27 19:38:02] Rsync command to execute: rsync -e ssh -i /root/.ssh/id_rsa -o StrictHostKeyChecking=no -avz pi@192.168.190.29:/home/pi/Documents/rain-gauge-project/DTA /data
+[2025-06-27 19:38:02] Attempt 1/3 to synchronize.
+[2025-06-27 19:38:03] receiving incremental file list
+
+sent 74 bytes  received 9,048 bytes  6,081.33 bytes/sec
+total size is 2,422,780  speedup is 265.60
+
+[2025-06-27 19:39:02] Disk space available on /data: 340.96 GB (Total: 915.32 GB, Used: 527.80 GB)
+[2025-06-27 19:39:02] Initiating synchronization from Raspberry Pi
+[2025-06-27 19:39:02] Rsync command to execute: rsync -e ssh -i /root/.ssh/id_rsa -o StrictHostKeyChecking=no -avz pi@192.168.190.29:/home/pi/Documents/rain-gauge-project/DTA /data
+[2025-06-27 19:39:02] Attempt 1/3 to synchronize.
+[2025-06-27 19:39:03] receiving incremental file list
+
+sent 74 bytes  received 9,048 bytes  6,081.33 bytes/sec
+total size is 2,422,780  speedup is 265.60
+
+[2025-06-27 19:41:03] Disk space available on /data: 340.93 GB (Total: 915.32 GB, Used: 527.83 GB)
+[2025-06-27 19:41:03] Initiating synchronization from Raspberry Pi
+[2025-06-27 19:41:03] Rsync command to execute: rsync -e ssh -i /root/.ssh/id_rsa -o StrictHostKeyChecking=no -avz --stats --itemize-changes pi@192.168.190.29:/home/pi/Documents/rain-gauge-project/DTA /data
+[2025-06-27 19:41:03] Attempt 1/3 to synchronize.
+[2025-06-27 19:41:03] receiving incremental file list
+
+Number of files: 384 (reg: 334, dir: 50)
+Number of created files: 0
+Number of deleted files: 0
+Number of regular files transferred: 0
+Total file size: 2,422,780 bytes
+Total transferred file size: 0 bytes
+Literal data: 0 bytes
+Matched data: 0 bytes
+File list size: 8,983
+File list generation time: 0.001 seconds
+File list transfer time: 0.000 seconds
+Total bytes sent: 74
+Total bytes received: 9,048
+
+sent 74 bytes  received 9,048 bytes  18,244.00 bytes/sec
+total size is 2,422,780  speedup is 265.60
+
+[2025-06-27 19:41:03] Warning: Permanently added '192.168.190.29' (ED25519) to the list of known hosts.
+
+[2025-06-27 19:42:02] Disk space available on /data: 340.93 GB (Total: 915.32 GB, Used: 527.83 GB)
+[2025-06-27 19:42:02] Initiating synchronization from Raspberry Pi
+[2025-06-27 19:42:02] Rsync command to execute: rsync -e ssh -i /root/.ssh/id_rsa -o StrictHostKeyChecking=no -avz --stats --itemize-changes pi@192.168.190.29:/home/pi/Documents/rain-gauge-project/DTA /data
+[2025-06-27 19:42:02] Attempt 1/3 to synchronize.
+[2025-06-27 19:42:03] receiving incremental file list
+.d..t...... DTA/
+cd+++++++++ DTA/2028/
+cd+++++++++ DTA/2028/03/
+cd+++++++++ DTA/2028/03/28/
+>f+++++++++ DTA/2028/03/28/EC.REVS2.RGA_rpi-5_4512_20250328_1100.json
+>f+++++++++ DTA/2028/03/28/EC.REVS2.RGA_rpi-5_4512_20250328_1200.json
+>f+++++++++ DTA/2028/03/28/EC.REVS2.RGA_rpi-5_4512_20250328_1300.json
+>f+++++++++ DTA/2028/03/28/EC.REVS2.RGA_rpi-5_4512_20250328_1400.json
+>f+++++++++ DTA/2028/03/28/EC.REVS2.RGA_rpi-5_4512_20250328_1500.json
+>f+++++++++ DTA/2028/03/28/EC.REVS2.RGA_rpi-5_4512_20250328_1600.json
+>f+++++++++ DTA/2028/03/28/EC.REVS2.RGA_rpi-5_4512_20250328_1900.json
+>f+++++++++ DTA/2028/03/28/EC.REVS2.RGA_rpi-5_4512_20250328_2000.json
+>f+++++++++ DTA/2028/03/28/EC.REVS2.RGA_rpi-5_4512_20250328_2100.json
+>f+++++++++ DTA/2028/03/28/EC.REVS2.RGA_rpi-5_4512_20250328_2200.json
+>f+++++++++ DTA/2028/03/28/EC.REVS2.RGA_rpi-5_4512_20250328_2300.json
+cd+++++++++ DTA/2028/03/29/
+>f+++++++++ DTA/2028/03/29/EC.REVS2.RGA_rpi-5_4512_20250329_0000.json
+>f+++++++++ DTA/2028/03/29/EC.REVS2.RGA_rpi-5_4512_20250329_0600.json
+>f+++++++++ DTA/2028/03/29/EC.REVS2.RGA_rpi-5_4512_20250329_0700.json
+>f+++++++++ DTA/2028/03/29/EC.REVS2.RGA_rpi-5_4512_20250329_0800.json
+>f+++++++++ DTA/2028/03/29/EC.REVS2.RGA_rpi-5_4512_20250329_0900.json
+>f+++++++++ DTA/2028/03/29/EC.REVS2.RGA_rpi-5_4512_20250329_1000.json
+>f+++++++++ DTA/2028/03/29/EC.REVS2.RGA_rpi-5_4512_20250329_1100.json
+>f+++++++++ DTA/2028/03/29/EC.REVS2.RGA_rpi-5_4512_20250329_1500.json
+>f+++++++++ DTA/2028/03/29/EC.REVS2.RGA_rpi-5_4512_20250329_1600.json
+>f+++++++++ DTA/2028/03/29/EC.REVS2.RGA_rpi-5_4512_20250329_1700.json
+>f+++++++++ DTA/2028/03/29/EC.REVS2.RGA_rpi-5_4512_20250329_1800.json
+>f+++++++++ DTA/2028/03/29/EC.REVS2.RGA_rpi-5_4512_20250329_1900.json
+>f+++++++++ DTA/2028/03/29/EC.REVS2.RGA_rpi-5_4512_20250329_2000.json
+>f+++++++++ DTA/2028/03/29/EC.REVS2.RGA_rpi-5_4512_20250329_2100.json
+>f+++++++++ DTA/2028/03/29/EC.REVS2.RGA_rpi-5_4512_20250329_2200.json
+>f+++++++++ DTA/2028/03/29/EC.REVS2.RGA_rpi-5_4512_20250329_2300.json
+cd+++++++++ DTA/2028/03/30/
+>f+++++++++ DTA/2028/03/30/EC.REVS2.RGA_rpi-5_4512_20250330_00.json
+>f+++++++++ DTA/2028/03/30/EC.REVS2.RGA_rpi-5_4512_20250330_0000.json
+>f+++++++++ DTA/2028/03/30/EC.REVS2.RGA_rpi-5_4512_20250330_0100.json
+>f+++++++++ DTA/2028/03/30/EC.REVS2.RGA_rpi-5_4512_20250330_0200.json
+>f+++++++++ DTA/2028/03/30/EC.REVS2.RGA_rpi-5_4512_20250330_0300.json
+>f+++++++++ DTA/2028/03/30/EC.REVS2.RGA_rpi-5_4512_20250330_0400.json
+>f+++++++++ DTA/2028/03/30/EC.REVS2.RGA_rpi-5_4512_20250330_0500.json
+>f+++++++++ DTA/2028/03/30/EC.REVS2.RGA_rpi-5_4512_20250330_0600.json
+>f+++++++++ DTA/2028/03/30/EC.REVS2.RGA_rpi-5_4512_20250330_0700.json
+>f+++++++++ DTA/2028/03/30/EC.REVS2.RGA_rpi-5_4512_20250330_0800.json
+>f+++++++++ DTA/2028/03/30/EC.REVS2.RGA_rpi-5_4512_20250330_0900.json
+>f+++++++++ DTA/2028/03/30/EC.REVS2.RGA_rpi-5_4512_20250330_1000.json
+>f+++++++++ DTA/2028/03/30/EC.REVS2.RGA_rpi-5_4512_20250330_1100.json
+>f+++++++++ DTA/2028/03/30/EC.REVS2.RGA_rpi-5_4512_20250330_1200.json
+>f+++++++++ DTA/2028/03/30/EC.REVS2.RGA_rpi-5_4512_20250330_1300.json
+>f+++++++++ DTA/2028/03/30/EC.REVS2.RGA_rpi-5_4512_20250330_1400.json
+>f+++++++++ DTA/2028/03/30/EC.REVS2.RGA_rpi-5_4512_20250330_1500.json
+>f+++++++++ DTA/2028/03/30/EC.REVS2.RGA_rpi-5_4512_20250330_1600.json
+>f+++++++++ DTA/2028/03/30/EC.REVS2.RGA_rpi-5_4512_20250330_1700.json
+>f+++++++++ DTA/2028/03/30/EC.REVS2.RGA_rpi-5_4512_20250330_1800.json
+>f+++++++++ DTA/2028/03/30/EC.REVS2.RGA_rpi-5_4512_20250330_1900.json
+>f+++++++++ DTA/2028/03/30/EC.REVS2.RGA_rpi-5_4512_20250330_2000.json
+>f+++++++++ DTA/2028/03/30/EC.REVS2.RGA_rpi-5_4512_20250330_2100.json
+>f+++++++++ DTA/2028/03/30/EC.REVS2.RGA_rpi-5_4512_20250330_2200.json
+>f+++++++++ DTA/2028/03/30/EC.REVS2.RGA_rpi-5_4512_20250330_2300.json
+cd+++++++++ DTA/2028/03/31/
+>f+++++++++ DTA/2028/03/31/EC.REVS2.RGA_rpi-5_4512_20250331_0000.json
+>f+++++++++ DTA/2028/03/31/EC.REVS2.RGA_rpi-5_4512_20250331_0100.json
+>f+++++++++ DTA/2028/03/31/EC.REVS2.RGA_rpi-5_4512_20250331_0200.json
+>f+++++++++ DTA/2028/03/31/EC.REVS2.RGA_rpi-5_4512_20250331_0300.json
+>f+++++++++ DTA/2028/03/31/EC.REVS2.RGA_rpi-5_4512_20250331_0400.json
+>f+++++++++ DTA/2028/03/31/EC.REVS2.RGA_rpi-5_4512_20250331_0500.json
+>f+++++++++ DTA/2028/03/31/EC.REVS2.RGA_rpi-5_4512_20250331_0600.json
+>f+++++++++ DTA/2028/03/31/EC.REVS2.RGA_rpi-5_4512_20250331_2300.json
+cd+++++++++ DTA/2028/04/
+cd+++++++++ DTA/2028/04/01/
+>f+++++++++ DTA/2028/04/01/EC.REVS2.RGA_rpi-5_4512_20250401_2100.json
+>f+++++++++ DTA/2028/04/01/EC.REVS2.RGA_rpi-5_4512_20250401_2200.json
+>f+++++++++ DTA/2028/04/01/EC.REVS2.RGA_rpi-5_4512_20250401_2300.json
+cd+++++++++ DTA/2028/04/02/
+>f+++++++++ DTA/2028/04/02/EC.REVS2.RGA_rpi-5_4512_20250402_0000.json
+>f+++++++++ DTA/2028/04/02/EC.REVS2.RGA_rpi-5_4512_20250402_0100.json
+>f+++++++++ DTA/2028/04/02/EC.REVS2.RGA_rpi-5_4512_20250402_2300.json
+cd+++++++++ DTA/2028/04/05/
+>f+++++++++ DTA/2028/04/05/EC.REVS2.RGA_rpi-5_4512_20250405_1900.json
+>f+++++++++ DTA/2028/04/05/EC.REVS2.RGA_rpi-5_4512_20250405_2000.json
+>f+++++++++ DTA/2028/04/05/EC.REVS2.RGA_rpi-5_4512_20250405_2100.json
+>f+++++++++ DTA/2028/04/05/EC.REVS2.RGA_rpi-5_4512_20250405_2200.json
+>f+++++++++ DTA/2028/04/05/EC.REVS2.RGA_rpi-5_4512_20250405_2300.json
+cd+++++++++ DTA/2028/04/06/
+>f+++++++++ DTA/2028/04/06/EC.REVS2.RGA_rpi-5_4512_20250406_0000.json
+>f+++++++++ DTA/2028/04/06/EC.REVS2.RGA_rpi-5_4512_20250406_0100.json
+>f+++++++++ DTA/2028/04/06/EC.REVS2.RGA_rpi-5_4512_20250406_0200.json
+>f+++++++++ DTA/2028/04/06/EC.REVS2.RGA_rpi-5_4512_20250406_0300.json
+>f+++++++++ DTA/2028/04/06/EC.REVS2.RGA_rpi-5_4512_20250406_0400.json
+>f+++++++++ DTA/2028/04/06/EC.REVS2.RGA_rpi-5_4512_20250406_0500.json
+>f+++++++++ DTA/2028/04/06/EC.REVS2.RGA_rpi-5_4512_20250406_0600.json
+>f+++++++++ DTA/2028/04/06/EC.REVS2.RGA_rpi-5_4512_20250406_0700.json
+>f+++++++++ DTA/2028/04/06/EC.REVS2.RGA_rpi-5_4512_20250406_0800.json
+>f+++++++++ DTA/2028/04/06/EC.REVS2.RGA_rpi-5_4512_20250406_0900.json
+>f+++++++++ DTA/2028/04/06/EC.REVS2.RGA_rpi-5_4512_20250406_1000.json
+>f+++++++++ DTA/2028/04/06/EC.REVS2.RGA_rpi-5_4512_20250406_1100.json
+>f+++++++++ DTA/2028/04/06/EC.REVS2.RGA_rpi-5_4512_20250406_1200.json
+>f+++++++++ DTA/2028/04/06/EC.REVS2.RGA_rpi-5_4512_20250406_1300.json
+>f+++++++++ DTA/2028/04/06/EC.REVS2.RGA_rpi-5_4512_20250406_1400.json
+>f+++++++++ DTA/2028/04/06/EC.REVS2.RGA_rpi-5_4512_20250406_1500.json
+>f+++++++++ DTA/2028/04/06/EC.REVS2.RGA_rpi-5_4512_20250406_1600.json
+cd+++++++++ DTA/2028/04/07/
+>f+++++++++ DTA/2028/04/07/EC.REVS2.RGA_rpi-5_4512_20250407_1400.json
+>f+++++++++ DTA/2028/04/07/EC.REVS2.RGA_rpi-5_4512_20250407_1500.json
+>f+++++++++ DTA/2028/04/07/EC.REVS2.RGA_rpi-5_4512_20250407_1600.json
+>f+++++++++ DTA/2028/04/07/EC.REVS2.RGA_rpi-5_4512_20250407_1700.json
+>f+++++++++ DTA/2028/04/07/EC.REVS2.RGA_rpi-5_4512_20250407_1800.json
+>f+++++++++ DTA/2028/04/07/EC.REVS2.RGA_rpi-5_4512_20250407_1900.json
+>f+++++++++ DTA/2028/04/07/EC.REVS2.RGA_rpi-5_4512_20250407_2000.json
+>f+++++++++ DTA/2028/04/07/EC.REVS2.RGA_rpi-5_4512_20250407_2100.json
+>f+++++++++ DTA/2028/04/07/EC.REVS2.RGA_rpi-5_4512_20250407_2200.json
+>f+++++++++ DTA/2028/04/07/EC.REVS2.RGA_rpi-5_4512_20250407_2300.json
+cd+++++++++ DTA/2028/04/08/
+>f+++++++++ DTA/2028/04/08/EC.REVS2.RGA_rpi-5_4512_20250408_0000.json
+>f+++++++++ DTA/2028/04/08/EC.REVS2.RGA_rpi-5_4512_20250408_0100.json
+>f+++++++++ DTA/2028/04/08/EC.REVS2.RGA_rpi-5_4512_20250408_0200.json
+>f+++++++++ DTA/2028/04/08/EC.REVS2.RGA_rpi-5_4512_20250408_0300.json
+>f+++++++++ DTA/2028/04/08/EC.REVS2.RGA_rpi-5_4512_20250408_0400.json
+>f+++++++++ DTA/2028/04/08/EC.REVS2.RGA_rpi-5_4512_20250408_0500.json
+>f+++++++++ DTA/2028/04/08/EC.REVS2.RGA_rpi-5_4512_20250408_0600.json
+>f+++++++++ DTA/2028/04/08/EC.REVS2.RGA_rpi-5_4512_20250408_0700.json
+>f+++++++++ DTA/2028/04/08/EC.REVS2.RGA_rpi-5_4512_20250408_0800.json
+>f+++++++++ DTA/2028/04/08/EC.REVS2.RGA_rpi-5_4512_20250408_0900.json
+>f+++++++++ DTA/2028/04/08/EC.REVS2.RGA_rpi-5_4512_20250408_1000.json
+>f+++++++++ DTA/2028/04/08/EC.REVS2.RGA_rpi-5_4512_20250408_1100.json
+>f+++++++++ DTA/2028/04/08/EC.REVS2.RGA_rpi-5_4512_20250408_1200.json
+>f+++++++++ DTA/2028/04/08/EC.REVS2.RGA_rpi-5_4512_20250408_1300.json
+cd+++++++++ DTA/2028/04/09/
+>f+++++++++ DTA/2028/04/09/EC.REVS2.RGA_rpi-5_4512_20250409_1000.json
+>f+++++++++ DTA/2028/04/09/EC.REVS2.RGA_rpi-5_4512_20250409_1100.json
+>f+++++++++ DTA/2028/04/09/EC.REVS2.RGA_rpi-5_4512_20250409_1200.json
+>f+++++++++ DTA/2028/04/09/EC.REVS2.RGA_rpi-5_4512_20250409_1300.json
+>f+++++++++ DTA/2028/04/09/EC.REVS2.RGA_rpi-5_4512_20250409_1400.json
+>f+++++++++ DTA/2028/04/09/EC.REVS2.RGA_rpi-5_4512_20250409_1500.json
+>f+++++++++ DTA/2028/04/09/EC.REVS2.RGA_rpi-5_4512_20250409_1600.json
+>f+++++++++ DTA/2028/04/09/EC.REVS2.RGA_rpi-5_4512_20250409_1700.json
+>f+++++++++ DTA/2028/04/09/EC.REVS2.RGA_rpi-5_4512_20250409_1800.json
+>f+++++++++ DTA/2028/04/09/EC.REVS2.RGA_rpi-5_4512_20250409_1900.json
+>f+++++++++ DTA/2028/04/09/EC.REVS2.RGA_rpi-5_4512_20250409_2000.json
+>f+++++++++ DTA/2028/04/09/EC.REVS2.RGA_rpi-5_4512_20250409_2100.json
+>f+++++++++ DTA/2028/04/09/EC.REVS2.RGA_rpi-5_4512_20250409_2200.json
+>f+++++++++ DTA/2028/04/09/EC.REVS2.RGA_rpi-5_4512_20250409_2300.json
+cd+++++++++ DTA/2028/04/10/
+>f+++++++++ DTA/2028/04/10/EC.REVS2.RGA_rpi-5_4512_20250410_0000.json
+>f+++++++++ DTA/2028/04/10/EC.REVS2.RGA_rpi-5_4512_20250410_0100.json
+>f+++++++++ DTA/2028/04/10/EC.REVS2.RGA_rpi-5_4512_20250410_0700.json
+>f+++++++++ DTA/2028/04/10/EC.REVS2.RGA_rpi-5_4512_20250410_0800.json
+>f+++++++++ DTA/2028/04/10/EC.REVS2.RGA_rpi-5_4512_20250410_0900.json
+>f+++++++++ DTA/2028/04/10/EC.REVS2.RGA_rpi-5_4512_20250410_1000.json
+>f+++++++++ DTA/2028/04/10/EC.REVS2.RGA_rpi-5_4512_20250410_1100.json
+>f+++++++++ DTA/2028/04/10/EC.REVS2.RGA_rpi-5_4512_20250410_1200.json
+>f+++++++++ DTA/2028/04/10/EC.REVS2.RGA_rpi-5_4512_20250410_1300.json
+>f+++++++++ DTA/2028/04/10/EC.REVS2.RGA_rpi-5_4512_20250410_1400.json
+>f+++++++++ DTA/2028/04/10/EC.REVS2.RGA_rpi-5_4512_20250410_1500.json
+>f+++++++++ DTA/2028/04/10/EC.REVS2.RGA_rpi-5_4512_20250410_1600.json
+cd+++++++++ DTA/2028/04/11/
+>f+++++++++ DTA/2028/04/11/EC.REVS2.RGA_rpi-5_4512_20250411_1100.json
+>f+++++++++ DTA/2028/04/11/EC.REVS2.RGA_rpi-5_4512_20250411_1200.json
+>f+++++++++ DTA/2028/04/11/EC.REVS2.RGA_rpi-5_4512_20250411_1400.json
+>f+++++++++ DTA/2028/04/11/EC.REVS2.RGA_rpi-5_4512_20250411_1500.json
+>f+++++++++ DTA/2028/04/11/EC.REVS2.RGA_rpi-5_4512_20250411_2200.json
+>f+++++++++ DTA/2028/04/11/EC.REVS2.RGA_rpi-5_4512_20250411_2300.json
+cd+++++++++ DTA/2028/04/12/
+>f+++++++++ DTA/2028/04/12/EC.REVS2.RGA_rpi-5_4512_20250412_0000.json
+>f+++++++++ DTA/2028/04/12/EC.REVS2.RGA_rpi-5_4512_20250412_0100.json
+>f+++++++++ DTA/2028/04/12/EC.REVS2.RGA_rpi-5_4512_20250412_0700.json
+>f+++++++++ DTA/2028/04/12/EC.REVS2.RGA_rpi-5_4512_20250412_1100.json
+cd+++++++++ DTA/2028/04/14/
+>f+++++++++ DTA/2028/04/14/EC.REVS2.RGA_rpi-5_4512_20250414_0600.json
+>f+++++++++ DTA/2028/04/14/EC.REVS2.RGA_rpi-5_4512_20250414_1500.json
+>f+++++++++ DTA/2028/04/14/EC.REVS2.RGA_rpi-5_4512_20250414_1600.json
+cd+++++++++ DTA/2028/04/15/
+>f+++++++++ DTA/2028/04/15/EC.REVS2.RGA_rpi-5_4512_20250415_0600.json
+>f+++++++++ DTA/2028/04/15/EC.REVS2.RGA_rpi-5_4512_20250415_1600.json
+cd+++++++++ DTA/2028/04/16/
+>f+++++++++ DTA/2028/04/16/EC.REVS2.RGA_rpi-5_4512_20250416_0600.json
+>f+++++++++ DTA/2028/04/16/EC.REVS2.RGA_rpi-5_4512_20250416_1600.json
+cd+++++++++ DTA/2028/04/27/
+>f+++++++++ DTA/2028/04/27/EC.REVS2.RGA_rpi-5_4512_20250427_2100.json
+>f+++++++++ DTA/2028/04/27/EC.REVS2.RGA_rpi-5_4512_20250427_2200.json
+>f+++++++++ DTA/2028/04/27/EC.REVS2.RGA_rpi-5_4512_20250427_2300.json
+cd+++++++++ DTA/2028/04/28/
+>f+++++++++ DTA/2028/04/28/EC.REVS2.RGA_rpi-5_4512_20250428_0000.json
+>f+++++++++ DTA/2028/04/28/EC.REVS2.RGA_rpi-5_4512_20250428_0100.json
+>f+++++++++ DTA/2028/04/28/EC.REVS2.RGA_rpi-5_4512_20250428_0200.json
+>f+++++++++ DTA/2028/04/28/EC.REVS2.RGA_rpi-5_4512_20250428_0300.json
+>f+++++++++ DTA/2028/04/28/EC.REVS2.RGA_rpi-5_4512_20250428_0400.json
+>f+++++++++ DTA/2028/04/28/EC.REVS2.RGA_rpi-5_4512_20250428_0500.json
+>f+++++++++ DTA/2028/04/28/EC.REVS2.RGA_rpi-5_4512_20250428_0600.json
+cd+++++++++ DTA/2028/04/29/
+>f+++++++++ DTA/2028/04/29/EC.REVS2.RGA_rpi-5_4512_20250429_1100.json
+cd+++++++++ DTA/2028/04/30/
+>f+++++++++ DTA/2028/04/30/EC.IG01.RGA_rpi-5_4512_20250430_1500.json
+
+Number of files: 575 (reg: 501, dir: 74)
+Number of created files: 191 (reg: 167, dir: 24)
+Number of deleted files: 0
+Number of regular files transferred: 167
+Total file size: 3,634,170 bytes
+Total transferred file size: 1,211,390 bytes
+Literal data: 1,211,390 bytes
+Matched data: 0 bytes
+File list size: 13,465
+File list generation time: 0.001 seconds
+File list transfer time: 0.000 seconds
+Total bytes sent: 3,356
+Total bytes received: 47,404
+
+sent 3,356 bytes  received 47,404 bytes  33,840.00 bytes/sec
+total size is 3,634,170  speedup is 71.60
+
+[2025-06-27 19:42:03] 

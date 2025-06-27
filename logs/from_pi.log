@@ -523,3 +523,411 @@ sent 3,356 bytes  received 47,404 bytes  33,840.00 bytes/sec
 total size is 3,634,170  speedup is 71.60
 
 [2025-06-27 19:42:03] 
+[2025-06-27 19:43:02] Disk space available on /data: 340.93 GB (Total: 915.32 GB, Used: 527.83 GB)
+[2025-06-27 19:43:02] Initiating synchronization from Raspberry Pi
+[2025-06-27 19:43:02] Rsync command to execute: rsync -e ssh -i /root/.ssh/id_rsa -o StrictHostKeyChecking=no -avz --stats --itemize-changes pi@192.168.190.29:/home/pi/Documents/rain-gauge-project/DTA /data
+[2025-06-27 19:43:02] Attempt 1/3 to synchronize.
+[2025-06-27 19:43:02] receiving incremental file list
+
+Number of files: 575 (reg: 501, dir: 74)
+Number of created files: 0
+Number of deleted files: 0
+Number of regular files transferred: 0
+Total file size: 3,634,170 bytes
+Total transferred file size: 0 bytes
+Literal data: 0 bytes
+Matched data: 0 bytes
+File list size: 13,465
+File list generation time: 0.001 seconds
+File list transfer time: 0.000 seconds
+Total bytes sent: 98
+Total bytes received: 13,554
+
+sent 98 bytes  received 13,554 bytes  27,304.00 bytes/sec
+total size is 3,634,170  speedup is 266.20
+
+[2025-06-27 19:43:02] 
+[2025-06-27 19:43:03] Disk space available on /data: 340.93 GB (Total: 915.32 GB, Used: 527.83 GB)
+[2025-06-27 19:43:03] Initiating synchronization from Raspberry Pi
+[2025-06-27 19:43:03] Rsync command to execute: rsync -e ssh -i /root/.ssh/id_rsa -o StrictHostKeyChecking=no -avz --stats --itemize-changes pi@192.168.190.29:/home/pi/Documents/rain-gauge-project/DTA /data
+[2025-06-27 19:43:03] Attempt 1/3 to synchronize.
+[2025-06-27 19:43:03] receiving incremental file list
+
+Number of files: 575 (reg: 501, dir: 74)
+Number of created files: 0
+Number of deleted files: 0
+Number of regular files transferred: 0
+Total file size: 3,634,170 bytes
+Total transferred file size: 0 bytes
+Literal data: 0 bytes
+Matched data: 0 bytes
+File list size: 13,465
+File list generation time: 0.001 seconds
+File list transfer time: 0.000 seconds
+Total bytes sent: 98
+Total bytes received: 13,554
+
+sent 98 bytes  received 13,554 bytes  27,304.00 bytes/sec
+total size is 3,634,170  speedup is 266.20
+
+[2025-06-27 19:43:03] 
+[2025-06-27 19:44:02] Disk space available on /data: 340.93 GB (Total: 915.32 GB, Used: 527.83 GB)
+[2025-06-27 19:44:02] Initiating synchronization from Raspberry Pi
+[2025-06-27 19:44:02] Rsync command to execute: rsync -e ssh -i /root/.ssh/id_rsa -o StrictHostKeyChecking=no -avz --stats --itemize-changes pi@192.168.190.29:/home/pi/Documents/rain-gauge-project/DTA /data
+[2025-06-27 19:44:02] Attempt 1/3 to synchronize.
+[2025-06-27 19:44:03] receiving incremental file list
+
+Number of files: 575 (reg: 501, dir: 74)
+Number of created files: 0
+Number of deleted files: 0
+Number of regular files transferred: 0
+Total file size: 3,634,170 bytes
+Total transferred file size: 0 bytes
+Literal data: 0 bytes
+Matched data: 0 bytes
+File list size: 13,465
+File list generation time: 0.001 seconds
+File list transfer time: 0.000 seconds
+Total bytes sent: 98
+Total bytes received: 13,550
+
+sent 98 bytes  received 13,550 bytes  9,098.67 bytes/sec
+total size is 3,634,170  speedup is 266.28
+
+[2025-06-27 19:44:03] 
+[2025-06-27 19:45:02] Disk space available on /data: 340.93 GB (Total: 915.32 GB, Used: 527.83 GB)
+[2025-06-27 19:45:02] Initiating synchronization from Raspberry Pi
+[2025-06-27 19:45:02] Rsync command to execute: rsync -e ssh -i /root/.ssh/id_rsa -o StrictHostKeyChecking=no -avz --stats --itemize-changes pi@192.168.190.29:/home/pi/Documents/rain-gauge-project/DTA /data
+[2025-06-27 19:45:02] Attempt 1/3 to synchronize.
+[2025-06-27 19:45:03] receiving incremental file list
+
+Number of files: 575 (reg: 501, dir: 74)
+Number of created files: 0
+Number of deleted files: 0
+Number of regular files transferred: 0
+Total file size: 3,634,170 bytes
+Total transferred file size: 0 bytes
+Literal data: 0 bytes
+Matched data: 0 bytes
+File list size: 13,465
+File list generation time: 0.001 seconds
+File list transfer time: 0.000 seconds
+Total bytes sent: 98
+Total bytes received: 13,554
+
+sent 98 bytes  received 13,554 bytes  9,101.33 bytes/sec
+total size is 3,634,170  speedup is 266.20
+
+[2025-06-27 19:45:03] 
+[2025-06-27 19:46:02] Disk space available on /data: 340.93 GB (Total: 915.32 GB, Used: 527.83 GB)
+[2025-06-27 19:46:02] Initiating synchronization from Raspberry Pi
+[2025-06-27 19:46:02] Rsync command to execute: rsync -e ssh -i /root/.ssh/id_rsa -o StrictHostKeyChecking=no -avz --stats --itemize-changes pi@192.168.190.29:/home/pi/Documents/rain-gauge-project/DTA /data
+[2025-06-27 19:46:02] Attempt 1/3 to synchronize.
+[2025-06-27 19:46:07] receiving incremental file list
+
+Number of files: 575 (reg: 501, dir: 74)
+Number of created files: 0
+Number of deleted files: 0
+Number of regular files transferred: 0
+Total file size: 3,634,170 bytes
+Total transferred file size: 0 bytes
+Literal data: 0 bytes
+Matched data: 0 bytes
+File list size: 13,465
+File list generation time: 0.001 seconds
+File list transfer time: 0.000 seconds
+Total bytes sent: 98
+Total bytes received: 13,554
+
+sent 98 bytes  received 13,554 bytes  2,482.18 bytes/sec
+total size is 3,634,170  speedup is 266.20
+
+[2025-06-27 19:46:07] 
+[2025-06-27 19:47:02] Disk space available on /data: 340.93 GB (Total: 915.32 GB, Used: 527.83 GB)
+[2025-06-27 19:47:02] Initiating synchronization from Raspberry Pi
+[2025-06-27 19:47:02] Rsync command to execute: rsync -e ssh -i /root/.ssh/id_rsa -o StrictHostKeyChecking=no -avz --stats --itemize-changes pi@192.168.190.29:/home/pi/Documents/rain-gauge-project/DTA /data
+[2025-06-27 19:47:02] Attempt 1/3 to synchronize.
+[2025-06-27 19:47:03] receiving incremental file list
+
+Number of files: 575 (reg: 501, dir: 74)
+Number of created files: 0
+Number of deleted files: 0
+Number of regular files transferred: 0
+Total file size: 3,634,170 bytes
+Total transferred file size: 0 bytes
+Literal data: 0 bytes
+Matched data: 0 bytes
+File list size: 13,465
+File list generation time: 0.001 seconds
+File list transfer time: 0.000 seconds
+Total bytes sent: 98
+Total bytes received: 13,554
+
+sent 98 bytes  received 13,554 bytes  9,101.33 bytes/sec
+total size is 3,634,170  speedup is 266.20
+
+[2025-06-27 19:47:03] 
+[2025-06-27 19:48:02] Disk space available on /data: 340.93 GB (Total: 915.32 GB, Used: 527.83 GB)
+[2025-06-27 19:48:02] Initiating synchronization from Raspberry Pi
+[2025-06-27 19:48:02] Rsync command to execute: rsync -e ssh -i /root/.ssh/id_rsa -o StrictHostKeyChecking=no -avz --stats --itemize-changes pi@192.168.190.29:/home/pi/Documents/rain-gauge-project/DTA /data
+[2025-06-27 19:48:02] Attempt 1/3 to synchronize.
+[2025-06-27 19:48:03] receiving incremental file list
+
+Number of files: 575 (reg: 501, dir: 74)
+Number of created files: 0
+Number of deleted files: 0
+Number of regular files transferred: 0
+Total file size: 3,634,170 bytes
+Total transferred file size: 0 bytes
+Literal data: 0 bytes
+Matched data: 0 bytes
+File list size: 13,465
+File list generation time: 0.001 seconds
+File list transfer time: 0.000 seconds
+Total bytes sent: 98
+Total bytes received: 13,554
+
+sent 98 bytes  received 13,554 bytes  9,101.33 bytes/sec
+total size is 3,634,170  speedup is 266.20
+
+[2025-06-27 19:48:03] 
+[2025-06-27 19:49:03] Disk space available on /data: 340.92 GB (Total: 915.32 GB, Used: 527.84 GB)
+[2025-06-27 19:49:03] Initiating synchronization from Raspberry Pi
+[2025-06-27 19:49:03] Rsync command to execute: rsync -e ssh -i /root/.ssh/id_rsa -o StrictHostKeyChecking=no -avz --stats --itemize-changes pi@192.168.190.29:/home/pi/Documents/rain-gauge-project/DTA /data
+[2025-06-27 19:49:03] Attempt 1/3 to synchronize.
+[2025-06-27 19:49:03] receiving incremental file list
+
+Number of files: 575 (reg: 501, dir: 74)
+Number of created files: 0
+Number of deleted files: 0
+Number of regular files transferred: 0
+Total file size: 3,634,170 bytes
+Total transferred file size: 0 bytes
+Literal data: 0 bytes
+Matched data: 0 bytes
+File list size: 13,465
+File list generation time: 0.001 seconds
+File list transfer time: 0.000 seconds
+Total bytes sent: 98
+Total bytes received: 13,554
+
+sent 98 bytes  received 13,554 bytes  27,304.00 bytes/sec
+total size is 3,634,170  speedup is 266.20
+
+[2025-06-27 19:49:03] 
+[2025-06-27 19:50:02] Disk space available on /data: 340.92 GB (Total: 915.32 GB, Used: 527.84 GB)
+[2025-06-27 19:50:02] Initiating synchronization from Raspberry Pi
+[2025-06-27 19:50:02] Rsync command to execute: rsync -e ssh -i /root/.ssh/id_rsa -o StrictHostKeyChecking=no -avz --stats --itemize-changes pi@192.168.190.29:/home/pi/Documents/rain-gauge-project/DTA /data
+[2025-06-27 19:50:02] Attempt 1/3 to synchronize.
+[2025-06-27 19:50:03] receiving incremental file list
+
+Number of files: 575 (reg: 501, dir: 74)
+Number of created files: 0
+Number of deleted files: 0
+Number of regular files transferred: 0
+Total file size: 3,634,170 bytes
+Total transferred file size: 0 bytes
+Literal data: 0 bytes
+Matched data: 0 bytes
+File list size: 13,465
+File list generation time: 0.001 seconds
+File list transfer time: 0.000 seconds
+Total bytes sent: 98
+Total bytes received: 13,554
+
+sent 98 bytes  received 13,554 bytes  9,101.33 bytes/sec
+total size is 3,634,170  speedup is 266.20
+
+[2025-06-27 19:50:03] 
+[2025-06-27 19:51:02] Disk space available on /data: 340.92 GB (Total: 915.32 GB, Used: 527.84 GB)
+[2025-06-27 19:51:02] Initiating synchronization from Raspberry Pi
+[2025-06-27 19:51:02] Rsync command to execute: rsync -e ssh -i /root/.ssh/id_rsa -o StrictHostKeyChecking=no -avz --stats --itemize-changes pi@192.168.190.29:/home/pi/Documents/rain-gauge-project/DTA /data
+[2025-06-27 19:51:02] Attempt 1/3 to synchronize.
+[2025-06-27 19:51:03] receiving incremental file list
+
+Number of files: 575 (reg: 501, dir: 74)
+Number of created files: 0
+Number of deleted files: 0
+Number of regular files transferred: 0
+Total file size: 3,634,170 bytes
+Total transferred file size: 0 bytes
+Literal data: 0 bytes
+Matched data: 0 bytes
+File list size: 13,465
+File list generation time: 0.001 seconds
+File list transfer time: 0.000 seconds
+Total bytes sent: 98
+Total bytes received: 13,554
+
+sent 98 bytes  received 13,554 bytes  9,101.33 bytes/sec
+total size is 3,634,170  speedup is 266.20
+
+[2025-06-27 19:51:03] 
+[2025-06-27 19:52:02] Disk space available on /data: 340.92 GB (Total: 915.32 GB, Used: 527.84 GB)
+[2025-06-27 19:52:02] Initiating synchronization from Raspberry Pi
+[2025-06-27 19:52:02] Rsync command to execute: rsync -e ssh -i /root/.ssh/id_rsa -o StrictHostKeyChecking=no -avz --stats --itemize-changes pi@192.168.190.29:/home/pi/Documents/rain-gauge-project/DTA /data
+[2025-06-27 19:52:02] Attempt 1/3 to synchronize.
+[2025-06-27 19:52:03] receiving incremental file list
+
+Number of files: 575 (reg: 501, dir: 74)
+Number of created files: 0
+Number of deleted files: 0
+Number of regular files transferred: 0
+Total file size: 3,634,170 bytes
+Total transferred file size: 0 bytes
+Literal data: 0 bytes
+Matched data: 0 bytes
+File list size: 13,465
+File list generation time: 0.001 seconds
+File list transfer time: 0.000 seconds
+Total bytes sent: 98
+Total bytes received: 13,554
+
+sent 98 bytes  received 13,554 bytes  9,101.33 bytes/sec
+total size is 3,634,170  speedup is 266.20
+
+[2025-06-27 19:52:03] 
+[2025-06-27 19:53:02] Disk space available on /data: 340.92 GB (Total: 915.32 GB, Used: 527.84 GB)
+[2025-06-27 19:53:02] Initiating synchronization from Raspberry Pi
+[2025-06-27 19:53:02] Rsync command to execute: rsync -e ssh -i /root/.ssh/id_rsa -o StrictHostKeyChecking=no -avz --stats --itemize-changes pi@192.168.190.29:/home/pi/Documents/rain-gauge-project/DTA /data
+[2025-06-27 19:53:02] Attempt 1/3 to synchronize.
+[2025-06-27 19:53:03] receiving incremental file list
+
+Number of files: 575 (reg: 501, dir: 74)
+Number of created files: 0
+Number of deleted files: 0
+Number of regular files transferred: 0
+Total file size: 3,634,170 bytes
+Total transferred file size: 0 bytes
+Literal data: 0 bytes
+Matched data: 0 bytes
+File list size: 13,465
+File list generation time: 0.001 seconds
+File list transfer time: 0.000 seconds
+Total bytes sent: 98
+Total bytes received: 13,554
+
+sent 98 bytes  received 13,554 bytes  9,101.33 bytes/sec
+total size is 3,634,170  speedup is 266.20
+
+[2025-06-27 19:53:03] 
+[2025-06-27 19:54:02] Disk space available on /data: 340.92 GB (Total: 915.32 GB, Used: 527.84 GB)
+[2025-06-27 19:54:02] Initiating synchronization from Raspberry Pi
+[2025-06-27 19:54:02] Rsync command to execute: rsync -e ssh -i /root/.ssh/id_rsa -o StrictHostKeyChecking=no -avz --stats --itemize-changes pi@192.168.190.29:/home/pi/Documents/rain-gauge-project/DTA /data
+[2025-06-27 19:54:02] Attempt 1/3 to synchronize.
+[2025-06-27 19:54:03] receiving incremental file list
+
+Number of files: 575 (reg: 501, dir: 74)
+Number of created files: 0
+Number of deleted files: 0
+Number of regular files transferred: 0
+Total file size: 3,634,170 bytes
+Total transferred file size: 0 bytes
+Literal data: 0 bytes
+Matched data: 0 bytes
+File list size: 13,465
+File list generation time: 0.001 seconds
+File list transfer time: 0.000 seconds
+Total bytes sent: 98
+Total bytes received: 13,554
+
+sent 98 bytes  received 13,554 bytes  9,101.33 bytes/sec
+total size is 3,634,170  speedup is 266.20
+
+[2025-06-27 19:54:03] 
+[2025-06-27 19:55:02] Disk space available on /data: 340.92 GB (Total: 915.32 GB, Used: 527.84 GB)
+[2025-06-27 19:55:02] Initiating synchronization from Raspberry Pi
+[2025-06-27 19:55:02] Rsync command to execute: rsync -e ssh -i /root/.ssh/id_rsa -o StrictHostKeyChecking=no -avz --stats --itemize-changes pi@192.168.190.29:/home/pi/Documents/rain-gauge-project/DTA /data
+[2025-06-27 19:55:02] Attempt 1/3 to synchronize.
+[2025-06-27 19:55:03] receiving incremental file list
+
+Number of files: 575 (reg: 501, dir: 74)
+Number of created files: 0
+Number of deleted files: 0
+Number of regular files transferred: 0
+Total file size: 3,634,170 bytes
+Total transferred file size: 0 bytes
+Literal data: 0 bytes
+Matched data: 0 bytes
+File list size: 13,465
+File list generation time: 0.001 seconds
+File list transfer time: 0.000 seconds
+Total bytes sent: 98
+Total bytes received: 13,554
+
+sent 98 bytes  received 13,554 bytes  9,101.33 bytes/sec
+total size is 3,634,170  speedup is 266.20
+
+[2025-06-27 19:55:03] 
+[2025-06-27 19:56:02] Disk space available on /data: 340.92 GB (Total: 915.32 GB, Used: 527.84 GB)
+[2025-06-27 19:56:02] Initiating synchronization from Raspberry Pi
+[2025-06-27 19:56:02] Rsync command to execute: rsync -e ssh -i /root/.ssh/id_rsa -o StrictHostKeyChecking=no -avz --stats --itemize-changes pi@192.168.190.29:/home/pi/Documents/rain-gauge-project/DTA /data
+[2025-06-27 19:56:02] Attempt 1/3 to synchronize.
+[2025-06-27 19:56:03] receiving incremental file list
+
+Number of files: 575 (reg: 501, dir: 74)
+Number of created files: 0
+Number of deleted files: 0
+Number of regular files transferred: 0
+Total file size: 3,634,170 bytes
+Total transferred file size: 0 bytes
+Literal data: 0 bytes
+Matched data: 0 bytes
+File list size: 13,465
+File list generation time: 0.001 seconds
+File list transfer time: 0.000 seconds
+Total bytes sent: 98
+Total bytes received: 13,554
+
+sent 98 bytes  received 13,554 bytes  9,101.33 bytes/sec
+total size is 3,634,170  speedup is 266.20
+
+[2025-06-27 19:56:03] 
+[2025-06-27 19:57:02] Disk space available on /data: 340.92 GB (Total: 915.32 GB, Used: 527.84 GB)
+[2025-06-27 19:57:02] Initiating synchronization from Raspberry Pi
+[2025-06-27 19:57:02] Rsync command to execute: rsync -e ssh -i /root/.ssh/id_rsa -o StrictHostKeyChecking=no -avz --stats --itemize-changes pi@192.168.190.29:/home/pi/Documents/rain-gauge-project/DTA /data
+[2025-06-27 19:57:02] Attempt 1/3 to synchronize.
+[2025-06-27 19:57:03] receiving incremental file list
+
+Number of files: 575 (reg: 501, dir: 74)
+Number of created files: 0
+Number of deleted files: 0
+Number of regular files transferred: 0
+Total file size: 3,634,170 bytes
+Total transferred file size: 0 bytes
+Literal data: 0 bytes
+Matched data: 0 bytes
+File list size: 13,465
+File list generation time: 0.001 seconds
+File list transfer time: 0.000 seconds
+Total bytes sent: 98
+Total bytes received: 13,554
+
+sent 98 bytes  received 13,554 bytes  9,101.33 bytes/sec
+total size is 3,634,170  speedup is 266.20
+
+[2025-06-27 19:57:03] 
+[2025-06-27 19:58:02] Disk space available on /data: 340.92 GB (Total: 915.32 GB, Used: 527.84 GB)
+[2025-06-27 19:58:02] Initiating synchronization from Raspberry Pi
+[2025-06-27 19:58:02] Rsync command to execute: rsync -e ssh -i /root/.ssh/id_rsa -o StrictHostKeyChecking=no -avz --stats --itemize-changes pi@192.168.190.29:/home/pi/Documents/rain-gauge-project/DTA /data
+[2025-06-27 19:58:02] Attempt 1/3 to synchronize.
+[2025-06-27 19:58:03] receiving incremental file list
+
+Number of files: 575 (reg: 501, dir: 74)
+Number of created files: 0
+Number of deleted files: 0
+Number of regular files transferred: 0
+Total file size: 3,634,170 bytes
+Total transferred file size: 0 bytes
+Literal data: 0 bytes
+Matched data: 0 bytes
+File list size: 13,465
+File list generation time: 0.001 seconds
+File list transfer time: 0.000 seconds
+Total bytes sent: 98
+Total bytes received: 13,554
+
+sent 98 bytes  received 13,554 bytes  9,101.33 bytes/sec
+total size is 3,634,170  speedup is 266.20
+
+[2025-06-27 19:58:03] 

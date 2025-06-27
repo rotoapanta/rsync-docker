@@ -96,6 +96,8 @@ def help_command(update, context):
         "`/enable_sync` - Enable auto sync ✅\n"
         "`/stop` - Stop current sync 🛑\n"
         "`/start` - Show menu with buttons\n"
+        "`/disk_status` - Show disk usage 💾\n" # Añadido
+        "`/status` - Show system status 📊\n" # Añadido
         "`/help` - This help\n"
     )
     update.message.reply_text(help_message, parse_mode='Markdown')
@@ -214,13 +216,13 @@ def button_callback(update, context):
         stop_sync_flag.clear()
         query.edit_message_text("🟢 Sync flag cleared. Ready to run again.")
 
+    elif query.data == 'set_interval':
+        query.edit_message_text("Use `/set_interval <minutes>` ⏱️")
+
     elif query.data == 'disk_status':
         if disk_status_callback:
             threading.Thread(target=disk_status_callback).start()
         query.edit_message_text("💾 Checking disk status...")
-
-    elif query.data == 'set_interval':
-        query.edit_message_text("Use `/set_interval <minutes>` ⏱️")
     
     elif query.data == 'status':
         query.edit_message_text("📊 Gathering system status...")

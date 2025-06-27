@@ -23,21 +23,17 @@ import logging
 
 # Configure logging for the module to output to standard streams (Docker logs)
 logger = logging.getLogger(__name__)
-# If you want to configure more advanced logging (e.g., file rotation), do it here.
-# For now, basic configuration to ensure messages are captured.
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 
 
 # Import send_telegram function. Ensure 'utils' directory is in sys.path
-# This handles the import regardless of how the script is executed, as long
-# as the 'utils' directory is a sibling to 'managers'.
 import sys
 sys.path.append(os.path.join(os.path.dirname(__file__), '..', 'utils'))
 from utils.telegram_utils import send_telegram
 
 # Global constants for the module
 LOG_DIR = "/logs"
-DATA_DIR = "/data" # Local destination directory within the container
+DATA_DIR = "/data" # Local destination directory within the container (where the Docker volume is mounted)
 
 class SyncManager:
     """
@@ -63,22 +59,17 @@ class SyncManager:
         A ValueError is raised if the RSYNC_FROM environment variable is missing, as it
         is a critical prerequisite for any synchronization activity.
         """
-        # Retrieve rsync source from environment variable
         self.rsync_from = os.getenv("RSYNC_FROM")
-        # Configure retry parameters, with defaults if not set
+        self.rsync_dest_host_path = os.getenv("RSYNC_DEST_HOST_PATH", DATA_DIR)
+
         self.max_retries = int(os.getenv("RSYNC_MAX_RETRIES", 3))
         self.retry_delay_seconds = int(os.getenv("RSYNC_RETRY_DELAY", 5))
 
-        # Disk space threshold for low space alerts, in Gigabytes (GB)
         self.disk_space_threshold_gb = int(os.getenv("DISK_SPACE_THRESHOLD_GB", 10))
-
-        # Threshold for listing individual affected folders in Telegram messages.
-        # If the number of affected folders exceeds this, only a count is displayed.
         self.FOLDER_LIST_THRESHOLD = int(os.getenv("FOLDER_LIST_THRESHOLD", 5))
 
-        self._ensure_dirs() # Ensure required directories exist before proceeding
+        self._ensure_dirs()
 
-        # Critical check: if rsync source is not defined, raise an error
         if not self.rsync_from:
             error_msg = "CRITICAL ERROR: 'RSYNC_FROM' environment variable is not defined. Synchronization cannot proceed."
             self._log_message(error_msg, os.path.join(LOG_DIR, "error.log"))
@@ -104,14 +95,14 @@ class SyncManager:
             message (str): The content of the message to be logged.
             logfile (str): The full path to the log file where the message will be appended.
         """
-        os.makedirs(os.path.dirname(logfile), exist_ok=True) # Ensure the directory for the log file exists
+        os.makedirs(os.path.dirname(logfile), exist_ok=True)
         timestamp = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
         try:
             with open(logfile, "a") as f:
                 f.write(f"[{timestamp}] {message}\n")
         except IOError as e:
             logger.error(f"Failed to write to log file {logfile}: {e}")
-        logger.info(message) # Also log to the standard application logger
+        logger.info(message)
 
     def _get_disk_space_info(self, path: str) -> tuple[float, float, float]:
         """
@@ -157,13 +148,13 @@ class SyncManager:
                 )
                 send_telegram(alert_msg)
                 self._log_message(alert_msg, log_file)
-                return False # Indicate insufficient space
-            return True # Indicate sufficient space
+                return False
+            return True
         except Exception as e:
             error_msg = f"❌ *Error checking disk space on {path}:* `{e}`"
             self._log_message(error_msg, log_file)
             send_telegram(error_msg)
-            return False # Indicate failure in disk space check
+            return False
 
     def _parse_rsync_output(self, rsync_output: str) -> dict:
         """
@@ -177,23 +168,11 @@ class SyncManager:
 
         Returns:
             dict: A dictionary containing parsed statistics and lists of affected items.
-                  Key-value pairs include:
-                  - "sent_bytes": Bytes sent to the remote host.
-                  - "received_bytes": Bytes received from the remote host.
-                  - "total_size": Total size of files on the source for comparison.
-                  - "speed_bps": Transfer speed in bytes per second.
-                  - "new_files": Count of newly created files.
-                  - "modified_files": Count of files whose content/metadata changed.
-                  - "deleted_files": Count of files deleted on the destination.
-                  - "new_folders": Count of newly created directories.
-                  - "modified_folders": Count of directories whose contents/metadata changed.
-                  - "new_folder_names": List of full paths for new folders.
-                  - "modified_folder_names": List of full paths for modified folders.
         """
         stats = {
             "sent_bytes": 0,
             "received_bytes": 0,
-            "total_size": 0, # Total size of files on the source
+            "total_size": 0,
             "speed_bps": 0,
             "new_files": 0,
             "modified_files": 0,
@@ -204,63 +183,44 @@ class SyncManager:
             "modified_folder_names": []
         }
 
-        # Split output into lines for easier processing
         output_lines = rsync_output.strip().split('\n')
         
-        # Regex to capture rsync itemized changes format:
-        # <f+++++++++ : new file received
-        # .f.T...... : file with timestamp/permission change
-        # *deleting   : file being deleted
-        # cd+++++++++ : new directory created
-        # .d..t...... : existing directory with changed contents/metadata
-        # The path part `(?P<path>.+)` captures the rest of the line, allowing for spaces.
         item_regex = re.compile(r'^(?P<flags>[.cd+*<>])(?P<perm_flags>[a-zA-Z0-9.\-+\/\\]{8})\s+(?P<path>.+)$')
 
-        # Use sets to store unique folder paths to avoid duplicates from multiple itemized entries
         unique_new_folders = set()
         unique_modified_folders = set()
 
         for line in output_lines:
-            # --- Parse itemized changes for individual file and folder names ---
             match = item_regex.match(line)
             if match:
                 flags = match.group('flags')
-                path = match.group('path').strip() # Extract path and strip whitespace
+                path = match.group('path').strip()
                 
-                # Determine if the item is a directory based on the 'd' flag in rsync's output
                 is_directory_by_flag = 'd' in flags
-                
-                # Construct the full path within the local destination directory
-                # rstrip('/') ensures consistent path formatting by removing trailing slashes
                 full_path_in_dest = os.path.join(DATA_DIR, path).rstrip('/')
 
                 if is_directory_by_flag: 
-                    if flags.startswith('c'): # 'c' flag indicates a new directory creation (e.g., 'cd+++++++++')
+                    if flags.startswith('c'):
                         unique_new_folders.add(full_path_in_dest)
                     elif 't' in flags or 's' in flags or ('+' in flags and not flags.startswith('c')):
-                        # 't' for timestamp/permissions change, 's' for size change (implies content),
-                        # or other flags indicating modification for an existing directory
                         unique_modified_folders.add(full_path_in_dest)
-                else: # The item is a file
-                    if flags.startswith('<') or flags.startswith('c'): # File received (new or updated) or created from copy
+                else:
+                    if flags.startswith('<') or flags.startswith('c'):
                         stats["new_files"] += 1
-                    elif 't' in flags or 's' in flags: # File with changed timestamp/size
+                    elif 't' in flags or 's' in flags:
                         stats["modified_files"] += 1
-                    elif flags.startswith('*'): # File being deleted (e.g., '*deleting')
+                    elif flags.startswith('*'):
                         stats["deleted_files"] += 1
             
-            # --- Parse summary statistics provided by `--stats` output lines ---
             if "Total bytes sent:" in line:
                 match = re.search(r'Total bytes sent:\s*([\d\.,]+)', line)
                 if match:
-                    # Remove dots/commas from the number string and convert to integer
                     stats["sent_bytes"] = int(match.group(1).replace('.', '').replace(',', ''))
             elif "Total bytes received:" in line:
                 match = re.search(r'Total bytes received:\s*([\d\.,]+)', line)
                 if match:
                     stats["received_bytes"] = int(match.group(1).replace('.', '').replace(',', ''))
             elif "total size is" in line and "speedup is" in line:
-                # This line contains both total size and speed information
                 match_total_size = re.search(r'total size is\s*([\d\.,]+)', line)
                 if match_total_size:
                     stats["total_size"] = int(match_total_size.group(1).replace('.', '').replace(',', ''))
@@ -269,7 +229,6 @@ class SyncManager:
                 if speed_match:
                     stats["speed_bps"] = float(speed_match.group(1).replace('.', '').replace(',', ''))
             elif "Number of created files:" in line:
-                # This statistic is usually more precise for new files than itemized flags
                 match = re.search(r'Number of created files:\s*(\d+)', line)
                 if match:
                     stats["new_files"] = int(match.group(1))
@@ -278,15 +237,55 @@ class SyncManager:
                 if match:
                     stats["deleted_files"] = int(match.group(1))
 
-        # --- Final processing for folders: convert sets to sorted lists ---
         stats["new_folder_names"] = sorted(list(unique_new_folders))
         stats["modified_folder_names"] = sorted(list(unique_modified_folders))
         
-        # Update folder counts based on the unique lists
         stats["new_folders"] = len(stats["new_folder_names"])
         stats["modified_folders"] = len(stats["modified_folder_names"])
 
         return stats
+
+    def _get_dta_folder_info(self) -> str:
+        """
+        Gathers information about the /data/DTA folder, including file count and total size,
+        formatted for a Telegram message.
+
+        Returns:
+            str: A formatted string with DTA folder info, or an error message if not found.
+        """
+        dta_info_message = ""
+        dta_path = os.path.join(DATA_DIR, "DTA") # This is /data/DTA inside the container
+
+        if os.path.exists(dta_path) and os.path.isdir(dta_path):
+            file_count = 0
+            total_size_bytes = 0
+            try:
+                for root, _, files in os.walk(dta_path):
+                    file_count += len(files)
+                    for f in files:
+                        file_path = os.path.join(root, f)
+                        # Ensure it's a file and get its size safely
+                        if os.path.isfile(file_path):
+                            total_size_bytes += os.path.getsize(file_path)
+            except Exception as e:
+                logger.error(f"Error accessing files in {dta_path}: {e}")
+                dta_info_message += f"❌ Error reading `{os.path.basename(dta_path)}` contents: `{e}`\n"
+                return dta_info_message
+
+            total_size_mb = total_size_bytes / (1024 * 1024) # Convert to MB
+
+            # Use the host path for display, if available, otherwise use the container path
+            display_dta_path = os.path.join(self.rsync_dest_host_path, "DTA") if self.rsync_dest_host_path != DATA_DIR else dta_path
+
+            dta_info_message += (
+                f"\n📁 `{display_dta_path}` contains {file_count} files\n" # Display the user-friendly path
+                f"📦 Total size: {total_size_mb:.1f} MB\n"
+            )
+        else:
+            dta_info_message += f"\n📁 Directory `{os.path.basename(dta_path)}` not found or is not a directory.\n"
+        
+        return dta_info_message
+
 
     def run_rsync(self, direction: str):
         """
@@ -303,20 +302,19 @@ class SyncManager:
                              is supported, which indicates a data pull operation
                              from the remote source to the local `DATA_DIR`.
         """
-        # Determine source, destination, log file, and description based on direction
         if direction == "from":
             src = self.rsync_from
             dest = DATA_DIR
             log_file = os.path.join(LOG_DIR, "from_pi.log")
             desc = "from Raspberry Pi"
+            
+            display_dest = self.rsync_dest_host_path if self.rsync_dest_host_path else dest
         else:
-            # Log and notify if an unsupported direction is provided
             log_file = os.path.join(LOG_DIR, "error.log")
             self._log_message(f"ERROR: Attempted to run synchronization with invalid direction: '{direction}'. Only 'from' is supported.", log_file)
             send_telegram(f"❌ *Internal Error: Synchronization attempt with unsupported direction: {direction}*")
             return
 
-        # Validate critical source and destination paths
         if src is None:
             self._log_message(f"CRITICAL ERROR: 'src' (RSYNC_FROM) variable is None for direction '{direction}'", log_file)
             send_telegram(f"❌ *Internal Error: Rsync Source (RSYNC_FROM) not defined for {desc}*")
@@ -326,7 +324,6 @@ class SyncManager:
             send_telegram(f"❌ *Internal Error: Rsync Destination not defined for {desc}*")
             return
 
-        # Pre-check: Verify sufficient disk space before starting synchronization
         if not self._check_disk_space(dest, log_file):
             self._log_message("Synchronization aborted due to a disk space check error.", log_file)
             send_telegram(f"❌ *Synchronization {desc} aborted: Disk space check issue.*")
@@ -334,39 +331,33 @@ class SyncManager:
 
         self._log_message(f"Initiating synchronization {desc}", log_file)
 
-        # Define the rsync command with necessary options
         cmd = [
             "rsync",
-            "-e", "ssh -i /root/.ssh/id_rsa -o StrictHostKeyChecking=no", # SSH options: specify identity file and disable strict host key checking
-            "-avz", # -a: archive mode (preserves permissions, timestamps, recursive copy); -v: verbose; -z: compress file data
-            "--stats", # Include transfer statistics in the output
-            "--itemize-changes", # Show a detailed list of changes for easier parsing
-            src, # Source path
-            dest # Destination path
+            "-e", "ssh -i /root/.ssh/id_rsa -o StrictHostKeyChecking=no",
+            "-avz",
+            "--stats",
+            "--itemize-changes",
+            src,
+            dest
         ]
 
         self._log_message(f"Rsync command to execute: {' '.join(cmd)}", log_file)
 
-        # Loop for multiple retry attempts
         for attempt in range(1, self.max_retries + 1):
-            # Calculate current retry delay with exponential backoff
             current_retry_delay = self.retry_delay_seconds * (2 ** (attempt - 1))
             try:
                 self._log_message(f"Attempt {attempt}/{self.max_retries} to synchronize.", log_file)
                 
-                # Execute rsync command with a timeout
-                result = subprocess.run(cmd, capture_output=True, text=True, timeout=300) # 300 seconds (5 minutes) timeout
+                result = subprocess.run(cmd, capture_output=True, text=True, timeout=300)
                 self._log_message(f"Rsync STDOUT:\n{result.stdout}", log_file)
-                if result.stderr: # Log stderr only if there's content
+                if result.stderr:
                     self._log_message(f"Rsync STDERR:\n{result.stderr}", log_file)
 
                 output_lines = result.stdout.strip().split('\n')
 
                 if result.returncode == 0:
-                    # Synchronization successful. Parse output and send notification.
                     parsed_stats = self._parse_rsync_output(result.stdout)
                     
-                    # Determine if any actual data changes (new, modified, deleted) occurred
                     any_changes = (
                         parsed_stats.get("received_bytes", 0) > 0 or
                         parsed_stats.get("new_files", 0) > 0 or
@@ -376,23 +367,19 @@ class SyncManager:
                         parsed_stats.get("modified_folders", 0) > 0
                     )
 
-                    # Extract the relevant rsync summary block from stdout for the Telegram message
                     rsync_summary_block_lines = []
                     capture_summary = False
                     for line in output_lines:
-                        # Heuristics to identify the start of the summary block (e.g., "Number of files:")
                         if "Number of files:" in line or "Number of created files:" in line or "Total transferred file size:" in line:
                             capture_summary = True
                         
                         if capture_summary:
                             rsync_summary_block_lines.append(line)
-                            # Stop capturing after the last summary line (e.g., "speedup is")
                             if "total size is" in line and "speedup is" in line:
                                 break 
 
                     summary_code_block = ""
                     if rsync_summary_block_lines:
-                        # Filter to keep only the core statistics lines for a concise summary
                         filtered_summary_lines = []
                         start_stats = False
                         for line in rsync_summary_block_lines:
@@ -403,97 +390,101 @@ class SyncManager:
                         
                         summary_code_block = "\n".join(filtered_summary_lines).strip()
                     
-                    # Construct the Telegram message title based on whether changes were detected
                     telegram_message_title = f"✅📥 *Synchronization successful {desc}"
                     if any_changes:
                         telegram_message_title += " - Changes detected and transferred*"
                     else:
                         telegram_message_title += " - No changes detected*"
-                    telegram_message_title += "\n\n" # Add extra newline for formatting
                     
-                    # Build the affected folders section for the Telegram message
+                    telegram_message_title += (
+                        f"\n\n*Source:* `{src}`\n"
+                        f"*Destination:* `{display_dest}`\n\n"
+                    )
+                    
                     folder_summary_text = ""
                     total_affected_folders = parsed_stats['new_folders'] + parsed_stats['modified_folders']
 
                     if total_affected_folders > 0:
                         folder_summary_text += "\n📂 *Affected Folders:*\n"
                         if total_affected_folders <= self.FOLDER_LIST_THRESHOLD:
-                            # List individual folder names if within the configured threshold
                             for folder_name in parsed_stats['new_folder_names']:
                                 display_name = folder_name.replace(DATA_DIR, '')
-                                if display_name.startswith('/'): # Remove leading slash if present after replace
+                                if display_name.startswith('/'): 
                                     display_name = display_name[1:]
+                                if not display_name: display_name = "root of destination"
                                 folder_summary_text += f"├ New: `{display_name}`\n"
                             for folder_name in parsed_stats['modified_folder_names']:
                                 display_name = folder_name.replace(DATA_DIR, '')
                                 if display_name.startswith('/'):
                                     display_name = display_name[1:]
+                                if not display_name: display_name = "root of destination"
                                 folder_summary_text += f"├ Updated: `{display_name}`\n"
                         else:
-                            # Show only counts if the number of affected folders is too high
                             folder_summary_text += (
                                 f"├ Total new: {parsed_stats['new_folders']}\n"
                                 f"└ Total updated: {parsed_stats['modified_folders']}\n"
                                 f"(Details in logs: `{log_file}`)\n"
                             )
                     
-                    # Combine all parts to form the final Telegram message
-                    telegram_message = telegram_message_title + folder_summary_text
+                    # --- AÑADE LA INFORMACIÓN DE DTA AQUÍ ---
+                    dta_info = self._get_dta_folder_info()
                     
-                    # Append the rsync summary block (raw rsync statistics) if available
+                    telegram_message = telegram_message_title + folder_summary_text + dta_info # Add dta_info here
+                    
                     if summary_code_block:
                         telegram_message += f"\n```\n{summary_code_block}\n```"
                     
-                    send_telegram(telegram_message) # Send the success notification
-                    return # Exit the function upon successful completion
+                    send_telegram(telegram_message)
+                    return
 
-                else: # Rsync returned a non-zero exit code, indicating a failure
+                else:
                     self._log_message(f"Rsync command failed (Attempt {attempt}, Exit Code: {result.returncode}).", log_file)
                     self._log_message(f"Rsync STDOUT:\n{result.stdout}", log_file)
                     self._log_message(f"Rsync STDERR:\n{result.stderr}", log_file)
                     
                     if attempt < self.max_retries:
-                        # Log and wait before retrying
+                        current_retry_delay = self.retry_delay_seconds * (2 ** (attempt - 1))
                         self._log_message(f"Retrying in {current_retry_delay} seconds...", log_file)
                         time.sleep(current_retry_delay)
                     else:
-                        # All retries exhausted, send final failure notification
                         telegram_message = (
                             f"❌🔥 *Failed to synchronize {desc} after {self.max_retries} attempts*\n\n"
+                            f"*Source:* `{src}`\n"
+                            f"*Destination:* `{display_dest}`\n\n"
                             f"Exit code: `{result.returncode}`\n"
                             f"STDOUT (partial): ```{result.stdout[:500] if result.stdout else 'N/A'}...```\n"
                             f"STDERR (partial): ```{result.stderr[:500] if result.stderr else 'N/A'}...```"
                         )
                         send_telegram(telegram_message)
             except subprocess.TimeoutExpired as e:
-                # Handle rsync command timeout exception
                 self._log_message(f"Rsync command timed out (Attempt {attempt}). Timeout: {e.timeout} seconds.", log_file)
                 self._log_message(f"Timeout STDOUT:\n{e.stdout}", log_file)
                 self._log_message(f"Timeout STDERR:\n{e.stderr}", log_file)
                 
                 if attempt < self.max_retries:
-                    # Log and wait before retrying
+                    current_retry_delay = self.retry_delay_seconds * (2 ** (attempt - 1))
                     self._log_message(f"Retrying in {current_retry_delay} seconds...", log_file)
                     time.sleep(current_retry_delay)
                 else:
-                    # All retries exhausted due to timeout, send final notification
                     telegram_message = (
                         f"❌🚨 *Rsync Timeout Exception during sync {desc} after {self.max_retries} attempts*\n"
+                        f"*Source:* `{src}`\n"
+                        f"*Destination:* `{display_dest}`\n\n"
                         f"Timeout: `{e.timeout} seconds`\n"
                         f"Check logs for details: `{log_file}`"
                     )
                     send_telegram(telegram_message)
             except Exception as e:
-                # Handle any other unexpected exceptions during the process
                 self._log_message(f"Unexpected error during synchronization (Attempt {attempt}): {e}", log_file)
                 if attempt < self.max_retries:
-                    # Log and wait before retrying
+                    current_retry_delay = self.retry_delay_seconds * (2 ** (attempt - 1))
                     self._log_message(f"Retrying in {current_retry_delay} seconds...", log_file)
                     time.sleep(current_retry_delay)
                 else:
-                    # All retries exhausted due to unexpected error, send final notification
                     telegram_message = (
                         f"❌🚨 *Unexpected Exception during sync {desc} after {self.max_retries} attempts*\n"
+                        f"*Source:* `{src}`\n"
+                        f"*Destination:* `{display_dest}`\n\n"
                         f"Error: `{e}`\n"
                         f"Check logs for details: `{log_file}`"
                     )

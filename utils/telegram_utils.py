@@ -1,16 +1,24 @@
+"""
+This module provides utility functions and command handlers for a Telegram bot
+that interacts with a Raspberry Pi synchronization service. It handles
+communication with the Telegram API, processes user commands, and triggers
+corresponding actions in the main application logic (e.g., synchronization,
+cron job modifications, system status reports).
+"""
 import os
 import telegram
 import logging
 import threading
 
-from telegram.ext import Updater, CommandHandler, CallbackQueryHandler, MessageHandler, Filters
-from telegram import InlineKeyboardButton, InlineKeyboardMarkup
+from telegram.ext import Updater, CommandHandler, CallbackQueryHandler
+from telegram import InlineKeyboardButton, InlineKeyboardMarkup, Update
+from telegram.ext import CallbackContext
 
 logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
                     level=logging.INFO)
 logger = logging.getLogger(__name__)
 
-# --- Variables Globales para el Bot ---
+# --- Global Variables for the Bot ---
 TELEGRAM_BOT_TOKEN = os.getenv("TELEGRAM_BOT_TOKEN")
 TELEGRAM_CHAT_ID = os.getenv("TELEGRAM_CHAT_ID")
 
@@ -19,14 +27,16 @@ if TELEGRAM_BOT_TOKEN and TELEGRAM_CHAT_ID:
     try:
         TELEGRAM_CHAT_ID = str(TELEGRAM_CHAT_ID)
         bot = telegram.Bot(token=TELEGRAM_BOT_TOKEN)
-        logger.info(f"Bot de Telegram inicializado correctamente con token y CHAT_ID: {TELEGRAM_CHAT_ID}.")
+        logger.info(f"Telegram bot initialized successfully with token and CHAT_ID: {TELEGRAM_CHAT_ID}.")
     except Exception as e:
-        logger.error(f"Error al inicializar el bot de Telegram: {e}")
+        logger.error(f"Error initializing Telegram bot: {e}")
         bot = None
 else:
-    logger.warning("TELEGRAM_BOT_TOKEN o TELEGRAM_CHAT_ID no configurados. El bot no funcionará.")
+    logger.warning("TELEGRAM_BOT_TOKEN or TELEGRAM_CHAT_ID not configured. Bot will not function.")
 
 # --- Callbacks ---
+# These global variables will hold references to functions from main.py
+# to be called by Telegram bot commands/buttons. They are set in start_telegram_bot_listener.
 sync_function_callback = None
 change_cron_interval_callback = None
 disable_auto_sync_callback = None
@@ -34,29 +44,40 @@ enable_auto_sync_callback = None
 disk_status_callback = None
 status_callback = None
 
-# --- Funciones de Utilidad ---
+# --- Utility Functions ---
 def send_telegram(message: str) -> None:
+    """
+    Sends a message to the configured Telegram chat.
+
+    Args:
+        message (str): The message text to send. Supports Markdown parsing.
+    """
     if bot and TELEGRAM_CHAT_ID:
         try:
             bot.send_message(chat_id=TELEGRAM_CHAT_ID, text=message, parse_mode='Markdown')
-            logger.info(f"Mensaje de Telegram enviado: {message[:50]}...")
+            logger.info(f"Telegram message sent: {message[:50]}...")
         except telegram.error.Unauthorized:
-            logger.error("Error: Token inválido.")
+            logger.error("Error: Invalid bot token.")
         except telegram.error.BadRequest as e:
             logger.error(f"Error BadRequest: {e}")
             logger.error(f"Message causing BadRequest: {message}")
         except Exception as e:
-            logger.error(f"Error al enviar mensaje: {e}")
+            logger.error(f"Error sending message: {e}")
     else:
-        logger.warning("Bot no inicializado o CHAT_ID no configurado.")
+        logger.warning("Bot not initialized or CHAT_ID not configured.")
 
-# --- Comandos ---
-def start_command(update, context):
+# --- Command Handlers ---
+def start_command(update: Update, context: CallbackContext) -> None:
+    """
+    Handles the /start command. Sends a welcome message and a menu with inline buttons.
+    Only authorized chat IDs can use this command.
+    """
     chat_id = str(update.message.chat_id)
     user = update.message.from_user
 
     if chat_id != TELEGRAM_CHAT_ID:
-        update.message.reply_text("Lo siento, no estás autorizado.")
+        update.message.reply_text("Sorry, you are not authorized to use this bot.")
+        logger.warning(f"Unauthorized /start command from {user.username} ({chat_id})")
         return
 
     welcome_message = (
@@ -64,9 +85,10 @@ def start_command(update, context):
         "Choose an option or use /help for all commands:"
     )
 
+    # Define inline keyboard buttons for the main menu
     keyboard = [
         [InlineKeyboardButton("🚀 Sync Now", callback_data='sync_now')],
-        [InlineKeyboardButton("⏱️ Set Interval", callback_data='set_interval_menu')], # Cambiado para mostrar el menú de intervalos
+        [InlineKeyboardButton("⏱️ Set Interval", callback_data='set_interval_menu')],
         [InlineKeyboardButton("✅ Enable Auto Sync", callback_data='enable_sync'),
          InlineKeyboardButton("🚫 Disable Auto Sync", callback_data='disable_sync')],
         [InlineKeyboardButton("💾 Disk Status", callback_data='disk_status'),
@@ -75,21 +97,26 @@ def start_command(update, context):
     reply_markup = InlineKeyboardMarkup(keyboard)
 
     update.message.reply_text(welcome_message, reply_markup=reply_markup)
-    logger.info(f"/start from {user.username} ({chat_id})")
+    logger.info(f"/start command received from {user.username} ({chat_id})")
 
-def help_command(update, context):
+def help_command(update: Update, context: CallbackContext) -> None:
+    """
+    Handles the /help command. Sends a list of available commands.
+    Only authorized chat IDs can use this command.
+    """
     chat_id = str(update.message.chat_id)
     user = update.message.from_user
 
     if chat_id != TELEGRAM_CHAT_ID:
-        update.message.reply_text("Lo siento, no estás autorizado.")
+        update.message.reply_text("Sorry, you are not authorized to use this bot.")
+        logger.warning(f"Unauthorized /help command from {user.username} ({chat_id})")
         return
 
     help_message = (
         "Here are the commands:\n"
         "`/sync` - Manual sync 🚀\n"
         "`/set_interval <minutes>` - Change auto sync interval (manual) ⏱️\n"
-        "`/set_interval` - Show interval options ⏱️\n" # Añadido
+        "`/set_interval` - Show interval options ⏱️\n"
         "`/disable_sync` - Disable auto sync 🚫\n"
         "`/enable_sync` - Enable auto sync ✅\n"
         "`/start` - Show menu with buttons\n"
@@ -98,100 +125,153 @@ def help_command(update, context):
         "`/help` - This help\n"
     )
     update.message.reply_text(help_message, parse_mode='Markdown')
+    logger.info(f"/help command received from {user.username} ({chat_id})")
 
-def start_sync_command(update, context):
+def start_sync_command(update: Update, context: CallbackContext) -> None:
+    """
+    Handles the /sync command. Triggers a manual synchronization operation.
+    Only authorized chat IDs can use this command.
+    """
     chat_id = str(update.message.chat_id)
 
     if chat_id != TELEGRAM_CHAT_ID:
-        update.message.reply_text("Lo siento, no estás autorizado.")
+        update.message.reply_text("Sorry, you are not authorized to use this bot.")
+        logger.warning(f"Unauthorized /sync command from {chat_id}")
         return
 
     update.message.reply_text("`/sync` received! Starting sync... 🚀", parse_mode='Markdown')
     if sync_function_callback:
+        # Run the sync function in a separate thread to avoid blocking the bot's main loop
         threading.Thread(target=sync_function_callback, args=("from",)).start()
+    logger.info(f"/sync command received from {chat_id}")
 
-def set_interval_command(update, context):
+def set_interval_command(update: Update, context: CallbackContext) -> None:
+    """
+    Handles the /set_interval command. If no arguments are provided, it displays
+    a menu for predefined intervals. If an argument (minutes) is provided, it
+    attempts to set the cron interval manually.
+    Only authorized chat IDs can use this command.
+    """
     chat_id = str(update.message.chat_id)
 
     if chat_id != TELEGRAM_CHAT_ID:
-        update.message.reply_text("Lo siento, no estás autorizado.")
+        update.message.reply_text("Sorry, you are not authorized to use this bot.")
+        logger.warning(f"Unauthorized /set_interval command from {chat_id}")
         return
 
     args = context.args
     if not args:
-        # Si no hay argumentos, mostrar el menú de selección
+        # If no arguments, display the interval selection menu
         keyboard = [
-            [InlineKeyboardButton("Cada 1 minutos", callback_data='set_interval_1')],
-            [InlineKeyboardButton("Cada 15 minutos", callback_data='set_interval_15')],
-            [InlineKeyboardButton("Cada 30 minutos", callback_data='set_interval_30')],
-            [InlineKeyboardButton("Cada hora (60 min)", callback_data='set_interval_60')],
-            [InlineKeyboardButton("Cada 4 horas (240 min)", callback_data='set_interval_240')],
-            [InlineKeyboardButton("Cada 24 horas (1440 min)", callback_data='set_interval_1440')],
-            [InlineKeyboardButton("Introducir manualmente", callback_data='set_interval_manual_prompt')] # Nueva opción
+            [InlineKeyboardButton("Every 1 minute", callback_data='set_interval_1')],
+            [InlineKeyboardButton("Every 15 minutes", callback_data='set_interval_15')],
+            [InlineKeyboardButton("Every 30 minutes", callback_data='set_interval_30')],
+            [InlineKeyboardButton("Every hour (60 min)", callback_data='set_interval_60')],
+            [InlineKeyboardButton("Every 4 hours (240 min)", callback_data='set_interval_240')],
+            [InlineKeyboardButton("Every 24 hours (1440 min)", callback_data='set_interval_1440')],
+            [InlineKeyboardButton("Enter manually", callback_data='set_interval_manual_prompt')]
         ]
         reply_markup = InlineKeyboardMarkup(keyboard)
-        update.message.reply_text("Selecciona un intervalo de sincronización o introduce uno manualmente:", reply_markup=reply_markup)
+        update.message.reply_text("Select a sync interval or enter one manually:", reply_markup=reply_markup)
+        logger.info(f"/set_interval command (menu) received from {chat_id}")
         return
 
-    # Si hay argumentos, intentar establecer el intervalo manualmente
+    # If arguments are provided, attempt to set the interval manually
     try:
         minutes = int(args[0])
         if minutes <= 0:
-            update.message.reply_text("El intervalo debe ser un número positivo de minutos.")
+            update.message.reply_text("The interval must be a positive number of minutes.")
+            logger.warning(f"/set_interval command with invalid argument '{args[0]}' from {chat_id}")
             return
 
         if change_cron_interval_callback:
-            update.message.reply_text(f"Cambiando el intervalo a cada `{minutes}` minutos...")
+            update.message.reply_text(f"Changing interval to every `{minutes}` minutes...", parse_mode='Markdown')
             threading.Thread(target=change_cron_interval_callback, args=(minutes,)).start()
+            logger.info(f"/set_interval command (manual: {minutes} min) received from {chat_id}")
     except ValueError:
-        update.message.reply_text("Uso incorrecto. Por favor, introduce un número de minutos válido, o usa `/set_interval` sin argumentos para ver las opciones.", parse_mode='Markdown')
+        update.message.reply_text("Incorrect usage. Please enter a valid number of minutes, or use `/set_interval` without arguments to see options.", parse_mode='Markdown')
+        logger.warning(f"/set_interval command with non-numeric argument '{args[0]}' from {chat_id}")
 
 
-def disable_sync_command(update, context):
+def disable_sync_command(update: Update, context: CallbackContext) -> None:
+    """
+    Handles the /disable_sync command. Disables automatic synchronization in cron.
+    Only authorized chat IDs can use this command.
+    """
     chat_id = str(update.message.chat_id)
 
     if chat_id != TELEGRAM_CHAT_ID:
-        update.message.reply_text("Lo siento, no estás autorizado.")
+        update.message.reply_text("Sorry, you are not authorized to use this bot.")
+        logger.warning(f"Unauthorized /disable_sync command from {chat_id}")
         return
 
     if disable_auto_sync_callback:
-        update.message.reply_text("Desactivando la sincronización automática... 🚫")
+        update.message.reply_text("Disabling auto synchronization... 🚫")
         threading.Thread(target=disable_auto_sync_callback).start()
+    logger.info(f"/disable_sync command received from {chat_id}")
 
-def enable_sync_command(update, context):
+def enable_sync_command(update: Update, context: CallbackContext) -> None:
+    """
+    Handles the /enable_sync command. Enables automatic synchronization in cron.
+    Only authorized chat IDs can use this command.
+    """
     chat_id = str(update.message.chat_id)
 
     if chat_id != TELEGRAM_CHAT_ID:
-        update.message.reply_text("Lo siento, no estás autorizado.")
+        update.message.reply_text("Sorry, you are not authorized to use this bot.")
+        logger.warning(f"Unauthorized /enable_sync command from {chat_id}")
         return
 
     if enable_auto_sync_callback:
-        update.message.reply_text("Activando la sincronización automática... ✅")
+        update.message.reply_text("Enabling auto synchronization... ✅")
         threading.Thread(target=enable_auto_sync_callback).start()
+    logger.info(f"/enable_sync command received from {chat_id}")
 
-def disk_status_command(update, context):
+def disk_status_command(update: Update, context: CallbackContext) -> None:
+    """
+    Handles the /disk_status command. Requests a disk status report.
+    Only authorized chat IDs can use this command.
+    """
     if str(update.message.chat_id) != TELEGRAM_CHAT_ID:
-        update.message.reply_text("No autorizado.")
+        update.message.reply_text("Unauthorized.")
+        logger.warning(f"Unauthorized /disk_status command from {str(update.message.chat_id)}")
         return
     if disk_status_callback:
-        update.message.reply_text("💾 Verificando estado del disco...")
+        update.message.reply_text("💾 Checking disk status...")
         threading.Thread(target=disk_status_callback).start()
+    logger.info(f"/disk_status command received from {str(update.message.chat_id)}")
 
-def status_command(update, context):
+def status_command(update: Update, context: CallbackContext) -> None:
+    """
+    Handles the /status command. Requests a general system status report.
+    Only authorized chat IDs can use this command.
+    """
     if str(update.message.chat_id) != TELEGRAM_CHAT_ID:
-        update.message.reply_text("📊 Verificando estado general del sistema...")
-        if status_callback:
-            threading.Thread(target=status_callback).start()
+        update.message.reply_text("Unauthorized.")
+        logger.warning(f"Unauthorized /status command from {str(update.message.chat_id)}")
+        return
+    update.message.reply_text("📊 Checking general system status...")
+    if status_callback:
+        threading.Thread(target=status_callback).start()
+    logger.info(f"/status command received from {str(update.message.chat_id)}")
 
-# --- Botón Callback ---
-def button_callback(update, context):
+# --- Button Callback Handler ---
+def button_callback(update: Update, context: CallbackContext) -> None:
+    """
+    Handles inline keyboard button presses.
+    Processes different `callback_data` values to trigger corresponding actions.
+    Only authorized chat IDs can use this command.
+    """
     query = update.callback_query
-    query.answer()
+    query.answer() # Acknowledge the query to remove the loading animation on the button
     chat_id = str(query.message.chat_id)
 
     if chat_id != TELEGRAM_CHAT_ID:
-        query.edit_message_text("No autorizado.")
+        query.edit_message_text("Unauthorized.")
+        logger.warning(f"Unauthorized button callback from {chat_id} (data: {query.data})")
         return
+
+    logger.info(f"Button callback '{query.data}' received from {chat_id}")
 
     if query.data == 'sync_now':
         query.edit_message_text("Sync Now 🚀 ...")
@@ -199,60 +279,78 @@ def button_callback(update, context):
             threading.Thread(target=sync_function_callback, args=("from",)).start()
 
     elif query.data == 'enable_sync':
-        query.edit_message_text("Activando la sincronización automática... ✅")
+        query.edit_message_text("Enabling auto synchronization... ✅")
         if enable_auto_sync_callback:
             threading.Thread(target=enable_auto_sync_callback).start()
 
     elif query.data == 'disable_sync':
-        query.edit_message_text("Desactivando la sincronización automática... 🚫")
+        query.edit_message_text("Disabling auto synchronization... 🚫")
         if disable_auto_sync_callback:
             threading.Thread(target=disable_auto_sync_callback).start()
 
     elif query.data == 'disk_status':
-        query.edit_message_text("💾 Verificando estado del disco...")
+        query.edit_message_text("💾 Checking disk status...")
         if disk_status_callback:
             threading.Thread(target=disk_status_callback).start()
 
-    elif query.data == 'set_interval_menu': # Nuevo: Muestra el menú de intervalos
+    elif query.data == 'set_interval_menu':
+        # Display the interval selection menu
         keyboard = [
-            [InlineKeyboardButton("Cada 1 minutos", callback_data='set_interval_1')],
-            [InlineKeyboardButton("Cada 15 minutos", callback_data='set_interval_15')],
-            [InlineKeyboardButton("Cada 30 minutos", callback_data='set_interval_30')],
-            [InlineKeyboardButton("Cada hora (60 min)", callback_data='set_interval_60')],
-            [InlineKeyboardButton("Cada 4 horas (240 min)", callback_data='set_interval_240')],
-            [InlineKeyboardButton("Cada 24 horas (1440 min)", callback_data='set_interval_1440')],
-            [InlineKeyboardButton("Introducir manualmente", callback_data='set_interval_manual_prompt')]
+            [InlineKeyboardButton("Every 1 minute", callback_data='set_interval_1')],
+            [InlineKeyboardButton("Every 15 minutes", callback_data='set_interval_15')],
+            [InlineKeyboardButton("Every 30 minutes", callback_data='set_interval_30')],
+            [InlineKeyboardButton("Every hour (60 min)", callback_data='set_interval_60')],
+            [InlineKeyboardButton("Every 4 hours (240 min)", callback_data='set_interval_240')],
+            [InlineKeyboardButton("Every 24 hours (1440 min)", callback_data='set_interval_1440')],
+            [InlineKeyboardButton("Enter manually", callback_data='set_interval_manual_prompt')]
         ]
         reply_markup = InlineKeyboardMarkup(keyboard)
-        query.edit_message_text("Selecciona un intervalo de sincronización o introduce uno manualmente:", reply_markup=reply_markup)
+        query.edit_message_text("Select a sync interval or enter one manually:", reply_markup=reply_markup)
 
     elif query.data.startswith('set_interval_'):
         if query.data == 'set_interval_manual_prompt':
-            # Mensaje para que el usuario sepa cómo introducir el valor manual
-            context.bot.send_message(chat_id=chat_id, text="Por favor, introduce el intervalo deseado en minutos con el comando: `/set_interval <minutos>`", parse_mode='Markdown')
-            query.edit_message_reply_markup(reply_markup=None) # Quita los botones para evitar doble clic
+            # Instruct the user how to enter the manual value
+            context.bot.send_message(chat_id=chat_id, text="Please enter the desired interval in minutes using the command: `/set_interval <minutes>`", parse_mode='Markdown')
+            # Remove buttons from the original message to avoid confusion/double clicks
+            query.edit_message_reply_markup(reply_markup=None) 
 
         else:
             minutes_str = query.data.replace('set_interval_', '')
             try:
                 minutes = int(minutes_str)
-                query.edit_message_text(f"Cambiando el intervalo a cada `{minutes}` minutos...")
+                query.edit_message_text(f"Changing interval to every `{minutes}` minutes...", parse_mode='Markdown')
                 if change_cron_interval_callback:
                     threading.Thread(target=change_cron_interval_callback, args=(minutes,)).start()
             except ValueError:
-                query.edit_message_text("Error: Intervalo de tiempo no válido.")
+                query.edit_message_text("Error: Invalid time interval.")
 
     elif query.data == 'status':
-        query.edit_message_text("📊 Obteniendo estado del sistema...")
+        query.edit_message_text("📊 Getting system status...")
         if status_callback:
             threading.Thread(target=status_callback).start()
 
-def error_handler(update, context):
+def error_handler(update: Update, context: CallbackContext) -> None:
+    """
+    Log errors caused by updates.
+    """
     logger.warning(f'Update "{update}" caused error "{context.error}"')
 
-# --- Arranque del Listener ---
+# --- Listener Startup ---
 def start_telegram_bot_listener(sync_func, cron_change_func, disable_sync_func, enable_sync_func,
                                 disk_func=None, status_func=None):
+    """
+    Initializes and starts the Telegram bot listener.
+    This function sets up the command handlers and callback query handlers,
+    then begins polling for updates from Telegram.
+
+    Args:
+        sync_func (callable): Function to call for manual synchronization (from main.py).
+        cron_change_func (callable): Function to call for changing cron interval (from main.py).
+        disable_sync_func (callable): Function to call for disabling auto sync (from main.py).
+        enable_sync_func (callable): Function to call for enabling auto sync (from main.py).
+        disk_func (callable, optional): Function to call for disk status report (from main.py). Defaults to None.
+        status_func (callable, optional): Function to call for general system status report (from main.py). Defaults to None.
+    """
     global sync_function_callback
     global change_cron_interval_callback
     global disable_auto_sync_callback
@@ -260,6 +358,7 @@ def start_telegram_bot_listener(sync_func, cron_change_func, disable_sync_func, 
     global disk_status_callback
     global status_callback
 
+    # Assign the passed functions from main.py to global callback variables
     sync_function_callback = sync_func
     change_cron_interval_callback = cron_change_func
     disable_auto_sync_callback = disable_sync_func
@@ -267,14 +366,16 @@ def start_telegram_bot_listener(sync_func, cron_change_func, disable_sync_func, 
     disk_status_callback = disk_func
     status_callback = status_func
 
+    # Check if bot token is available before attempting to start
     if not TELEGRAM_BOT_TOKEN or not bot:
-        logger.error("No TELEGRAM_BOT_TOKEN. Bot no arrancará.")
+        logger.error("No TELEGRAM_BOT_TOKEN. Bot will not start.")
         return
 
     try:
         updater = Updater(TELEGRAM_BOT_TOKEN, use_context=True)
         dispatcher = updater.dispatcher
 
+        # Register command handlers
         dispatcher.add_handler(CommandHandler("start", start_command))
         dispatcher.add_handler(CommandHandler("help", help_command))
         dispatcher.add_handler(CommandHandler("sync", start_sync_command))
@@ -283,10 +384,15 @@ def start_telegram_bot_listener(sync_func, cron_change_func, disable_sync_func, 
         dispatcher.add_handler(CommandHandler("enable_sync", enable_sync_command))
         dispatcher.add_handler(CommandHandler("disk_status", disk_status_command))
         dispatcher.add_handler(CommandHandler("status", status_command))
+        
+        # Register callback query handler for inline buttons
         dispatcher.add_handler(CallbackQueryHandler(button_callback))
+        
+        # Register error handler to log exceptions
         dispatcher.add_error_handler(error_handler)
 
+        # Start the bot's polling mechanism
         updater.start_polling()
-        logger.info("Telegram Bot: Listener iniciado.")
+        logger.info("Telegram Bot: Listener started.")
     except Exception as e:
-        logger.error(f"Fallo al iniciar el bot: {e}")
+        logger.error(f"Failed to start the bot: {e}")

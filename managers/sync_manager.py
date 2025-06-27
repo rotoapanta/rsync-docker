@@ -1,11 +1,3 @@
-"""
-This module defines the SyncManager class, responsible for handling the rsync
-synchronization process. It includes functionalities for logging, retries,
-disk space checks, and sending notifications via Telegram.
-
-The SyncManager orchestrates data transfers from a remote Raspberry Pi source
-to a local destination directory within the Docker container.
-"""
 import os
 import subprocess
 import datetime
@@ -319,28 +311,10 @@ class SyncManager:
                                 filtered_summary_lines.append(line)
                         
                         summary_code_block = "\n".join(filtered_summary_lines).strip()
-                        # Prepend "copy" if it makes sense in context, or simply if the block starts with "receiving incremental file list" or similar.
-                        # For a concise stats block, "copy" might not be needed unless the context implies a full log.
-                        # Given the user's example, "copy" appears as a prefix to the simple stats.
-                        # We'll just prepend it if the summary block looks like just the final stats.
-                        if not summary_code_block.lower().startswith("copy") and "total size is" in summary_code_block:
-                             summary_code_block = "copy\n" + summary_code_block
-
 
                     # --- Construct the Telegram message ---
+                    # Eliminado: Bloque de estadísticas de transferencia
                     telegram_message_title = f"✅📥 *Sincronización exitosa {desc} - Cambios detectados y transferidos*\n\n"
-                    
-                    # Build statistics section
-                    stats_text = (
-                        f"📊 *Estadísticas de Transferencia:*\n"
-                        f"├ Archivos nuevos: {parsed_stats['new_files']}\n"
-                        f"├ Archivos modificados: {parsed_stats['modified_files']}\n"
-                        f"├ Archivos eliminados: {parsed_stats['deleted_files']}\n"
-                        f"├ Carpetas nuevas: {parsed_stats['new_folders']}\n"
-                        f"├ Carpetas con cambios: {parsed_stats['modified_folders']}\n"
-                        f"├ Tamaño total transferido: {parsed_stats['received_bytes'] / (1024*1024):.2f} MB\n"
-                        f"└ Velocidad promedio: {parsed_stats['speed_bps'] / 1024:.2f} KB/s\n"
-                    )
                     
                     folder_summary_text = ""
                     total_affected_folders = parsed_stats['new_folders'] + parsed_stats['modified_folders']
@@ -365,7 +339,8 @@ class SyncManager:
                                 f"(Detalle en los logs: `{log_file}`)\n"
                             )
                     
-                    telegram_message = telegram_message_title + stats_text + folder_summary_text
+                    # Eliminado: stats_text. Se construye el mensaje solo con el título y el resumen de carpetas.
+                    telegram_message = telegram_message_title + folder_summary_text
                     
                     # --- ADD THE RSYNC SUMMARY BLOCK HERE ---
                     if summary_code_block:

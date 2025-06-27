@@ -17,5 +17,4 @@ services:
       - ${RSYNC_DEST_HOST_PATH}:/data
       # Logs
       - ./logs:/logs
-      - ./system_info_test.py:/app/system_info_test.py
     restart: unless-stopped # O 'always'

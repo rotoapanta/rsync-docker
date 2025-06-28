@@ -50,6 +50,7 @@ disable_auto_sync_callback = None
 enable_auto_sync_callback = None
 disk_status_callback = None
 status_callback = None
+change_sync_directory_callback = None # <--- AÑADIDO: Nuevo callback para cambiar el directorio de sincronización
 
 # --- Utility Functions ---
 def send_telegram(message: str) -> None:
@@ -99,7 +100,8 @@ def start_command(update: Update, context: CallbackContext) -> None:
         [InlineKeyboardButton("✅ Enable Auto Sync", callback_data='enable_sync'),
          InlineKeyboardButton("🚫 Disable Auto Sync", callback_data='disable_sync')],
         [InlineKeyboardButton("💾 Disk Status", callback_data='disk_status'),
-         InlineKeyboardButton("📊 System Status", callback_data='status')]
+         InlineKeyboardButton("📊 System Status", callback_data='status')],
+        [InlineKeyboardButton("🔄 Change Sync Source", callback_data='change_source_prompt')] # <--- AÑADIDO: Botón para cambiar la fuente
     ]
     reply_markup = InlineKeyboardMarkup(keyboard)
 
@@ -122,10 +124,11 @@ def help_command(update: Update, context: CallbackContext) -> None:
     help_message = (
         "Here are the commands:\n"
         "`/sync` - Manual sync 🚀\n"
-        "`/set_interval <minutes>` - Change auto sync interval (manual) ⏱️\n"
+        "`/set_interval` - Change auto sync interval <minutes> (manual) ⏱️\n"
         "`/set_interval` - Show interval options ⏱️\n"
         "`/disable_sync` - Disable auto sync 🚫\n"
         "`/enable_sync` - Enable auto sync ✅\n"
+        "`/change_source <user@host:/path>` - Change the remote sync source 🔄\n" # <--- AÑADIDO: Descripción del nuevo comando
         "`/start` - Show menu with buttons\n"
         "`/disk_status` - Show disk usage 💾\n"
         "`/status` - Show system status 📊\n"
@@ -262,6 +265,40 @@ def status_command(update: Update, context: CallbackContext) -> None:
         threading.Thread(target=status_callback).start()
     logger.info(f"/status command received from {str(update.message.chat_id)}")
 
+# <--- AÑADIDO: Nuevo comando para cambiar el directorio de sincronización ---
+def change_sync_directory_command(update: Update, context: CallbackContext) -> None:
+    """
+    Handles the /change_source <user@host:/path> command.
+    Changes the remote rsync source path.
+    Only authorized chat IDs can use this command.
+    """
+    chat_id = str(update.message.chat_id)
+
+    if chat_id != TELEGRAM_CHAT_ID:
+        update.message.reply_text("Sorry, you are not authorized to use this bot.")
+        logger.warning(f"Unauthorized /change_source command from {chat_id}")
+        return
+
+    args = context.args
+    if not args:
+        update.message.reply_text("Usage: `/change_source <user@host:/path/to/source>`\n\nExample: `/change_source pi@192.168.1.100:/home/pi/data`", parse_mode='Markdown')
+        logger.warning(f"/change_source command with no arguments from {chat_id}")
+        return
+
+    new_path = args[0]
+    update.message.reply_text(f"Attempting to change sync source to: `{new_path}` 🔄", parse_mode='Markdown')
+
+    if change_sync_directory_callback:
+        # Run the callback in a separate thread to avoid blocking
+        threading.Thread(target=change_sync_directory_callback, args=(new_path,)).start()
+    else:
+        update.message.reply_text("Error: Sync directory change function not configured. ❌")
+        logger.error("change_sync_directory_callback is not set.")
+
+    logger.info(f"/change_source command received from {chat_id} with path: {new_path}")
+# --- FIN AÑADIDO: Nuevo comando ---
+
+
 # --- Button Callback Handler ---
 def button_callback(update: Update, context: CallbackContext) -> None:
     """
@@ -335,6 +372,12 @@ def button_callback(update: Update, context: CallbackContext) -> None:
         query.edit_message_text("📊 Getting system status...")
         if status_callback:
             threading.Thread(target=status_callback).start()
+    
+    elif query.data == 'change_source_prompt': # <--- AÑADIDO: Nuevo botón para pedir el cambio de fuente
+        context.bot.send_message(chat_id=chat_id, 
+                                 text="Please enter the new remote sync source using the command:\n`/change_source user@host:/path/to/source`\n\nExample: `/change_source pi@192.168.1.100:/home/pi/my_data`", 
+                                 parse_mode='Markdown')
+        query.edit_message_reply_markup(reply_markup=None) # Remove buttons after prompt
 
 def error_handler(update: Update, context: CallbackContext) -> None:
     """
@@ -344,7 +387,7 @@ def error_handler(update: Update, context: CallbackContext) -> None:
 
 # --- Listener Startup ---
 def start_telegram_bot_listener(sync_func, cron_change_func, disable_sync_func, enable_sync_func,
-                                disk_func=None, status_func=None):
+                                disk_func=None, status_func=None, change_sync_dir_func=None): # <--- MODIFICADO: Añadido change_sync_dir_func
     """
     Initializes and starts the Telegram bot listener.
     This function sets up the command handlers and callback query handlers,
@@ -357,6 +400,7 @@ def start_telegram_bot_listener(sync_func, cron_change_func, disable_sync_func, 
         enable_sync_func (callable): Function to call for enabling auto sync (from main.py).
         disk_func (callable, optional): Function to call for disk status report (from main.py). Defaults to None.
         status_func (callable, optional): Function to call for general system status report (from main.py). Defaults to None.
+        change_sync_dir_func (callable, optional): Function to call for changing the remote sync source path (from main.py). Defaults to None. # <--- AÑADIDO: Descripción del nuevo arg
     """
     global sync_function_callback
     global change_cron_interval_callback
@@ -364,6 +408,7 @@ def start_telegram_bot_listener(sync_func, cron_change_func, disable_sync_func, 
     global enable_auto_sync_callback
     global disk_status_callback
     global status_callback
+    global change_sync_directory_callback # <--- AÑADIDO: Declarar global
 
     # Assign the passed functions from main.py to global callback variables
     sync_function_callback = sync_func
@@ -372,6 +417,7 @@ def start_telegram_bot_listener(sync_func, cron_change_func, disable_sync_func, 
     enable_auto_sync_callback = enable_sync_func
     disk_status_callback = disk_func
     status_callback = status_func
+    change_sync_directory_callback = change_sync_dir_func # <--- AÑADIDO: Asignar el nuevo callback
 
     # Check if bot token is available before attempting to start
     if not TELEGRAM_BOT_TOKEN or not bot:
@@ -391,6 +437,7 @@ def start_telegram_bot_listener(sync_func, cron_change_func, disable_sync_func, 
         dispatcher.add_handler(CommandHandler("enable_sync", enable_sync_command))
         dispatcher.add_handler(CommandHandler("disk_status", disk_status_command))
         dispatcher.add_handler(CommandHandler("status", status_command))
+        dispatcher.add_handler(CommandHandler("change_source", change_sync_directory_command)) # <--- AÑADIDO: Registrar el nuevo comando
         
         # Register callback query handler for inline buttons
         dispatcher.add_handler(CallbackQueryHandler(button_callback))

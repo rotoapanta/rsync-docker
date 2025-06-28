@@ -7,7 +7,7 @@ Description: This module defines the SyncManager class, which orchestrates the r
              pre-sync disk space checks, parsing rsync output for detailed
              statistics, and sending comprehensive notifications via Telegram,
              including retry mechanisms for enhanced reliability.
-Author: Your Name
+Author: Roberto Toapanta
 Date: 2025-06-27
 Version: 1.0.0
 License: MIT License (or your chosen license)
@@ -34,6 +34,9 @@ from utils.telegram_utils import send_telegram
 # Global constants for the module
 LOG_DIR = "/logs"
 DATA_DIR = "/data" # Local destination directory within the container (where the Docker volume is mounted)
+# Archivo para persistir la ruta RSYNC_FROM
+RSYNC_FROM_CONFIG_FILE = os.path.join(LOG_DIR, "rsync_from.conf")
+
 
 class SyncManager:
     """
@@ -59,7 +62,6 @@ class SyncManager:
         A ValueError is raised if the RSYNC_FROM environment variable is missing, as it
         is a critical prerequisite for any synchronization activity.
         """
-        self.rsync_from = os.getenv("RSYNC_FROM")
         self.rsync_dest_host_path = os.getenv("RSYNC_DEST_HOST_PATH", DATA_DIR)
 
         self.max_retries = int(os.getenv("RSYNC_MAX_RETRIES", 3))
@@ -69,12 +71,20 @@ class SyncManager:
         self.FOLDER_LIST_THRESHOLD = int(os.getenv("FOLDER_LIST_THRESHOLD", 5))
 
         self._ensure_dirs()
+        self._load_rsync_from_path() # <--- AÑADIDO: Carga la ruta de RSYNC_FROM
 
+        # Si después de cargar, rsync_from sigue sin estar definido, lo tomamos del ENV.
+        # Esto permite que el archivo de configuración tenga prioridad si existe.
         if not self.rsync_from:
-            error_msg = "CRITICAL ERROR: 'RSYNC_FROM' environment variable is not defined. Synchronization cannot proceed."
-            self._log_message(error_msg, os.path.join(LOG_DIR, "error.log"))
-            send_telegram(f"❌ *Internal Error: Rsync Source (RSYNC_FROM) not defined.*")
-            raise ValueError(error_msg)
+            self.rsync_from = os.getenv("RSYNC_FROM")
+            if not self.rsync_from:
+                error_msg = "CRITICAL ERROR: 'RSYNC_FROM' environment variable or config file is not defined. Synchronization cannot proceed."
+                self._log_message(error_msg, os.path.join(LOG_DIR, "error.log"))
+                send_telegram(f"❌ *Internal Error: Rsync Source (RSYNC_FROM) not defined.*")
+                raise ValueError(error_msg)
+            else:
+                self._save_rsync_from_path(self.rsync_from) # Si lo toma del ENV, lo guarda para futuras ejecuciones.
+
 
     def _ensure_dirs(self):
         """
@@ -84,6 +94,54 @@ class SyncManager:
         """
         os.makedirs(DATA_DIR, exist_ok=True)
         os.makedirs(LOG_DIR, exist_ok=True)
+
+    # --- AÑADIDO: Métodos para manejar la persistencia de RSYNC_FROM ---
+    def _load_rsync_from_path(self):
+        """Loads the rsync source path (RSYNC_FROM) from a configuration file."""
+        if os.path.exists(RSYNC_FROM_CONFIG_FILE):
+            try:
+                with open(RSYNC_FROM_CONFIG_FILE, "r") as f:
+                    self.rsync_from = f.read().strip()
+                logger.info(f"Loaded RSYNC_FROM from config file: {self.rsync_from}")
+            except Exception as e:
+                logger.error(f"Error loading RSYNC_FROM from {RSYNC_FROM_CONFIG_FILE}: {e}")
+                self.rsync_from = None # Fallback if there's an error reading
+        else:
+            logger.info(f"RSYNC_FROM config file '{RSYNC_FROM_CONFIG_FILE}' not found.")
+            self.rsync_from = None # Será tomado del ENV si está definido, o lanzará error
+
+    def _save_rsync_from_path(self, path: str):
+        """Saves the current rsync source path (RSYNC_FROM) to a configuration file."""
+        try:
+            with open(RSYNC_FROM_CONFIG_FILE, "w") as f:
+                f.write(path)
+            self.rsync_from = path # Actualiza la variable de instancia también
+            logger.info(f"Saved RSYNC_FROM to config file: {path}")
+        except Exception as e:
+            logger.error(f"Error saving RSYNC_FROM to {RSYNC_FROM_CONFIG_FILE}: {e}")
+            send_telegram(f"❌ Error saving new RSYNC_FROM path: {e}")
+
+    def set_rsync_from_path(self, new_path: str) -> bool:
+        """
+        Sets a new rsync source path and persists it.
+
+        Args:
+            new_path (str): The new remote source path (e.g., user@host:/path/to/sync).
+
+        Returns:
+            bool: True if the path was successfully set, False otherwise.
+        """
+        # Aquí podrías añadir validaciones básicas para new_path si lo consideras necesario.
+        # Por ejemplo, verificar el formato user@host:/path
+        if not new_path or "@" not in new_path or ":" not in new_path:
+            self.telegram_utils.send_telegram(f"Invalid RSYNC_FROM format. Expected `user@host:/path`. Got: `{new_path}` ❌")
+            return False
+
+        self._save_rsync_from_path(new_path)
+        logger.info(f"RSYNC_FROM path updated to: {new_path}")
+        return True
+    # --- FIN AÑADIDO ---
+
 
     def _log_message(self, message: str, logfile: str):
         """
@@ -197,21 +255,23 @@ class SyncManager:
                 path = match.group('path').strip()
                 
                 is_directory_by_flag = 'd' in flags
+                # Si es un directorio, el path ya viene con / al final de rsync --itemize-changes
                 full_path_in_dest = os.path.join(DATA_DIR, path).rstrip('/')
 
                 if is_directory_by_flag: 
-                    if flags.startswith('c'):
+                    if flags.startswith('c'): # created
                         unique_new_folders.add(full_path_in_dest)
-                    elif 't' in flags or 's' in flags or ('+' in flags and not flags.startswith('c')):
+                    elif 't' in flags or 's' in flags or ('+' in flags and not flags.startswith('c')): # modified or size changed
                         unique_modified_folders.add(full_path_in_dest)
-                else:
-                    if flags.startswith('<') or flags.startswith('c'):
+                else: # Es un archivo
+                    if flags.startswith('<') or flags.startswith('c'): # sent or created
                         stats["new_files"] += 1
-                    elif 't' in flags or 's' in flags:
+                    elif 't' in flags or 's' in flags: # modified or size changed
                         stats["modified_files"] += 1
-                    elif flags.startswith('*'):
+                    elif flags.startswith('*'): # deleted
                         stats["deleted_files"] += 1
             
+            # Parse stats summary (fallback for older rsync versions or different output patterns)
             if "Total bytes sent:" in line:
                 match = re.search(r'Total bytes sent:\s*([\d\.,]+)', line)
                 if match:
@@ -254,7 +314,7 @@ class SyncManager:
             str: A formatted string with DTA folder info, or an error message if not found.
         """
         dta_info_message = ""
-        dta_path = os.path.join(DATA_DIR, "DTA") # This is /data/DTA inside the container
+        dta_path = os.path.join(DATA_DIR, "DTA")
 
         if os.path.exists(dta_path) and os.path.isdir(dta_path):
             file_count = 0
@@ -264,7 +324,6 @@ class SyncManager:
                     file_count += len(files)
                     for f in files:
                         file_path = os.path.join(root, f)
-                        # Ensure it's a file and get its size safely
                         if os.path.isfile(file_path):
                             total_size_bytes += os.path.getsize(file_path)
             except Exception as e:
@@ -272,19 +331,90 @@ class SyncManager:
                 dta_info_message += f"❌ Error reading `{os.path.basename(dta_path)}` contents: `{e}`\n"
                 return dta_info_message
 
-            total_size_mb = total_size_bytes / (1024 * 1024) # Convert to MB
+            total_size_mb = total_size_bytes / (1024 * 1024)
 
-            # Use the host path for display, if available, otherwise use the container path
+            # Usar rsync_dest_host_path para mostrar la ruta en el host si es diferente a DATA_DIR
             display_dta_path = os.path.join(self.rsync_dest_host_path, "DTA") if self.rsync_dest_host_path != DATA_DIR else dta_path
 
             dta_info_message += (
-                f"\n📁 `{display_dta_path}` contains {file_count} files\n" # Display the user-friendly path
+                f"\n📁 `{display_dta_path}` contains {file_count} files\n"
                 f"📦 Total size: {total_size_mb:.1f} MB\n"
             )
         else:
             dta_info_message += f"\n📁 Directory `{os.path.basename(dta_path)}` not found or is not a directory.\n"
         
         return dta_info_message
+
+    def _get_dta_file_tree_string(self) -> str:
+        """
+        Generates a string representation of the file tree for the /data/DTA directory.
+        It attempts to use the 'tree' command first, falling back to 'ls -R' if 'tree' is not available.
+        The output is truncated if it exceeds a certain length to fit within Telegram message limits.
+
+        Returns:
+            str: A formatted string containing the DTA file tree, or an error message.
+        """
+        dta_path = os.path.join(DATA_DIR, "DTA")
+        log_file = os.path.join(LOG_DIR, "file_tree.log") # Specific log for tree command
+
+        if not os.path.exists(dta_path) or not os.path.isdir(dta_path):
+            return f"\n⚠️ File tree for `{os.path.basename(dta_path)}` not available: directory not found or not accessible."
+
+        file_tree_output = ""
+        command_used = ""
+        try:
+            # Attempt to use 'tree' command with depth limit and no report footer
+            # -F: appends / for directories, * for executables, etc.
+            # -L 3: limits depth to 3 levels (adjust as needed for typical file structure)
+            # --noreport: prevents showing the file/directory count footer
+            command_used = "tree"
+            file_tree_output = subprocess.check_output(
+                ["tree", "-F", "-L", "3", "--noreport", dta_path],
+                text=True,
+                stderr=subprocess.PIPE, # Capture stderr to distinguish command not found from other errors
+                timeout=30 # Short timeout for tree generation
+            ).strip()
+        except (subprocess.CalledProcessError, FileNotFoundError) as e:
+            # Fallback to 'ls -R' if 'tree' is not found or fails for some reason
+            logger.warning(f"'{command_used}' command failed or not found ({e}). Falling back to 'ls -R'.")
+            self._log_message(f"'{command_used}' command failed or not found ({e}). Falling back to 'ls -R'.", log_file)
+            command_used = "ls -R"
+            try:
+                file_tree_output = subprocess.check_output(
+                    ["ls", "-R", dta_path],
+                    text=True,
+                    stderr=subprocess.PIPE,
+                    timeout=30
+                ).strip()
+            except subprocess.TimeoutExpired as e_ls:
+                logger.error(f"ls -R command timed out for {dta_path}: {e_ls}")
+                self._log_message(f"ls -R command timed out for {dta_path}: {e_ls}", log_file)
+                return f"\n❌ Failed to generate file tree: `ls -R` timed out."
+            except subprocess.CalledProcessError as e_ls:
+                logger.error(f"ls -R command failed for {dta_path}: {e_ls.stderr}")
+                self._log_message(f"ls -R command failed for {dta_path}: {e_ls.stderr}", log_file)
+                return f"\n❌ Failed to generate file tree: `ls -R` command error."
+            except Exception as e_ls:
+                logger.error(f"Unexpected error with ls -R for {dta_path}: {e_ls}")
+                self._log_message(f"Unexpected error with ls -R for {dta_path}: {e_ls}", log_file)
+                return f"\n❌ Failed to generate file tree: unexpected error with `ls -R`."
+        except subprocess.TimeoutExpired as e:
+            logger.error(f"Tree command timed out for {dta_path}: {e}")
+            self._log_message(f"Tree command timed out for {dta_path}: {e}", log_file)
+            return f"\n❌ Failed to generate file tree: `{command_used}` timed out."
+        except Exception as e:
+            logger.error(f"Unexpected error with tree command for {dta_path}: {e}")
+            self._log_message(f"Unexpected error with tree command for {dta_path}: {e}", log_file)
+            return f"\n❌ Failed to generate file tree: unexpected error with `{command_used}`."
+
+
+        # Truncate output if it's too long for Telegram
+        MAX_TREE_OUTPUT_LENGTH = 1500 # Adjust this based on how much detail you want in the tree
+        if len(file_tree_output) > MAX_TREE_OUTPUT_LENGTH:
+            file_tree_output = file_tree_output[:MAX_TREE_OUTPUT_LENGTH] + "\n... (output truncated due to length) ..."
+            self._log_message(f"File tree output truncated for Telegram message. Command used: {command_used}", log_file)
+
+        return f"\n🌳 *File Tree* (`{os.path.basename(dta_path)}`):\n```\n{file_tree_output}\n```"
 
 
     def run_rsync(self, direction: str):
@@ -317,7 +447,7 @@ class SyncManager:
 
         if src is None:
             self._log_message(f"CRITICAL ERROR: 'src' (RSYNC_FROM) variable is None for direction '{direction}'", log_file)
-            send_telegram(f"❌ *Internal Error: Rsync Source (RSYNC_FROM) not defined for {desc}*")
+            send_telegram(f"❌ *Internal Error: Rsync Source (RSYNC_FROM) not defined for {desc}*.\nPlease set it using `/change_directory user@host:/path`") # <--- AÑADIDO: Sugerencia
             return
         if dest is None:
             self._log_message(f"CRITICAL ERROR: 'dest' variable is None for direction '{direction}'", log_file)
@@ -426,13 +556,19 @@ class SyncManager:
                                 f"(Details in logs: `{log_file}`)\n"
                             )
                     
-                    # --- AÑADE LA INFORMACIÓN DE DTA AQUÍ ---
                     dta_info = self._get_dta_folder_info()
+                    dta_file_tree = self._get_dta_file_tree_string()
+
+                    # Concatenar todos los mensajes
+                    telegram_message = telegram_message_title + folder_summary_text + dta_info
                     
-                    telegram_message = telegram_message_title + folder_summary_text + dta_info # Add dta_info here
-                    
+                    # Añadir el bloque de resumen de rsync si está disponible
                     if summary_code_block:
                         telegram_message += f"\n```\n{summary_code_block}\n```"
+
+                    # Añadir el árbol de archivos DTA al final
+                    if dta_file_tree:
+                        telegram_message += dta_file_tree
                     
                     send_telegram(telegram_message)
                     return
@@ -489,3 +625,121 @@ class SyncManager:
                         f"Check logs for details: `{log_file}`"
                     )
                     send_telegram(telegram_message)
+
+    # --- AÑADIDO: Métodos para Disk Status y System Status, adaptados a tu estructura ---
+    # Ya tienes _get_disk_space_info en esta clase, que es lo principal.
+    # Aquí te pongo una función pública que pueda ser llamada por main.py y por el bot.
+    def get_disk_status(self) -> None:
+        """
+        Retrieves and sends the disk usage status of the local DATA_DIR.
+        """
+        logger.info("Checking disk status for DATA_DIR...")
+        try:
+            total_gb, used_gb, free_gb = self._get_disk_space_info(DATA_DIR)
+            
+            # Obtener el uso del disco para la partición raíz del contenedor (si es diferente)
+            # Aunque en Docker / y /data pueden ser lo mismo si el volumen es la raíz.
+            total_root_gb, used_root_gb, free_root_gb = self._get_disk_space_info("/")
+            
+            disk_status_message = (
+                f"💾 *Disk Usage Status (inside container):*\n"
+                f"  *Sync Destination (`{DATA_DIR}`)*:\n"
+                f"    Total: `{total_gb:.2f} GB`\n"
+                f"    Used: `{used_gb:.2f} GB`\n"
+                f"    Free: `{free_gb:.2f} GB`\n"
+                f"    Usage: `{(used_gb / total_gb * 100):.2f}%`\n"
+                f"  *Root Partition (`/`)*:\n"
+                f"    Total: `{total_root_gb:.2f} GB`\n"
+                f"    Used: `{used_root_gb:.2f} GB`\n"
+                f"    Free: `{free_root_gb:.2f} GB`\n"
+                f"    Usage: `{(used_root_gb / total_root_gb * 100):.2f}%`"
+            )
+            self.telegram_utils.send_telegram(disk_status_message)
+            logger.info("Disk status sent.")
+        except Exception as e:
+            error_message = f"Error getting disk status: {e}"
+            logger.error(error_message)
+            self.telegram_utils.send_telegram(f"Failed to get disk status: {e} ❌")
+
+    def get_system_status(self) -> None:
+        """
+        Retrieves and sends general system status (CPU, RAM) of the container.
+        Note: These metrics reflect the container's view, not necessarily the host's.
+        """
+        import platform # Para información del sistema operativo
+        import psutil   # Para CPU, RAM (requiere pip install psutil)
+        
+        logger.info("Checking system status (inside container)...")
+        try:
+            # CPU usage
+            cpu_percent = psutil.cpu_percent(interval=1) # Bloquea por 1 segundo para una lectura precisa
+
+            # RAM usage
+            virtual_memory = psutil.virtual_memory()
+            total_ram_gb = virtual_memory.total / (1024**3)
+            used_ram_gb = virtual_memory.used / (1024**3)
+            percent_ram_used = virtual_memory.percent
+
+            # Uptime (container's uptime)
+            boot_time_timestamp = psutil.boot_time()
+            from datetime import datetime, timedelta
+            boot_time_datetime = datetime.fromtimestamp(boot_time_timestamp)
+            uptime_seconds = (datetime.now() - boot_time_datetime).total_seconds()
+
+            days = int(uptime_seconds // (24 * 3600))
+            uptime_seconds %= (24 * 3600)
+            hours = int(uptime_seconds // 3600)
+            uptime_seconds %= 3600
+            minutes = int(uptime_seconds // 60)
+            
+            uptime_str = f"{days}d {hours}h {minutes}m"
+
+            # Temperature is hard to get reliably from inside a Docker container without host privileges.
+            # We'll put N/A or try a generic Linux path if available.
+            temp_celsius = "N/A"
+            try:
+                # Common path for CPU temperature on Linux (though in Docker it might not be available or reflect host)
+                with open("/sys/class/thermal/thermal_zone0/temp", "r") as f:
+                    temp_output_sys = f.read().strip()
+                    temp_celsius = float(temp_output_sys) / 1000
+                    temp_celsius = f"{temp_celsius:.1f}"
+            except Exception:
+                pass # Keep "N/A" if file not found or error reading
+
+            system_status_message = (
+                f"📊 *System Status (Container's View):*\n"
+                f"  *OS*: `{platform.system()} {platform.release()}`\n"
+                f"  *Architecture*: `{platform.machine()}`\n"
+                f"  *CPU Usage*: `{cpu_percent:.1f}%`\n"
+                f"  *RAM Usage*: `{used_ram_gb:.2f} GB / {total_ram_gb:.2f} GB ({percent_ram_used:.1f}%)`\n"
+                f"  *Uptime*: `{uptime_str}`\n"
+                f"  *CPU Temp*: `{temp_celsius}°C` (Container's or N/A)"
+            )
+            self.telegram_utils.send_telegram(system_status_message)
+            logger.info("System status sent.")
+        except Exception as e:
+            error_message = f"Error getting system status: {e}"
+            logger.error(error_message)
+            self.telegram_utils.send_telegram(f"Failed to get system status: {e} ❌")
+
+    # --- NO CAMBIOS NECESARIOS PARA CRON AQUI ---
+    # Cron probablemente se maneja fuera del contenedor (en el host)
+    # o tu aplicación tiene un scheduler interno (como APScheduler)
+    # Si la gestión de cron es para el *host de la RPi* donde resides remotamente,
+    # entonces estas funciones no deberían estar aquí, sino en un script que corra en la RPi.
+    # Si controlas el cron del *contenedor*, es poco común pero posible.
+    # Por ahora, dejo las funciones como placeholders.
+    def change_cron_interval(self, minutes: int) -> None:
+        """Placeholder for changing cron interval. This typically affects the host, not the container directly."""
+        self.telegram_utils.send_telegram(f"Cron interval change requested to {minutes} minutes. (Not directly managed by this container's SyncManager) ⚠️")
+        logger.info(f"Cron interval change requested to {minutes} minutes (placeholder).")
+
+    def disable_auto_sync(self) -> None:
+        """Placeholder for disabling auto sync. This typically affects the host, not the container directly."""
+        self.telegram_utils.send_telegram("Auto synchronization disable requested. (Not directly managed by this container's SyncManager) ⚠️")
+        logger.info("Auto sync disable requested (placeholder).")
+
+    def enable_auto_sync(self) -> None:
+        """Placeholder for enabling auto sync. This typically affects the host, not the container directly."""
+        self.telegram_utils.send_telegram("Auto synchronization enable requested. (Not directly managed by this container's SyncManager) ✅")
+        logger.info("Auto sync enable requested (placeholder).")

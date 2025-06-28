@@ -1,9 +1,11 @@
 FROM python:3.11-slim
 
-# Instalar utilidades necesarias
+# Instalar utilidades necesarias, incluyendo 'tree'
 RUN apt-get update && \
-    apt-get install -y rsync openssh-client cron && \
-    apt-get clean
+    apt-get install -y rsync openssh-client cron tree && \
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists/* 
+    # Añadida limpieza de caché para reducir tamaño de imagen
 
 # Crear directorio de trabajo
 WORKDIR /app

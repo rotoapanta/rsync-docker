@@ -65,6 +65,11 @@ RASPBERRY_URL = "http://192.168.190.29:8000/status"
 # --- Data Directory Constant ---
 DATA_DIR = "/data" # Local destination directory in the container
 
+# --- Global SyncManager Instance ---
+# Es importante tener una instancia global o accesible del SyncManager
+# para que los callbacks del bot puedan interactuar con ella.
+sync_manager_instance = None 
+
 # --- Manual Synchronization Function ---
 def perform_sync(direction: str):
     """
@@ -74,13 +79,17 @@ def perform_sync(direction: str):
         direction (str): The direction of synchronization (e.g., "from").
     """
     logger.info(f"Initiating synchronization for direction: {direction}")
-    try:
-        sync_manager = SyncManager()
-        sync_manager.run_rsync(direction)
-        logger.info(f"Synchronization {direction} completed.")
-    except Exception as e:
-        logger.error(f"Unexpected error during synchronization: {e}")
-        send_telegram(f"❌ Unexpected error during synchronization: `{e}`")
+    global sync_manager_instance # Accede a la instancia global
+    if sync_manager_instance:
+        try:
+            sync_manager_instance.run_rsync(direction)
+            logger.info(f"Synchronization {direction} completed.")
+        except Exception as e:
+            logger.error(f"Unexpected error during synchronization: {e}")
+            send_telegram(f"❌ Unexpected error during synchronization: `{e}`")
+    else:
+        logger.error("SyncManager instance not initialized for perform_sync.")
+        send_telegram("❌ SyncManager no inicializado. No se puede sincronizar.")
 
 # --- Cron: Interval Update ---
 def _update_crontab_entry(action: str, current_interval: int = None) -> Tuple[bool, str]:
@@ -361,7 +370,8 @@ def status_report():
             f"{ram_icon} *RAM:* `{r_ram:.1f}%`\n"
             f"{temp_icon} *Temp:* `{r_temp} °C`\n"
             f"🔋 *Battery:* `{r_volt} V` | `{r_status}`\n"
-            f"🔄 *Auto Sync:* `{sync_interval_info}`"
+            f"🔄 *Auto Sync:* `{sync_interval_info}`\n"
+            f"🔗 *Current Sync Source:* `{sync_manager_instance.rsync_from if sync_manager_instance else 'N/A'}`" # <--- AÑADIDO: Mostrar la ruta actual de sincronización
         )
         send_telegram(message)
 
@@ -374,6 +384,9 @@ if __name__ == "__main__":
     telegram_bot_token = os.getenv("TELEGRAM_BOT_TOKEN")
     telegram_chat_id = os.getenv("TELEGRAM_CHAT_ID")
 
+    # Initialize SyncManager instance early so it's available for callbacks
+    sync_manager_instance = SyncManager()
+
     if telegram_bot_token and telegram_chat_id:
         logger.info("Starting Telegram bot listener...")
         try:
@@ -382,8 +395,9 @@ if __name__ == "__main__":
                 change_cron_interval,
                 disable_auto_sync,
                 enable_auto_sync,
-                disk_func=disk_status_report, # Pass the disk status report function
-                status_func=status_report     # Pass the general status report function
+                disk_func=disk_status_report,
+                status_func=status_report,
+                change_sync_dir_func=sync_manager_instance.set_rsync_from_path # <--- ¡IMPORTANTE! Nuevo argumento aquí
             )
             send_telegram("✅ Synchronization service started. Use /sync to initiate manually.")
         except Exception as e:
@@ -400,4 +414,4 @@ if __name__ == "__main__":
     else:
         logger.info("Main execution mode: Keeping bot and cron services running...")
         while True:
-            time.sleep(3600)
+            time.sleep(3600) # Keep the main thread alive, important for bot listener

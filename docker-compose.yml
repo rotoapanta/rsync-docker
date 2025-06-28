@@ -1,0 +1,20 @@
+version: '3.8'
+services:
+  rsync: # Asegúrate de que este es el nombre de tu servicio
+    build: .
+    network_mode: host  # ESTA LÍNEA HACE LA MAGIA
+    container_name: rsync_docker
+    env_file:
+      - .env # Esto carga las variables de tu .env
+    volumes:
+      # Si copias los archivos del código fuente:
+      - ./main.py:/app/main.py
+      - ./managers:/app/managers
+      - ./utils:/app/utils
+      # Clave SSH
+      - ~/.ssh/id_rsa_rsync_lp:/root/.ssh/id_rsa:ro
+      # Mapeo del volumen de datos (usando la variable del .env)
+      - ${RSYNC_DEST_HOST_PATH}:/data
+      # Logs
+      - ./logs:/logs
+    restart: unless-stopped # O 'always'

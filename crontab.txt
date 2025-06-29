@@ -1,0 +1,2 @@
+# Run sync every 2 minutes
+*/1 * * * * /bin/bash /app/run_sync.sh from >> /logs/cron.log 2>&1

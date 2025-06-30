@@ -566,9 +566,7 @@ class SyncManager:
                     if summary_code_block:
                         telegram_message += f"\n```\n{summary_code_block}\n```"
 
-                    # Añadir el árbol de archivos DTA al final
-                    if dta_file_tree:
-                        telegram_message += dta_file_tree
+                    # Árbol de archivos DTA removido del mensaje de sincronización para no imprimir 🌳 File Tree (DTA)
                     
                     send_telegram(telegram_message)
                     return

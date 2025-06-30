@@ -12,7 +12,7 @@ services:
       - ./managers:/app/managers
       - ./utils:/app/utils
       # Clave SSH
-      - ~/.ssh/id_rsa_rsync:/root/.ssh/id_rsa:ro
+      - ~/.ssh/id_rsa_rsync_lp:/root/.ssh/id_rsa:ro
       # Mapeo del volumen de datos (usando la variable del .env)
       - ${RSYNC_DEST_HOST_PATH}:/data
       # Logs

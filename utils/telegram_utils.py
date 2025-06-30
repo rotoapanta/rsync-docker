@@ -104,7 +104,11 @@ def start_command(update: Update, context: CallbackContext) -> None:
         [InlineKeyboardButton("💾 Disk Status", callback_data='disk_status'),
          InlineKeyboardButton("📊 System Status", callback_data='status')],
         [InlineKeyboardButton("📂 View Directory Tree", callback_data='show_tree')],
-        [InlineKeyboardButton("🔄 Change Sync Source", callback_data='change_source_prompt')]
+        [
+            InlineKeyboardButton("🔄 Change Sync Source", callback_data='change_source_prompt'),
+            InlineKeyboardButton("📁 Default Directory", callback_data='default_directory'),
+            InlineKeyboardButton("🌐 Remote Directory", callback_data='remote_directory')
+        ]
     ]
     reply_markup = InlineKeyboardMarkup(keyboard)
 
@@ -391,6 +395,22 @@ def button_callback(update: Update, context: CallbackContext) -> None:
                                  text="Please enter the new remote sync source using the command:\n`/change_source user@host:/path/to/source`\n\nExample: `/change_source pi@192.168.1.100:/home/pi/my_data`", 
                                  parse_mode='Markdown')
         query.edit_message_reply_markup(reply_markup=None) # Remove buttons after prompt
+
+    elif query.data == 'default_directory':
+        # Cambiar el origen de sincronización al valor por defecto
+        from utils.constants import DEFAULT_RSYNC_FROM
+        if change_sync_directory_callback:
+            context.bot.send_message(chat_id=chat_id, text=f"Changing sync source to default: `{DEFAULT_RSYNC_FROM}`", parse_mode='Markdown')
+            import threading
+            threading.Thread(target=change_sync_directory_callback, args=(DEFAULT_RSYNC_FROM,)).start()
+        else:
+            context.bot.send_message(chat_id=chat_id, text="Error: Sync directory change function not configured.")
+        query.edit_message_reply_markup(reply_markup=None)
+
+    elif query.data == 'remote_directory':
+        # Iniciar explorador remoto: solicitar credenciales SSH
+        context.bot.send_message(chat_id=chat_id, text="Por favor, envía las credenciales SSH en el formato:\n`usuario@host password`\nPor ejemplo: `pi@192.168.100.29 mi_clave`", parse_mode='Markdown')
+        query.edit_message_reply_markup(reply_markup=None)
 
 def error_handler(update: Update, context: CallbackContext) -> None:
     """

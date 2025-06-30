@@ -1,6 +1,6 @@
 # requirements.txt
 # Otras dependencias que ya tengas, por ejemplo:
-# paramiko
+paramiko
 # scp
 
 requests

@@ -289,6 +289,13 @@ def change_sync_directory_command(update: Update, context: CallbackContext) -> N
         return
 
     new_path = args[0]
+    # Validar formato: debe contener '@' y ':'
+    if '@' not in new_path or ':' not in new_path:
+        update.message.reply_text(
+            "❌ Invalid format. Please use `/change_source user@host:/path/to/source`\n\nExample: `/change_source pi@192.168.1.100:/home/pi/data`",
+            parse_mode='Markdown')
+        logger.warning(f"/change_source command with invalid format from {chat_id}: {new_path}")
+        return
     update.message.reply_text(f"Attempting to change sync source to: `{new_path}` 🔄", parse_mode='Markdown')
 
     if change_sync_directory_callback:

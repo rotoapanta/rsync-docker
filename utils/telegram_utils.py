@@ -103,7 +103,7 @@ def start_command(update: Update, context: CallbackContext) -> None:
          InlineKeyboardButton("🚫 Disable Auto Sync", callback_data='disable_sync')],
         [InlineKeyboardButton("💾 Disk Status", callback_data='disk_status'),
          InlineKeyboardButton("📊 System Status", callback_data='status')],
-        [InlineKeyboardButton("📂 Ver directorio", callback_data='show_tree')],
+        [InlineKeyboardButton("📂 View Directory Tree", callback_data='show_tree')],
         [InlineKeyboardButton("🔄 Change Sync Source", callback_data='change_source_prompt')]
     ]
     reply_markup = InlineKeyboardMarkup(keyboard)

@@ -128,6 +128,7 @@ def start_command(update: Update, context: CallbackContext) -> None:
             f.write("waiting for remote ip\n")
     except Exception as e:
         logger.error(f"No se pudo crear el flag de pausa de sincronización: {e}")
+    # Solo mostrar mensaje de bienvenida y pedir IP, NO mostrar menú aquí
     update.message.reply_text(welcome_message)
     logger.info(f"/start command received from {user.username} ({chat_id})")
 
@@ -364,9 +365,9 @@ def button_callback(update: Update, context: CallbackContext) -> None:
         import os
         flag_pausa = os.path.exists("/logs/awaiting_ip.flag")
         keyboard = [
-            [InlineKeyboardButton("🚀 Sync Now", callback_data='sync_now'),
-             InlineKeyboardButton("🔄 Change Sync Source", callback_data='change_source_prompt')],
-            [InlineKeyboardButton("⏱️ Set Interval", callback_data='set_interval_menu')],
+            [InlineKeyboardButton("🔄 Change Sync Source", callback_data='change_source_prompt'),
+             InlineKeyboardButton("⏱️ Set Interval", callback_data='set_interval_menu')],
+            [InlineKeyboardButton("🚀 Sync Now", callback_data='sync_now')],
             [InlineKeyboardButton("✅ Enable Auto Sync", callback_data='enable_sync'),
              InlineKeyboardButton("🚫 Disable Auto Sync", callback_data='disable_sync')],
             [InlineKeyboardButton("💾 Disk Status", callback_data='disk_status'),
@@ -390,11 +391,9 @@ def button_callback(update: Update, context: CallbackContext) -> None:
             context.bot.send_message(chat_id=chat_id, text=f"⚠️ No se pudo eliminar el flag de pausa: {e}")
         # Mostrar menú principal habilitado
         keyboard = [
-            [
-                InlineKeyboardButton("🚀 Sync Now", callback_data='sync_now'),
-                InlineKeyboardButton("🔄 Change Sync Source", callback_data='change_source_prompt')
-            ],
-            [InlineKeyboardButton("⏱️ Set Interval", callback_data='set_interval_menu')],
+            [InlineKeyboardButton("🔄 Change Sync Source", callback_data='change_source_prompt'),
+             InlineKeyboardButton("⏱️ Set Interval", callback_data='set_interval_menu')],
+            [InlineKeyboardButton("🚀 Sync Now", callback_data='sync_now')],
             [InlineKeyboardButton("✅ Enable Auto Sync", callback_data='enable_sync'),
              InlineKeyboardButton("🚫 Disable Auto Sync", callback_data='disable_sync')],
             [InlineKeyboardButton("💾 Disk Status", callback_data='disk_status'),
@@ -723,10 +722,10 @@ def remote_ip_handler(update: Update, context: CallbackContext) -> None:
         return  # No mostrar menú si la conexión SSH falló
     keyboard = [
         [
-            InlineKeyboardButton("🚀 Sync Now", callback_data='sync_now'),
-            InlineKeyboardButton("🔄 Change Sync Source", callback_data='change_source_prompt')
+            InlineKeyboardButton("🔄 Change Sync Source", callback_data='change_source_prompt'),
+            InlineKeyboardButton("⏱️ Set Interval", callback_data='set_interval_menu')
         ],
-        [InlineKeyboardButton("⏱️ Set Interval", callback_data='set_interval_menu')],
+        [InlineKeyboardButton("🚀 Sync Now", callback_data='sync_now')],
         [InlineKeyboardButton("✅ Enable Auto Sync", callback_data='enable_sync'),
          InlineKeyboardButton("🚫 Disable Auto Sync", callback_data='disable_sync')],
         [InlineKeyboardButton("💾 Disk Status", callback_data='disk_status'),

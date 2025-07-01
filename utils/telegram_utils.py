@@ -77,6 +77,33 @@ def send_telegram(message: str) -> None:
         logger.warning("Bot not initialized or CHAT_ID not configured.")
 
 # --- Command Handlers ---
+def close_command(update: Update, context: CallbackContext) -> None:
+    """
+    Handles the /close command. Pauses the system and solicita nueva IP.
+    """
+    chat_id = str(update.message.chat_id)
+    user = update.message.from_user
+
+    if chat_id != TELEGRAM_CHAT_ID:
+        update.message.reply_text("Sorry, you are not authorized to use this bot.")
+        logger.warning(f"Unauthorized /close command from {user.username} ({chat_id})")
+        return
+
+    welcome_message = (
+        "Hello Roberto! 👋 I'm your Raspberry Pi Data Sync Bot. 🤖\n"
+        "Por favor, ingresa la IP del host remoto para sincronizar (ejemplo: 192.168.1.100):"
+    )
+    context.user_data['awaiting_remote_ip'] = True
+    # Crear flag para pausar sincronización automática
+    try:
+        with open("/logs/awaiting_ip.flag", "w") as f:
+            f.write("waiting for remote ip\n")
+    except Exception as e:
+        logger.error(f"No se pudo crear el flag de pausa de sincronización: {e}")
+    update.message.reply_text("🔴 Conexión cerrada. Por favor, inicia nuevamente /start e ingresa la nueva IP para continuar.")
+    # update.message.reply_text(welcome_message)
+    logger.info(f"/close command received from {user.username} ({chat_id})")
+
 def start_command(update: Update, context: CallbackContext) -> None:
     """
     Handles the /start command. Sends a welcome message and requests the remote IP.
@@ -314,16 +341,44 @@ def button_callback(update: Update, context: CallbackContext) -> None:
     chat_id = str(query.message.chat_id)
 
     # Bloquear acciones si se está esperando la IP remota
-    if context.user_data.get('awaiting_remote_ip'):
-        query.edit_message_text("⚠️ Debes ingresar primero la IP del host remoto para continuar.")
+    if context.user_data.get('awaiting_remote_ip', False):
+        query.edit_message_text("⚠️ Debes ingresar primero la IP del host remoto para continuar. Usa /start para iniciar la configuración.")
         return
 
     # Bloquear acciones si el sistema está en pausa (flag existe), excepto Start System
     import os
-    if os.path.exists("/logs/awaiting_ip.flag") and query.data != 'start_system':
-        keyboard = [[InlineKeyboardButton("🟢 Start System", callback_data='start_system')]]
+    # Solo bloquear botones críticos durante la pausa
+    botones_criticos = ['sync_now', 'enable_sync', 'disable_sync']
+    if os.path.exists("/logs/awaiting_ip.flag") and query.data in botones_criticos:
+        keyboard = [
+            [InlineKeyboardButton("🟢 Start System", callback_data='start_system')],
+            [InlineKeyboardButton("🏠 Volver al menú", callback_data='show_main_menu')]
+        ]
         reply_markup = InlineKeyboardMarkup(keyboard)
         query.edit_message_text("⚠️ El sistema está en pausa. Pulsar 'Start System' para habilitar las funciones, iniciar /start para reiniciar la configuración.", reply_markup=reply_markup)
+        return
+
+    # Lógica para el botón Volver al menú
+    if query.data == 'show_main_menu':
+        # Mostrar menú principal según el estado del sistema
+        import os
+        flag_pausa = os.path.exists("/logs/awaiting_ip.flag")
+        keyboard = [
+            [InlineKeyboardButton("🚀 Sync Now", callback_data='sync_now'),
+             InlineKeyboardButton("🔄 Change Sync Source", callback_data='change_source_prompt')],
+            [InlineKeyboardButton("⏱️ Set Interval", callback_data='set_interval_menu')],
+            [InlineKeyboardButton("✅ Enable Auto Sync", callback_data='enable_sync'),
+             InlineKeyboardButton("🚫 Disable Auto Sync", callback_data='disable_sync')],
+            [InlineKeyboardButton("💾 Disk Status", callback_data='disk_status'),
+             InlineKeyboardButton("📊 System Status", callback_data='status')],
+            [InlineKeyboardButton("📂 View Directory Tree", callback_data='show_tree')]
+        ]
+        # Si está en pausa, añadir Start System
+        if flag_pausa:
+            keyboard.append([InlineKeyboardButton("🟢 Start System", callback_data='start_system')])
+        reply_markup = InlineKeyboardMarkup(keyboard)
+        context.bot.send_message(chat_id=chat_id, text="Menú principal:", reply_markup=reply_markup)
+        query.edit_message_reply_markup(reply_markup=None)
         return
 
     # Lógica para el botón Start System
@@ -389,7 +444,8 @@ def button_callback(update: Update, context: CallbackContext) -> None:
             [InlineKeyboardButton("Every hour (60 min)", callback_data='set_interval_60')],
             [InlineKeyboardButton("Every 4 hours (240 min)", callback_data='set_interval_240')],
             [InlineKeyboardButton("Every 24 hours (1440 min)", callback_data='set_interval_1440')],
-            [InlineKeyboardButton("Enter manually", callback_data='set_interval_manual_prompt')]
+            [InlineKeyboardButton("Enter manually", callback_data='set_interval_manual_prompt')],
+            [InlineKeyboardButton("🏠 Volver al menú", callback_data='show_main_menu')]
         ]
         reply_markup = InlineKeyboardMarkup(keyboard)
         query.edit_message_text("Select a sync interval or enter one manually:", reply_markup=reply_markup)
@@ -426,7 +482,8 @@ def button_callback(update: Update, context: CallbackContext) -> None:
         keyboard = [
             [
                 InlineKeyboardButton("📁 Default Directory", callback_data='default_directory'),
-                InlineKeyboardButton("🌐 Remote Directory", callback_data='remote_directory')
+                InlineKeyboardButton("🌐 Remote Directory", callback_data='remote_directory'),
+                InlineKeyboardButton("🏠 Volver al menú", callback_data='show_main_menu')
             ]
         ]
         reply_markup = InlineKeyboardMarkup(keyboard)
@@ -471,6 +528,7 @@ def button_callback(update: Update, context: CallbackContext) -> None:
                 if stat.S_ISDIR(entry.st_mode):
                     dirs.append(entry.filename)
             keyboard = [[InlineKeyboardButton(d, callback_data=f'remote_nav:{root}{d}/')] for d in dirs]
+            keyboard.append([InlineKeyboardButton("🏠 Volver al menú", callback_data='show_main_menu')])
             reply_markup = InlineKeyboardMarkup(keyboard)
             context.bot.send_message(chat_id=chat_id, text=f"Directorio remoto: `{root}`\nSelecciona una carpeta:", reply_markup=reply_markup, parse_mode='Markdown')
             context.user_data['ssh_session'] = ssh
@@ -553,9 +611,22 @@ def show_tree_command(update, context):
         sync_manager = SyncManager()
         output = sync_manager._get_dta_file_tree_string()
         # Telegram limita los mensajes a 4096 caracteres
+        send_file = False
+        file_path = "/logs/file_tree.log"
         if len(output) > 3500:
             output = output[:3500] + "\n... (truncado) ..."
-        context.bot.send_message(chat_id=chat_id, text=output, parse_mode="Markdown")
+            send_file = True
+        from telegram import InlineKeyboardButton, InlineKeyboardMarkup
+        keyboard = [[InlineKeyboardButton("🏠 Volver al menú", callback_data='show_main_menu')]]
+        reply_markup = InlineKeyboardMarkup(keyboard)
+        context.bot.send_message(chat_id=chat_id, text=output, parse_mode="Markdown", reply_markup=reply_markup)
+        # Si es muy largo, enviar el archivo completo como documento
+        if send_file:
+            try:
+                with open(file_path, "rb") as f:
+                    context.bot.send_document(chat_id=chat_id, document=f, filename="file_tree.log", caption="Árbol de directorios completo")
+            except Exception as e:
+                context.bot.send_message(chat_id=chat_id, text=f"Error adjuntando archivo de árbol: {e}")
     except Exception as e:
         context.bot.send_message(chat_id=chat_id, text=f"Error mostrando el árbol de directorios: {e}")
 
@@ -584,6 +655,8 @@ def remote_ip_handler(update: Update, context: CallbackContext) -> None:
     username, _, path = match.group(1), match.group(2), match.group(3)
     new_rsync_from = f"{username}@{ip}:{path}"
 
+    # Mensaje de inicio de conexión
+    # update.message.reply_text("🔄 Iniciando conexión y validación SSH...")
     # Validar conectividad SSH antes de guardar
     import paramiko
     key_path = "/root/.ssh/id_rsa"
@@ -595,7 +668,7 @@ def remote_ip_handler(update: Update, context: CallbackContext) -> None:
         ssh.close()
     except Exception as e:
         ssh_ok = False
-        update.message.reply_text(f"❌ No se pudo establecer conexión SSH con la IP ingresada: {e}\nVerifica la red o la IP e intenta de nuevo.")
+        update.message.reply_text(f"❌ No se pudo establecer conexión SSH con la IP ingresada: {e}\nVerifica la red, la IP y que el host remoto tenga SSH habilitado. Usa /start para intentarlo de nuevo.")
     # Si la conexión SSH es exitosa, guardar y mostrar menú
     callback_ok = True
     if ssh_ok:
@@ -631,10 +704,11 @@ def remote_ip_handler(update: Update, context: CallbackContext) -> None:
         except Exception as e:
             callback_ok = False
             update.message.reply_text(f"❌ Error al guardar la IP: {e}")
-    # Limpiar flag
+    # Limpiar flag ANTES de mostrar el menú (para evitar bloqueos en submenús)
     context.user_data['awaiting_remote_ip'] = False
     # Mostrar menú principal SIEMPRE si la conexión SSH fue exitosa
     if ssh_ok and callback_ok:
+        update.message.reply_text("🟢 Conexión y validación SSH satisfactoria.")
         # NO eliminar flag aquí, solo mostrar menú con Start System
         welcome_message = (
             "✅ IP configurada y verificada correctamente.\n"
@@ -649,7 +723,7 @@ def remote_ip_handler(update: Update, context: CallbackContext) -> None:
         return  # No mostrar menú si la conexión SSH falló
     keyboard = [
         [
-            InlineKeyboardButton("���� Sync Now", callback_data='sync_now'),
+            InlineKeyboardButton("🚀 Sync Now", callback_data='sync_now'),
             InlineKeyboardButton("🔄 Change Sync Source", callback_data='change_source_prompt')
         ],
         [InlineKeyboardButton("⏱️ Set Interval", callback_data='set_interval_menu')],
@@ -753,6 +827,7 @@ def start_telegram_bot_listener(sync_func, cron_change_func, disable_sync_func, 
 
         # Register command handlers
         dispatcher.add_handler(CommandHandler("start", start_command))
+        dispatcher.add_handler(CommandHandler("close", close_command))
         dispatcher.add_handler(CommandHandler("help", help_command))
         dispatcher.add_handler(CommandHandler("sync", start_sync_command))
         dispatcher.add_handler(CommandHandler("set_interval", set_interval_command))

@@ -191,7 +191,10 @@ def disk_status_report(update=None, context=None):
     # Enviar mensaje al chat si se llama desde Telegram
     if update and context:
         chat_id = update.effective_chat.id
-        context.bot.send_message(chat_id=chat_id, text=msg, parse_mode='Markdown')
+        from telegram import InlineKeyboardButton, InlineKeyboardMarkup
+        keyboard = [[InlineKeyboardButton("🏠 Volver al menú", callback_data='show_main_menu')]]
+        reply_markup = InlineKeyboardMarkup(keyboard)
+        context.bot.send_message(chat_id=chat_id, text=msg, parse_mode='Markdown', reply_markup=reply_markup)
     else:
         send_telegram(msg)
 
@@ -213,10 +216,22 @@ def status_report(update=None, context=None):
             f"🔄 Auto Sync: `{_get_current_sync_interval()}`\n"
             f"📤 Sync From: `{sync_manager_instance.rsync_from if sync_manager_instance else 'N/A'}`"
         )
-        send_telegram(msg)
+        # Añadir botón Volver al menú si es desde Telegram
+        if update and context:
+            from telegram import InlineKeyboardButton, InlineKeyboardMarkup
+            keyboard = [[InlineKeyboardButton("🏠 Volver al menú", callback_data='show_main_menu')]]
+            reply_markup = InlineKeyboardMarkup(keyboard)
+            chat_id = update.effective_chat.id
+            context.bot.send_message(chat_id=chat_id, text=msg, parse_mode='Markdown', reply_markup=reply_markup)
+        else:
+            send_telegram(msg)
     except Exception as e:
         logger.error(f"Status error: {e}")
-        send_telegram(f"❌ Error fetching Pi status: `{e}`")
+        if update and context:
+            chat_id = update.effective_chat.id
+            context.bot.send_message(chat_id=chat_id, text=f"❌ Error fetching Pi status: `{e}`")
+        else:
+            send_telegram(f"❌ Error fetching Pi status: `{e}`")
 
 # === MAIN ===
 

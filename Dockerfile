@@ -2,7 +2,7 @@ FROM python:3.11-slim
 
 # Instalar utilidades necesarias
 RUN apt-get update && \
-    apt-get install -y rsync openssh-client cron && \
+    apt-get install -y rsync openssh-client cron tree && \
     apt-get clean
 
 # Crear directorio de trabajo

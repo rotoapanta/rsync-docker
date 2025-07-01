@@ -41,6 +41,10 @@ TELEGRAM_CHAT_ID = get_env_variable("TELEGRAM_CHAT_ID", required=True)
 # === SYNC ===
 
 def perform_sync(direction: str):
+    import os
+    if os.path.exists("/logs/awaiting_ip.flag"):
+        logger.warning("⏸️ El sistema está en pausa por configuración. No se ejecutan tareas programadas ni manuales hasta pulsar 'Start System' en el bot.")
+        return
     global sync_manager_instance
     if sync_manager_instance:
         try:
@@ -127,7 +131,17 @@ def _get_current_sync_interval() -> str:
 
 # get_icon ahora está en utils/bot_utils.py
 
-def disk_status_report():
+def get_raspberry_url_from_env():
+    env_path = ".env"
+    import os
+    if os.path.exists(env_path):
+        with open(env_path, "r") as f:
+            for line in f:
+                if line.startswith("RASPBERRY_URL="):
+                    return line.strip().split("=", 1)[1]
+    return None
+
+def disk_status_report(update=None, context=None):
     msg = "💾 *Storage Status*\n\n"
     try:
         total, used, free = disk_usage(DATA_DIR)
@@ -142,7 +156,8 @@ def disk_status_report():
         msg += f"❌ Error reading disk: `{e}`\n\n"
 
     try:
-        r = requests.get(RASPBERRY_URL, timeout=5)
+        raspberry_url = get_raspberry_url_from_env() or RASPBERRY_URL
+        r = requests.get(raspberry_url, timeout=5)
         r.raise_for_status()
         data = r.json()
 
@@ -173,11 +188,17 @@ def disk_status_report():
         logger.error(f"Pi disk error: {e}")
         msg += f"❌ Error fetching Pi status: `{e}`"
 
-    send_telegram(msg)
+    # Enviar mensaje al chat si se llama desde Telegram
+    if update and context:
+        chat_id = update.effective_chat.id
+        context.bot.send_message(chat_id=chat_id, text=msg, parse_mode='Markdown')
+    else:
+        send_telegram(msg)
 
-def status_report():
+def status_report(update=None, context=None):
     try:
-        r = requests.get(RASPBERRY_URL, timeout=5)
+        raspberry_url = get_raspberry_url_from_env() or RASPBERRY_URL
+        r = requests.get(raspberry_url, timeout=5)
         r.raise_for_status()
         data = r.json()
 
@@ -214,7 +235,12 @@ if __name__ == "__main__":
                 status_func=status_report,
                 change_sync_dir_func=sync_manager_instance.set_rsync_from_path
             )
-            send_telegram("✅ Sync service started. Use /sync to trigger manually.")
+            import os
+            if not os.path.exists("/logs/awaiting_ip.flag"):
+                send_telegram("✅ Sync service started. Use /sync to trigger manually.")
+            else:
+                logger.info("⏸️ El sistema está en pausa por configuración. No se ejecutan tareas programadas ni manuales hasta pulsar 'Start System' en el bot.")
+                # send_telegram("⏸️ El sistema está en pausa por configuración. No se ejecutan tareas programadas ni manuales hasta pulsar 'Start System' en el bot.")
         except Exception as e:
             logger.error(f"Bot init error: {e}")
 

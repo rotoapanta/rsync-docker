@@ -432,6 +432,8 @@ class SyncManager:
                              is supported, which indicates a data pull operation
                              from the remote source to the local `DATA_DIR`.
         """
+        # Siempre recargar el valor de RSYNC_FROM antes de sincronizar
+        self._load_rsync_from_path()
         if direction == "from":
             src = self.rsync_from
             dest = DATA_DIR

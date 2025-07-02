@@ -83,6 +83,7 @@ def close_command(update: Update, context: CallbackContext) -> None:
     """
     chat_id = str(update.message.chat_id)
     user = update.message.from_user
+    logger.info(f"[DEBUG] start_command ejecutado por {user.username} ({chat_id}) - message_id: {update.message.message_id}")
 
     if chat_id != TELEGRAM_CHAT_ID:
         update.message.reply_text("Sorry, you are not authorized to use this bot.")
@@ -340,6 +341,7 @@ def button_callback(update: Update, context: CallbackContext) -> None:
     query = update.callback_query
     query.answer() # Acknowledge the query to remove the loading animation on the button
     chat_id = str(query.message.chat_id)
+    logger.info(f"[DEBUG] Botón pulsado: {query.data} por usuario {chat_id} (message_id: {query.message.message_id})")
 
     # Bloquear acciones si se está esperando la IP remota
     if context.user_data.get('awaiting_remote_ip', False):
@@ -365,7 +367,7 @@ def button_callback(update: Update, context: CallbackContext) -> None:
         import os
         flag_pausa = os.path.exists("/logs/awaiting_ip.flag")
         keyboard = [
-            [InlineKeyboardButton("🔄 Change Sync Source", callback_data='change_source_prompt'),
+            [InlineKeyboardButton("🔄 Set Sync Source", callback_data='change_source_prompt'),
              InlineKeyboardButton("⏱️ Set Interval", callback_data='set_interval_menu')],
             [InlineKeyboardButton("🚀 Sync Now", callback_data='sync_now')],
             [InlineKeyboardButton("✅ Enable Auto Sync", callback_data='enable_sync'),
@@ -391,7 +393,7 @@ def button_callback(update: Update, context: CallbackContext) -> None:
             context.bot.send_message(chat_id=chat_id, text=f"⚠️ No se pudo eliminar el flag de pausa: {e}")
         # Mostrar menú principal habilitado
         keyboard = [
-            [InlineKeyboardButton("🔄 Change Sync Source", callback_data='change_source_prompt'),
+            [InlineKeyboardButton("🔄 Set Sync Source", callback_data='change_source_prompt'),
              InlineKeyboardButton("⏱️ Set Interval", callback_data='set_interval_menu')],
             [InlineKeyboardButton("🚀 Sync Now", callback_data='sync_now')],
             [InlineKeyboardButton("✅ Enable Auto Sync", callback_data='enable_sync'),
@@ -414,16 +416,19 @@ def button_callback(update: Update, context: CallbackContext) -> None:
 
     if query.data == 'sync_now':
         query.edit_message_text("Sync Now 🚀 ...")
+        logger.info(f"[COMMAND] Ejecutando sincronización manual (botón) para {chat_id} - comando: sync_function_callback('from')")
         if sync_function_callback:
             threading.Thread(target=sync_function_callback, args=("from",)).start()
 
     elif query.data == 'enable_sync':
         query.edit_message_text("Enabling auto synchronization... ✅")
+        logger.info(f"[COMMAND] Habilitando auto sincronización (botón) para {chat_id} - comando: enable_auto_sync_callback()")
         if enable_auto_sync_callback:
             threading.Thread(target=enable_auto_sync_callback).start()
 
     elif query.data == 'disable_sync':
         query.edit_message_text("Disabling auto synchronization... 🚫")
+        logger.info(f"[COMMAND] Deshabilitando auto sincronización (botón) para {chat_id} - comando: disable_auto_sync_callback()")
         if disable_auto_sync_callback:
             threading.Thread(target=disable_auto_sync_callback).start()
 
@@ -461,6 +466,7 @@ def button_callback(update: Update, context: CallbackContext) -> None:
             try:
                 minutes = int(minutes_str)
                 query.edit_message_text(f"Changing interval to every `{minutes}` minutes...", parse_mode='Markdown')
+                logger.info(f"[COMMAND] Cambiando intervalo de sincronización (botón) para {chat_id} - comando: change_cron_interval_callback({minutes})")
                 if change_cron_interval_callback:
                     threading.Thread(target=change_cron_interval_callback, args=(minutes,)).start()
             except ValueError:
@@ -490,10 +496,56 @@ def button_callback(update: Update, context: CallbackContext) -> None:
         query.edit_message_reply_markup(reply_markup=None)
 
     elif query.data == 'default_directory':
-        # Cambiar el origen de sincronización al valor por defecto
+        # Mostrar valor actual y pedir confirmación
+        from utils.constants import DEFAULT_RSYNC_FROM, DEFAULT_RSYNC_TO
+        from managers.sync_manager import SyncManager
+        sync_manager = SyncManager()
+        current_rsync_from = sync_manager.rsync_from
+        # Leer RSYNC_DEST_HOST_PATH desde .env
+        dest_host_path = None
+        try:
+            with open('.env', 'r') as f:
+                for line in f:
+                    if line.strip().startswith('RSYNC_DEST_HOST_PATH='):
+                        dest_host_path = line.strip().split('=', 1)[1]
+                        break
+        except Exception:
+            pass
+        msg = (
+            f"El directorio de sincronización actual es:\n`{current_rsync_from}`\n\n"
+            f"El valor por defecto es:\n`{DEFAULT_RSYNC_FROM}`\n\n"
+            f"Destino en el contenedor:\n`{DEFAULT_RSYNC_TO}`\n\n"
+            f"Destino en tu máquina (host):\n`{dest_host_path or DEFAULT_RSYNC_TO}`\n\n"
+            "¿Quieres cambiar el origen de sincronización al directorio por defecto?"
+        )
+        keyboard = [
+            [InlineKeyboardButton("✅ Sí, cambiar a Default Directory", callback_data='confirm_default_directory')],
+            [InlineKeyboardButton("❌ No, volver al menú", callback_data='show_main_menu')]
+        ]
+        reply_markup = InlineKeyboardMarkup(keyboard)
+        context.bot.send_message(chat_id=chat_id, text=msg, parse_mode='Markdown', reply_markup=reply_markup)
+        query.edit_message_reply_markup(reply_markup=None)
+    elif query.data == 'confirm_default_directory':
         from utils.constants import DEFAULT_RSYNC_FROM
         if change_sync_directory_callback:
-            context.bot.send_message(chat_id=chat_id, text=f"Changing sync source to default: `{DEFAULT_RSYNC_FROM}`", parse_mode='Markdown')
+            from utils.constants import DEFAULT_RSYNC_TO
+            # Leer RSYNC_DEST_HOST_PATH desde .env
+            dest_host_path = None
+            try:
+                with open('.env', 'r') as f:
+                    for line in f:
+                        if line.strip().startswith('RSYNC_DEST_HOST_PATH='):
+                            dest_host_path = line.strip().split('=', 1)[1]
+                            break
+            except Exception:
+                pass
+            msg = (
+                f"✅ El origen de sincronización ha sido cambiado al directorio por defecto.\n\n"
+                f"📤 *Origen remoto (desde):*\n`{DEFAULT_RSYNC_FROM}`\n\n"
+                f"📦 *Destino en el contenedor:*\n`{DEFAULT_RSYNC_TO}`\n\n"
+                f"📥 *Destino en tu máquina (donde se guardan los datos):*\n`{dest_host_path or DEFAULT_RSYNC_TO}`"
+            )
+            context.bot.send_message(chat_id=chat_id, text=msg, parse_mode='Markdown', reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton("🏠 Volver al menú", callback_data='show_main_menu')]]))
             import threading
             threading.Thread(target=change_sync_directory_callback, args=(DEFAULT_RSYNC_FROM,)).start()
         else:
@@ -722,7 +774,7 @@ def remote_ip_handler(update: Update, context: CallbackContext) -> None:
         return  # No mostrar menú si la conexión SSH falló
     keyboard = [
         [
-            InlineKeyboardButton("🔄 Change Sync Source", callback_data='change_source_prompt'),
+            InlineKeyboardButton("🔄 Set Sync Source", callback_data='change_source_prompt'),
             InlineKeyboardButton("⏱️ Set Interval", callback_data='set_interval_menu')
         ],
         [InlineKeyboardButton("🚀 Sync Now", callback_data='sync_now')],

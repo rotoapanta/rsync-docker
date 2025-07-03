@@ -465,7 +465,9 @@ def button_callback(update: Update, context: CallbackContext) -> None:
             minutes_str = query.data.replace('set_interval_', '')
             try:
                 minutes = int(minutes_str)
-                query.edit_message_text(f"Changing interval to every `{minutes}` minutes...", parse_mode='Markdown')
+                keyboard = [[InlineKeyboardButton("🏠 Volver al menú", callback_data='show_main_menu')]]
+                reply_markup = InlineKeyboardMarkup(keyboard)
+                query.edit_message_text(f"Changing interval to every `{minutes}` minutes...", parse_mode='Markdown', reply_markup=reply_markup)
                 logger.info(f"[COMMAND] Cambiando intervalo de sincronización (botón) para {chat_id} - comando: change_cron_interval_callback({minutes})")
                 if change_cron_interval_callback:
                     threading.Thread(target=change_cron_interval_callback, args=(minutes,)).start()
@@ -512,10 +514,10 @@ def button_callback(update: Update, context: CallbackContext) -> None:
         except Exception:
             pass
         msg = (
-            f"El directorio de sincronización actual es:\n`{current_rsync_from}`\n\n"
+            f"✅ El directorio de sincronización actual es:\n`{current_rsync_from}`\n\n"
             f"El valor por defecto es:\n`{DEFAULT_RSYNC_FROM}`\n\n"
             f"Destino en el contenedor:\n`{DEFAULT_RSYNC_TO}`\n\n"
-            f"Destino en tu máquina (host):\n`{dest_host_path or DEFAULT_RSYNC_TO}`\n\n"
+            #f"Destino en tu máquina (host):\n`{dest_host_path or DEFAULT_RSYNC_TO}`\n\n"
             "¿Quieres cambiar el origen de sincronización al directorio por defecto?"
         )
         keyboard = [
@@ -556,28 +558,45 @@ def button_callback(update: Update, context: CallbackContext) -> None:
         # Limpiar cualquier sesión SSH previa
         for k in ['ssh_session', 'sftp_session', 'ssh_root', 'ssh_username', 'ssh_host', 'ssh_key_path']:
             context.user_data.pop(k, None)
-        # Conexión automática usando clave privada y usuario/host de la configuración
         from utils.constants import DEFAULT_RSYNC_FROM
         import re
         import paramiko
-        # Extraer usuario y host de DEFAULT_RSYNC_FROM o RSYNC_FROM
+        import os
+        import stat
+        # DEPURACIÓN: Log de inicio
+        logger.info(f"[SSH] Iniciando conexión SSH para Remote Directory. DEFAULT_RSYNC_FROM: {DEFAULT_RSYNC_FROM}")
+        # Extraer usuario y host
         match = re.match(r"([\w\-]+)@([\w\.-]+):", DEFAULT_RSYNC_FROM)
         if not match:
+            logger.error(f"[SSH] No se pudo extraer usuario y host de: {DEFAULT_RSYNC_FROM}")
             context.bot.send_message(chat_id=chat_id, text="❌ No se pudo extraer usuario y host de la configuración.")
             return
         username, host = match.group(1), match.group(2)
         key_path = "/root/.ssh/id_rsa"
+        # DEPURACIÓN: Verificar clave privada
+        if not os.path.exists(key_path):
+            logger.error(f"[SSH] Clave privada no encontrada en {key_path}")
+            context.bot.send_message(chat_id=chat_id, text=f"❌ Clave privada no encontrada en {key_path}. Verifica que exista y tenga permisos correctos.")
+            return
+        if not os.access(key_path, os.R_OK):
+            logger.error(f"[SSH] Sin permisos de lectura para la clave privada {key_path}")
+            context.bot.send_message(chat_id=chat_id, text=f"❌ Sin permisos de lectura para la clave privada {key_path}.")
+            return
         try:
+            logger.info(f"[SSH] Conectando a {username}@{host} usando clave {key_path}")
             ssh = paramiko.SSHClient()
             ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
             ssh.connect(host, username=username, key_filename=key_path, timeout=10)
+            logger.info(f"[SSH] Conexión SSH exitosa a {host}")
             sftp = ssh.open_sftp()
             root = '/'
             dirs = []
-            import stat
             for entry in sftp.listdir_attr(root):
                 if stat.S_ISDIR(entry.st_mode):
                     dirs.append(entry.filename)
+            logger.info(f"[SSH] Directorios encontrados en {root}: {dirs}")
+            if not dirs:
+                context.bot.send_message(chat_id=chat_id, text=f"⚠️ No se encontraron subdirectorios en `{root}` o no tienes permisos de lectura.")
             keyboard = [[InlineKeyboardButton(d, callback_data=f'remote_nav:{root}{d}/')] for d in dirs]
             keyboard.append([InlineKeyboardButton("🏠 Volver al menú", callback_data='show_main_menu')])
             reply_markup = InlineKeyboardMarkup(keyboard)
@@ -589,7 +608,36 @@ def button_callback(update: Update, context: CallbackContext) -> None:
             context.user_data['ssh_host'] = host
             context.user_data['ssh_key_path'] = key_path
         except Exception as e:
-            context.bot.send_message(chat_id=chat_id, text=f"❌ Error de conexión SSH automática: {e}")
+            import socket
+            import paramiko
+            logger.error(f"[SSH] Error de conexión: {e}")
+            if isinstance(e, socket.timeout):
+                msg = (
+                    f"❌ Error: Tiempo de espera agotado al conectar por SSH.\n\n"
+                    f"- Usuario: `{username}`\n"
+                    f"- Host/IP: `{host}`\n"
+                    f"- Clave privada: `{key_path}`\n\n"
+                    "- Verifica que la Raspberry esté encendida y conectada a la red.\n"
+                    "- Revisa la IP y que el puerto 22 esté abierto.\n"
+                    "- Asegúrate de que el servicio SSH esté activo en la Raspberry.\n"
+                    "- Prueba la conexión manualmente desde el servidor ejecutando:\n"
+                    f"  `ssh -i {key_path} {username}@{host}`"
+                )
+            elif isinstance(e, paramiko.ssh_exception.AuthenticationException):
+                msg = "❌ Error de autenticación SSH.\n\n- Verifica el usuario y la clave o la clave privada configurada.\n- Asegúrate de que la clave pública esté en ~/.ssh/authorized_keys del usuario remoto."
+            elif isinstance(e, paramiko.ssh_exception.NoValidConnectionsError):
+                msg = "❌ No se pudo conectar al host remoto.\n\n- Verifica la IP y que el puerto 22 esté abierto.\n- Asegúrate de que la Raspberry esté en la red y SSH habilitado."
+            else:
+                msg = f"❌ Error de conexión SSH automática: {e}\nVerifica que la Raspberry esté conectada, la red, la IP y que el host remoto tenga SSH habilitado."
+            context.bot.send_message(chat_id=chat_id, text=msg)
+            # Intentar cerrar sesiones si se abrieron
+            try:
+                if 'sftp' in locals():
+                    sftp.close()
+                if 'ssh' in locals():
+                    ssh.close()
+            except Exception as close_e:
+                logger.error(f"[SSH] Error cerrando sesión tras fallo: {close_e}")
         query.edit_message_reply_markup(reply_markup=None)
 
     elif query.data.startswith('remote_nav:'):
@@ -601,7 +649,17 @@ def button_callback(update: Update, context: CallbackContext) -> None:
         username = context.user_data.get('ssh_username')
         host = context.user_data.get('ssh_host')
         if not sftp or not ssh or not username or not host:
-            context.bot.send_message(chat_id=chat_id, text="❌ Sesión SSH no encontrada. Reinicia el proceso.")
+            # Limpieza de contexto y botón para reiniciar
+            for k in ['sftp_session', 'ssh_session', 'ssh_username', 'ssh_host', 'ssh_password', 'ssh_root']:
+                context.user_data.pop(k, None)
+            keyboard = [[InlineKeyboardButton("🔄 Reiniciar exploración SSH", callback_data='remote_directory')],
+                        [InlineKeyboardButton("🏠 Volver al menú", callback_data='show_main_menu')]]
+            reply_markup = InlineKeyboardMarkup(keyboard)
+            context.bot.send_message(
+                chat_id=chat_id,
+                text="❌ Sesión SSH no encontrada o expirada. Por favor, reinicia la exploración SSH.",
+                reply_markup=reply_markup
+            )
             return
         # Listar subdirectorios
         try:
@@ -614,6 +672,7 @@ def button_callback(update: Update, context: CallbackContext) -> None:
             keyboard = [[InlineKeyboardButton("✅ Usar este directorio", callback_data=f'remote_select:{path}')]]
             # Botones para navegar a subdirectorios
             keyboard += [[InlineKeyboardButton(d, callback_data=f'remote_nav:{path}{d}/')] for d in dirs]
+            keyboard.append([InlineKeyboardButton("🏠 Volver al menú", callback_data='show_main_menu')])
             reply_markup = InlineKeyboardMarkup(keyboard)
             query.edit_message_text(f"Directorio remoto: `{path}`\nSelecciona una carpeta o usa este directorio:", reply_markup=reply_markup, parse_mode='Markdown')
         except Exception as e:
@@ -625,11 +684,23 @@ def button_callback(update: Update, context: CallbackContext) -> None:
         username = context.user_data.get('ssh_username')
         host = context.user_data.get('ssh_host')
         if not username or not host:
-            context.bot.send_message(chat_id=chat_id, text="❌ Sesión SSH no encontrada. Reinicia el proceso.")
+            # Limpieza de contexto y botón para reiniciar
+            for k in ['sftp_session', 'ssh_session', 'ssh_username', 'ssh_host', 'ssh_password', 'ssh_root']:
+                context.user_data.pop(k, None)
+            keyboard = [[InlineKeyboardButton("🔄 Reiniciar exploración SSH", callback_data='remote_directory')],
+                        [InlineKeyboardButton("🏠 Volver al menú", callback_data='show_main_menu')]]
+            reply_markup = InlineKeyboardMarkup(keyboard)
+            context.bot.send_message(
+                chat_id=chat_id,
+                text="❌ Sesión SSH no encontrada o expirada. Por favor, reinicia la exploración SSH.",
+                reply_markup=reply_markup
+            )
             return
         remote_path = f"{username}@{host}:{path}"
         if change_sync_directory_callback:
-            context.bot.send_message(chat_id=chat_id, text=f"🔄 Cambiando origen de sincronización a: `{remote_path}`", parse_mode='Markdown')
+            keyboard = [[InlineKeyboardButton("🏠 Volver al menú", callback_data='show_main_menu')]]
+            reply_markup = InlineKeyboardMarkup(keyboard)
+            context.bot.send_message(chat_id=chat_id, text=f"🔄 Cambiando origen de sincronización a: `{remote_path}`", parse_mode='Markdown', reply_markup=reply_markup)
             import threading
             threading.Thread(target=change_sync_directory_callback, args=(remote_path,)).start()
         else:
@@ -641,12 +712,8 @@ def button_callback(update: Update, context: CallbackContext) -> None:
             sftp.close()
         if ssh:
             ssh.close()
-        context.user_data.pop('sftp_session', None)
-        context.user_data.pop('ssh_session', None)
-        context.user_data.pop('ssh_username', None)
-        context.user_data.pop('ssh_host', None)
-        context.user_data.pop('ssh_password', None)
-        context.user_data.pop('ssh_root', None)
+        for k in ['sftp_session', 'ssh_session', 'ssh_username', 'ssh_host', 'ssh_password', 'ssh_root']:
+            context.user_data.pop(k, None)
 
 def error_handler(update: Update, context: CallbackContext) -> None:
     """
@@ -719,14 +786,14 @@ def remote_ip_handler(update: Update, context: CallbackContext) -> None:
         ssh.close()
     except Exception as e:
         ssh_ok = False
-        update.message.reply_text(f"❌ No se pudo establecer conexión SSH con la IP ingresada: {e}\nVerifica la red, la IP y que el host remoto tenga SSH habilitado. Usa /start para intentarlo de nuevo.")
+        update.message.reply_text(f"❌ No se pudo establecer conexión SSH con la IP ingresada: {e}\nVerifica que la Raspberry esté conectada, la red, la IP y que el host remoto tenga SSH habilitado. Usa /start para intentarlo de nuevo.")
     # Si la conexión SSH es exitosa, guardar y mostrar menú
     callback_ok = True
     if ssh_ok:
-        # Actualizar la variable global RASPBERRY_URL
+        # Actualizar la variable global RASPBERRY_URL y RSYNC_FROM en el archivo .env
         try:
-            # Actualizar RASPBERRY_URL en el archivo .env
             new_url = f"http://{ip}:8000/status"
+            new_rsync_from = f"{username}@{ip}:{path}"
             env_path = ".env"
             import re
             import os
@@ -734,20 +801,27 @@ def remote_ip_handler(update: Update, context: CallbackContext) -> None:
                 with open(env_path, "r") as f:
                     lines = f.readlines()
                 with open(env_path, "w") as f:
-                    found = False
+                    found_url = False
+                    found_rsync = False
                     for line in lines:
                         if line.startswith("RASPBERRY_URL="):
                             f.write(f"RASPBERRY_URL={new_url}\n")
-                            found = True
+                            found_url = True
+                        elif line.startswith("RSYNC_FROM="):
+                            f.write(f"RSYNC_FROM={new_rsync_from}\n")
+                            found_rsync = True
                         else:
                             f.write(line)
-                    if not found:
+                    if not found_url:
                         f.write(f"RASPBERRY_URL={new_url}\n")
+                    if not found_rsync:
+                        f.write(f"RSYNC_FROM={new_rsync_from}\n")
             else:
                 with open(env_path, "w") as f:
                     f.write(f"RASPBERRY_URL={new_url}\n")
+                    f.write(f"RSYNC_FROM={new_rsync_from}\n")
         except Exception as e:
-            update.message.reply_text(f"⚠️ No se pudo actualizar RASPBERRY_URL en .env: {e}")
+            update.message.reply_text(f"⚠️ No se pudo actualizar RASPBERRY_URL o RSYNC_FROM en .env: {e}")
         try:
             if change_sync_directory_callback:
                 import threading

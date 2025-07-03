@@ -15,6 +15,6 @@ SYNC_SCRIPT_PATH = "/app/run_sync.sh"
 CRON_LOG_PATH = "/app/logs/cron.log"
 
 
-DEFAULT_RSYNC_FROM = "pi@192.168.190.29:/home/pi/Documents"
+DEFAULT_RSYNC_FROM = "pi@192.168.190.29:/media/pi/BALER44"
 DEFAULT_RSYNC_TO = "/data"
 DEFAULT_RSYNC_OPTIONS = "-avz --delete"

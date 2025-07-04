@@ -558,17 +558,26 @@ def button_callback(update: Update, context: CallbackContext) -> None:
         # Limpiar cualquier sesión SSH previa
         for k in ['ssh_session', 'sftp_session', 'ssh_root', 'ssh_username', 'ssh_host', 'ssh_key_path']:
             context.user_data.pop(k, None)
-        from utils.constants import DEFAULT_RSYNC_FROM
         import re
         import paramiko
         import os
         import stat
-        # DEPURACIÓN: Log de inicio
-        logger.info(f"[SSH] Iniciando conexión SSH para Remote Directory. DEFAULT_RSYNC_FROM: {DEFAULT_RSYNC_FROM}")
+        # Leer RSYNC_FROM dinámicamente desde .env
+        def get_rsync_from_from_env():
+            env_path = ".env"
+            if os.path.exists(env_path):
+                with open(env_path, "r") as f:
+                    for line in f:
+                        if line.startswith("RSYNC_FROM="):
+                            return line.strip().split("=", 1)[1]
+            from utils.constants import DEFAULT_RSYNC_FROM
+            return DEFAULT_RSYNC_FROM
+        rsync_from = get_rsync_from_from_env()
+        logger.info(f"[SSH] Iniciando conexión SSH para Remote Directory. RSYNC_FROM: {rsync_from}")
         # Extraer usuario y host
-        match = re.match(r"([\w\-]+)@([\w\.-]+):", DEFAULT_RSYNC_FROM)
+        match = re.match(r"([\w\-]+)@([\w\.-]+):", rsync_from)
         if not match:
-            logger.error(f"[SSH] No se pudo extraer usuario y host de: {DEFAULT_RSYNC_FROM}")
+            logger.error(f"[SSH] No se pudo extraer usuario y host de: {rsync_from}")
             context.bot.send_message(chat_id=chat_id, text="❌ No se pudo extraer usuario y host de la configuración.")
             return
         username, host = match.group(1), match.group(2)

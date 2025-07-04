@@ -68,21 +68,22 @@ def _update_crontab_entry(action: str, interval: int = None) -> Tuple[bool, str]
         else:
             lines = []
 
-        new_lines = []
+        # Limpieza: eliminar TODAS las líneas (activas o comentadas) del script de sync
+        new_lines = [line for line in lines if sync_line not in line]
         found = False
-        for line in lines:
-            if sync_line in line and not found:
-                if action == 'disable':
-                    new_lines.append(f"#{line}" if not line.startswith("#") else line)
-                elif action == 'enable':
-                    new_lines.append(line[1:] if line.startswith("#") else line)
-                elif action == 'set_interval':
-                    new_lines.append(f"*/{interval} * * * * {SYNC_SCRIPT_PATH} from >> {CRON_LOG_PATH} 2>&1")
-                found = True
-            elif sync_line in line:
-                continue  # Remove duplicates
-            else:
-                new_lines.append(line)
+
+        if action == 'disable':
+            # Deshabilitar: agregar línea comentada
+            new_lines.append(f"#{SYNC_SCRIPT_PATH} from >> {CRON_LOG_PATH} 2>&1")
+            found = True
+        elif action == 'enable':
+            # Habilitar: agregar línea activa
+            new_lines.append(f"*/30 * * * * {SYNC_SCRIPT_PATH} from >> {CRON_LOG_PATH} 2>&1")
+            found = True
+        elif action == 'set_interval':
+            # Agregar solo la línea con el nuevo intervalo
+            new_lines.append(f"*/{interval} * * * * {SYNC_SCRIPT_PATH} from >> {CRON_LOG_PATH} 2>&1")
+            found = True
 
         if not found and action in ['enable', 'set_interval']:
             used_interval = interval if interval else 30
@@ -116,9 +117,10 @@ def _get_current_sync_interval() -> str:
     try:
         result = subprocess.run(["crontab", "-l"], capture_output=True, text=True, check=True)
         for line in result.stdout.splitlines():
+            line = line.strip()
+            if not line or line.startswith("#"):
+                continue
             if SYNC_SCRIPT_PATH in line:
-                if line.startswith("#"):
-                    return "Disabled"
                 parts = line.split()
                 if parts[0].startswith("*/"):
                     return f"Every {parts[0][2:]} minutes"
@@ -252,7 +254,15 @@ if __name__ == "__main__":
             )
             import os
             if not os.path.exists("/logs/awaiting_ip.flag"):
-                send_telegram("✅ Sync service started. Use /sync to trigger manually.")
+                # Solo enviar el mensaje la PRIMERA vez que inicia el servicio
+                started_flag = "/logs/sync_service_started.flag"
+                if not os.path.exists(started_flag):
+                    send_telegram("✅ Sync service started. Use /sync to trigger manually.")
+                    try:
+                        with open(started_flag, "w") as f:
+                            f.write("started\n")
+                    except Exception as e:
+                        logger.error(f"No se pudo crear el flag de inicio: {e}")
             else:
                 logger.info("⏸️ El sistema está en pausa por configuración. No se ejecutan tareas programadas ni manuales hasta pulsar 'Start System' en el bot.")
                 # send_telegram("⏸️ El sistema está en pausa por configuración. No se ejecutan tareas programadas ni manuales hasta pulsar 'Start System' en el bot.")
